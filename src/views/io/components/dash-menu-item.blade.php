@@ -16,7 +16,7 @@
 		@if($has_subs)
 			<ul>
 			@foreach($t['subitems'] as $s)
-					@component('admin.layouts.components.metismenu-item',
+					@component('IntranetOne::admin.layouts.components.metismenu-item',
 					[
 						"_items"=> [
 							[

@@ -23,29 +23,29 @@ class AuthController
 		public function __construct(){
 			$this->messageBag = new MessageBag;
 
-		}
-    
-    public function teste(){
-      return "YYYY";
     }
+    
+		public function teste(){
+      dump(Sentinel::check());
+      echo "S";
+    }
+    
 
 		public function index(){
 			if(Sentinel::check())
-				return Sentinel::check(); //view('admin.news'); //CHANGE to set first Service
+        return Sentinel::check(); //CHANGE to set first Service
 			else
-				return redirect('admin');
+				return "porra";
 		}
 
     public function getLogout(){
         Sentinel::logout();
-        return redirect('admin/signin')->with('success', 'Usuário desconectado!');
+          return redirect('admin/signin')->with('success', 'Usuário desconectado!');
     }
 
-		public function getSignin()
-    {
-      if(Sentinel::check()) {
+		public function getSignin(){
+      if(Sentinel::check())
         return Redirect::route('admin.dashboard');
-      }
       else
         return view('IntranetOne::io.auth.index');
     }
@@ -53,24 +53,24 @@ class AuthController
 
     public function postSignin(Request $request)
     {
-		try
-		{
-			if (Sentinel::authenticate($request->only(['email', 'password']), $request->get('remember-me', false)))
-				return json_encode(['status'=>true,'message_bag'=>route("admin.dashboard")]);
+      try
+      {
+        if (Sentinel::authenticate($request->only(['email', 'password']), $request->get('remember-me', false))){
+          return json_encode(['status'=>true,'message_bag'=>route("admin.dashboard")]);//deve ser o alias
+        }
+        $this->messageBag->add('email','Email e/ou senha não conferem!');
 
-			$this->messageBag->add('email','Email e/ou senha não conferem!');
-
-		}
-		catch (NotActivatedException $e)
-		{
-			$this->messageBag->add(Lang::get('auth/message.account_not_activated'));
-		}
-		catch (ThrottlingException $e)
-		{
-			$delay = $e->getDelay();
-			$this->messageBag->add('Conta suspensa temporariamente');
-		}
-		return json_encode(['status'=>false,'message_bag'=>$this->messageBag]);
+      }
+      catch (NotActivatedException $e)
+      {
+        $this->messageBag->add('Conta não ativada');
+      }
+      catch (ThrottlingException $e)
+      {
+        $delay = $e->getDelay();
+        $this->messageBag->add('Conta suspensa temporariamente');
+      }
+      return json_encode(['status'=>false,'message_bag'=>$this->messageBag]);
 	}
 
 		

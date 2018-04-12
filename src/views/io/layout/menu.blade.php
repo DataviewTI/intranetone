@@ -1,41 +1,30 @@
 @php
-    $menuItems = [];	
+  use Dataview\IntranetOne\IntranetOneController;
 
-	if(Sentinel::getUser()->hasAnyAccess(['news.create', 'news.view', 'news.update', 'news.delete']))
-		array_push($menuItems,[
-				"title"		=>"Notícias",
-				"icon"	=>"ico ico-save",
-				"href"		=>"admin/news",
-			]
-		);
-		
+  $menuItems = [];	
 
-	if(Sentinel::getUser()->hasAnyAccess(['user.create', 'user.view', 'user.update', 'user.delete']))
-		array_push($menuItems,[
-		"title"	=> "Usuários",
-		"icon"	=> "ico ico-gear",
-		"href"		=>"admin/users",
-		]);
-    
-    //URL::to('/').
-    
-    array_push($menuItems,[
-		"title"	=> "Configurações",
-		"icon"	=> "ico ico-gear",
-		"href"		=>"admin/profile",
-		]);
+  
+  $servs = IntranetOneController::getServices();
 
+  foreach($servs as $s){
+    if(Sentinel::getUser()->hasAccess(str_slug($s->service).".*"))
+      array_push($menuItems,[
+          "title"		=>$s->service,
+          "icon"	=>"ico ico-save",
+          "href"		=>"/admin/".str_slug($s->service),
+        ]
+      );
+  }
 
-		array_push($menuItems,[
-			"href"		=>"admin/logout",
+  array_push($menuItems,[
+			"href"		=>"/admin/logout",
 			"title"		=>"Sair",
-			"icon"	=>"ico ico-save"
-		]
-	);
+			"icon"	=>"ico ico-close"
+		]);
 
 	@endphp
 			
-	@component('io.components.dash-menu-item',[
+	@component('IntranetOne::io.components.dash-menu-item',[
 		"_items"=> 	$menuItems,	
 	])
 	@endcomponent

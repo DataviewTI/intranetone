@@ -1,7 +1,6 @@
 {
     "name": "dataview/intranetone",
     "description": "testing laravel packages creation",
-    "type": "project",
     "authors": [
         {
             "name": "mdisconzi",
@@ -26,3 +25,4 @@
       }
   }
 }
+

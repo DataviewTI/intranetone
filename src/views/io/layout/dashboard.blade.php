@@ -1,6 +1,11 @@
+@php
+  use Dataview\IntranetOne\IntranetOneController;
+@endphp
+
 <!DOCTYPE html>
 <html lang='pt-br'>
 @php
+    
     session_start();
     if (Sentinel::check())
     {   
@@ -22,7 +27,7 @@
 
 
 <head>
-  @component('base.components.google-font-loader',
+  @component('IntranetOne::base.components.google-font-loader',
     ['fonts'=>
       [
         'Oswald:400,500'
@@ -65,7 +70,7 @@
             </div>
           </div>
           <div class = 'col-6 align-self-center text-right'>
-            @include('io.layout.user-infos')
+            @include('IntranetOne::io.layout.user-infos')
           </div>
       </header>
       <!-- END:  .app-heading -->
@@ -78,7 +83,7 @@
 
           <!-- BEGIN .side-heading -->
           <div class="side-heading">
-						@include('io.layout.side-heading')
+						@include('IntranetOne::io.layout.side-heading')
           </div>
           <!-- END: .side-heading -->
 
@@ -89,7 +94,7 @@
 
               <!-- BEGIN: side-nav-content -->
               <ul class="dash-menu mt-2">
-								@include('io.layout.menu')
+								@include('IntranetOne::io.layout.menu')
               </ul>
               <!-- END: side-nav-content -->
             </nav>
@@ -99,7 +104,7 @@
 
           <!-- BEGIN .side-footer -->
           <footer class="side-footer">
-						@include('io.layout.side-footer')
+						@include('IntranetOne::io.layout.side-footer')
           </footer>
           <!-- END .side-footer -->
 
@@ -135,7 +140,7 @@
 
       <!-- begin .app-footer -->
       <footer class="app-footer">
-				@include('io.layout.app-footer')
+				@include('IntranetOne::io.layout.app-footer')
       </footer>
       <!-- END: .app-footer -->
 

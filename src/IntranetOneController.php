@@ -1,15 +1,20 @@
 <?php
-
 namespace Dataview\IntranetOne;
 
 use App\Http\Controllers\Controller;
-
-use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class IntranetOneController extends Controller
 {
-    public function index($timezone)
-    {
-        echo Carbon::now($timezone)->toDateTimeString();
-    }
+
+  static function getServices(){
+
+    return DB::table('services')
+    ->select('service','ico','description')
+    ->orderBy('order')
+    ->distinct()
+    ->get();
+
+  }
+
 }

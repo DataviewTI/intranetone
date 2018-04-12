@@ -1,4 +1,10 @@
 <?php
+/*
+  funções declaradas dentro do web.php geram erro no artisan config:cache, mensagem de declaração duplicada
+  sem existir, por isso foi usado o helper;
+*/
+use Dataview\IntranetOne\IntranetOneHelper;
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     ██████╗      █████╗     ███████╗    ███████╗
@@ -8,9 +14,7 @@
     ██████╔╝    ██║  ██║    ███████║    ███████╗
     ╚═════╝     ╚═╝  ╚═╝    ╚══════╝    ╚══════╝
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-function __getIORoute($m){
-  return "dataview\intranetone\AuthController@".$m;
-}
+
 /*Route::pattern('slug', '[a-z0-9- _]+');
 
 Route::group(array('prefix' => 'dropzone'), function () {
@@ -30,32 +34,40 @@ Route::group(array('prefix' => 'dropzone'), function () {
 
 /* LOGIN ROUTES */
 
-Route::group(array('prefix' => 'admin'),function(){
-
-//  Route::get('/', array('as' => 'signin', 'uses' => __getIORoute('teste')));
- 
-  Route::get('signin',['as' => 'signin', 'uses' => __getIORoute('getSignin')]);
-  //Route::post('signin', __getIORoute('postSignin'));
-
+Route::group(['prefix' => 'admin','middleware' => ['web']],function(){
+  Route::get('signin',['as' => 'signin', 'uses' => IntranetOneHelper::getIORoute('getSignin')]);
+  Route::post('signin', IntranetOneHelper::getIORoute('postSignin'));
+  Route::get('logout', ['as' => 'logout', 'uses' => IntranetOneHelper::getIORoute('getLogout')]);
 /*
   Route::get('forgot-password/{userId}/{passwordResetCode}', array('as' => 'forgot-password-confirm', 'uses' => 'AuthController@getForgotPasswordConfirm'));
   Route::post('forgot-password/{userId}/{passwordResetCode}', 'AuthController@postForgotPasswordConfirm');
 
-  Route::get('logout', array('as' => 'logout', 'uses' => 'AuthController@getLogout'));
 });
 
   */
 });
-
-Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'],function(){
+//Após Login, dentro do dashboard todos passam pelo midlware admin 
+Route::group(['prefix' => 'admin', 'middleware' => ['web','admin'], 'as' => 'admin.'],function(){
   
-//  Route::get('/', ['as' => 'signin', 'uses' => __getIORoute('teste')]);
+  /* se acessar /admin apenas e estiver logado, redireciona para o dash
+     se não estiver logado, o middleware retorna para signin
+  */
+  Route::get('/', ['as' => 'dashboard','uses' => function(){
+    return redirect('admin/dash');
+  }]);
 
-  /*Route::get('/', ['as' => 'dashboard','uses' => function(){
-    return "XXX";
-    //redirect('/teste');
-  }]);*/
-});
+  Route::get('teste',['as' => 'teste', 'uses' => IntranetOneHelper::getIORoute('teste')]);
 
+  Route::get('dashy', ['as' => 'dashy','uses' => function(){
+    return "asaSS";
+  }]);
 
-//Route::get('timezones/{timezone}','dataview\intranetone\IntranetOneController@index');
+  //default on admin logged = route to dash
+  Route::group(['prefix' => 'dash'], function () {
+    Route::get('/',function(){
+      return view('IntranetOne::io.services.dash.index');
+    });
+  });
+
+}); //end midlware admin
+
