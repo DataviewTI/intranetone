@@ -1,28 +1,28 @@
 {
-    "name": "dataview/intranetone",
-    "description": "testing laravel packages creation",
-    "authors": [
-        {
-            "name": "mdisconzi",
-            "email": "mdisconzi@bitbucket.org"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-        "Dataview\\IntranetOne\\": "src/"
-        }
-      },
-    "require": {
-      "cartalyst/sentinel": "2.0.*",
-      "owen-it/laravel-auditing": "^6.0",
-      "yajra/laravel-datatables-oracle": "~8.0"
-    },
-    "extra": {
-      "laravel": {
-          "providers": [
-              "\\Dataview\\IntranetOne\\IntranetOneServiceProvider"
-          ]
+  "name": "dataview/intranetone",
+  "description": "testing laravel packages creation",
+  "authors": [
+      {
+          "name": "mdisconzi",
+          "email": "mdisconzi@bitbucket.org"
       }
-  }
+  ],
+  "autoload": {
+      "psr-4": {
+      "Dataview\\IntranetOne\\": "src/"
+      }
+    },
+  "require": {
+    "cartalyst/sentinel": "2.0.*",
+    "owen-it/laravel-auditing": "^6.0",
+    "yajra/laravel-datatables-oracle": "~8.0"
+  },
+  "extra": {
+    "laravel": {
+        "providers": [
+            "\\Dataview\\IntranetOne\\IntranetOneServiceProvider"
+        ]
+    }
+}
 }
 
