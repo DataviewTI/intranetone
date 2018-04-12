@@ -13,12 +13,14 @@ class IntranetOneServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      //Publish Files
+       //Publish Files
+       //
       $this->publishes([
         __DIR__.'/config/intranetone.php' => config_path('intranetone.php'),
         //__DIR__.'/app' => app_path('/'),
 
       ]);
+
       //or
         $this->publishes([
           __DIR__.'/app' => app_path('/')
