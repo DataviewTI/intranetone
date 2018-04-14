@@ -14,10 +14,10 @@ class IntranetOneServiceProvider extends ServiceProvider
         __DIR__.'/config/intranetone.php' => config_path('intranetone.php'),
         __DIR__.'/Http/Middleware/SentinelAdmin.php' => app_path('Http/Middleware/SentinelAdmin.php')
       ]);
-      /*$this->publishes([
-        __DIR__.'/app' => app_path('/')
-      ],'app');
-      */
+      
+      $this->publishes([
+        __DIR__.'/root' => base_path('/')
+      ],'root');
 
       $this->loadViewsFrom(__DIR__.'/views', 'IntranetOne');
       $this->loadMigrationsFrom(__DIR__.'/database/migrations');
