@@ -3,7 +3,7 @@
   funções declaradas dentro do web.php geram erro no artisan config:cache, mensagem de declaração duplicada
   sem existir, por isso foi usado o helper;
 */
-use Dataview\IntranetOne\IntranetOneHelper;
+use Dataview\IntranetOne;
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -16,12 +16,13 @@ use Dataview\IntranetOne\IntranetOneHelper;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 /*Route::pattern('slug', '[a-z0-9- _]+');
+*/
 
 Route::group(array('prefix' => 'dropzone'), function () {
 	Route::get('preview-template/{template}', 'DropZoneController@getPreviewTemplate');
 	Route::get('infos-modal/{template}', 'DropZoneController@getModal');
 	Route::post('upload', 'DropZoneController@upload');
-});*/
+});
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ....................................................................................
     ██╗     ██████╗              █████╗     ██████╗     ███╗   ███╗    ██╗    ███╗   ██╗
@@ -35,9 +36,9 @@ Route::group(array('prefix' => 'dropzone'), function () {
 /* LOGIN ROUTES */
 
 Route::group(['prefix' => 'admin','middleware' => ['web']],function(){
-  Route::get('signin',['as' => 'signin', 'uses' => IntranetOneHelper::getIORoute('getSignin')]);
-  Route::post('signin', IntranetOneHelper::getIORoute('postSignin'));
-  Route::get('logout', ['as' => 'logout', 'uses' => IntranetOneHelper::getIORoute('getLogout')]);
+  Route::get('signin',['as' => 'signin', 'uses' => 'AuthController@getSignin']);
+  Route::post('signin', 'AuthController@postSignin');
+  Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
 /*
   Route::get('forgot-password/{userId}/{passwordResetCode}', array('as' => 'forgot-password-confirm', 'uses' => 'AuthController@getForgotPasswordConfirm'));
   Route::post('forgot-password/{userId}/{passwordResetCode}', 'AuthController@postForgotPasswordConfirm');
@@ -56,7 +57,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web','admin'], 'as' => 'adm
     return redirect('admin/dash');
   }]);
 
-  Route::get('teste',['as' => 'teste', 'uses' => IntranetOneHelper::getIORoute('teste')]);
+  //Route::get('teste',['as' => 'teste', 'uses' => IntranetOneHelper::getIORoute('teste')]);
 
   Route::get('dashy', ['as' => 'dashy','uses' => function(){
     return "asaSS";

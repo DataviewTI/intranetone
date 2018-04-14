@@ -18,7 +18,7 @@ class CreateGroupsTable extends Migration
         {
             $table->increments('id');
             $table->string('group');
-            $table->text('sizes'); //json não dpa certo na versão mysql
+            $table->text('sizes')->nullable(); //json não dpa certo na versão mysql
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

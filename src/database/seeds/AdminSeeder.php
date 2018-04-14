@@ -2,15 +2,17 @@
 namespace Dataview\IntranetOne;
 
 use Illuminate\Database\Seeder;
+use Sentinel;
+
 
 class AdminSeeder extends Seeder
 {
     public function run()
     {
-      DB::table('users')->truncate();
-      DB::table('roles')->truncate();
-      DB::table('role_users')->truncate();
-      DB::table('activations')->truncate();
+      \DB::table('users')->truncate();
+      \DB::table('roles')->truncate();
+      \DB::table('role_users')->truncate();
+      \DB::table('activations')->truncate();
   
       $admin = Sentinel::registerAndActivate(array(
         'email'       => 'dataview@dataview.com.br',
@@ -39,6 +41,7 @@ class AdminSeeder extends Seeder
   
       $admin->roles()->attach($adminRole);
       $admin->permissions = [
+        'dash.view' => true,
         'user.create' => true,
         'user.delete' => true,
         'user.update' => true,
