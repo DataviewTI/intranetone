@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 use Dataview\IntranetOne\IntranetOneServiceProvider;
 use Cartalyst\Sentinel\Laravel\SentinelServiceProvider;
 
-class InstallCommand extends Command
+class IOInstallCommand extends Command
 {
     protected $name = 'intranetone:install';
 

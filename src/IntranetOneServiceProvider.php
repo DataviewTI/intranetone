@@ -4,7 +4,7 @@ namespace Dataview\IntranetOne;
 
 use Illuminate\Support\ServiceProvider;
 
-use Dataview\IntranetOne\Console\InstallCommand;
+use Dataview\IntranetOne\Console\IOInstallCommand;
 
 class IntranetOneServiceProvider extends ServiceProvider
 {
@@ -31,7 +31,7 @@ class IntranetOneServiceProvider extends ServiceProvider
         return new IntranetOne;
       });*/
       $this->commands([
-        InstallCommand::class,
+        IOInstallCommand::class,
       ]);
 
       //define um namespace para cada rota carregada através do package
@@ -39,7 +39,6 @@ class IntranetOneServiceProvider extends ServiceProvider
         include __DIR__.'/routes/web.php';
       });
       
-      //$this->app->make('Dataview\IntranetOne\IntranetOneController');
       $this->app->make('Dataview\IntranetOne\AuthController');
       $this->app->make('Dataview\IntranetOne\DropZoneController');
     }
