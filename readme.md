@@ -13,13 +13,16 @@ IntranetOne requires PHP >= 7.1.3
 
 Devido a geração automática de alguns arquivos, são necessárias algumas configurações manuais, conforme abaixo:
 
- - Configure a conexão com o banco de dados no .ENV. 
+  ###Configurações no .ENV
+   - Configure a conexão com o banco de dados no .ENV. 
+   - defina FILESYSTEM_DRIVER = intranetone
+
 
  - Adicione as seguintes linhas ao App/Http/Kernel.php in $routeMiddleware
 	 ```php
-	'admin' => \App\Http\Middleware\SentinelAdmin::class,`
+	'admin' => \App\Http\Middleware\SentinelAdmin::class,
 
- - Configure o arquivo config/filesystem.php, alterar o default manualmente ou no .env
+ - Configure o arquivo config/filesystem.php, adicione o código abaixo ao array "disks"
 	 ```php
 	 'intranetone' => [
           'driver' => 'local',
@@ -69,7 +72,7 @@ php artisan intranetone:install
 
 ### Configurações Manuais
 
-Abrir o package em "resources/vendors/dataview-intranetone/src/" e copiar o conteúdo do arquivo webpackmix.js e/ou subscrever o do projeto.
+Abra o package em "resources/vendors/dataview-intranetone/src/" e copiar o conteúdo do arquivo webpackmix.js e/ou subscrever o do projeto.
 
  - Compilar os assets e fazer cache
  `npm run dev|prod|watch`
