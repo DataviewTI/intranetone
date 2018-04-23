@@ -20,9 +20,9 @@ class IntranetOneServiceProvider extends ServiceProvider
       ],'root');
 
       $this->loadViewsFrom(__DIR__.'/views', 'IntranetOne');
-      $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+      //$this->loadMigrationsFrom(__DIR__.'/database/migrations');
       
-      //$this->mergeConfigFrom(__DIR__.'/config/app.php', 'intranetone');
+      //$this->mergeConfigFrom(__DIR__.'/config/filesystems.php', 'filesystems.disks');
     }
 
     public function register()
@@ -41,5 +41,8 @@ class IntranetOneServiceProvider extends ServiceProvider
       
       $this->app->make('Dataview\IntranetOne\AuthController');
       $this->app->make('Dataview\IntranetOne\DropZoneController');
+      $this->app->make('Dataview\IntranetOne\GroupController');
+      $this->app->make('Dataview\IntranetOne\CategoryController');
+      $this->app->make('Dataview\IntranetOne\IOController');
     }
 }

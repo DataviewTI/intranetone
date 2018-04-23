@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Dataview\IntranetOne;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\File;
-use App\Group;
+use Dataview\IntranetOne\File;
+use Dataview\IntranetOne\Group;
 
 class GroupController extends Controller
 {

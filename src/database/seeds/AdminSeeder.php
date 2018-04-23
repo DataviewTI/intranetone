@@ -20,24 +20,13 @@ class AdminSeeder extends Seeder
         'first_name'  => 'Dataview',
         'last_name'   => 'TI',
       ));
-  
-      $user = Sentinel::registerAndActivate(array(
-        'email'       => 'user@user.com.br',
-        'password'    => "yv7scr",
-        'first_name'  => 'User',
-        'last_name'   => 'User',
-      ));
-  
+    
       $adminRole = Sentinel::getRoleRepository()->createModel()->create([
         'name' => 'Admin',
         'slug' => 'admin',
         'permissions' => array('admin' => true),
       ]);	
-  
-      $userRole = Sentinel::getRoleRepository()->createModel()->create([
-        'name'  => 'User',
-        'slug'  => 'user',
-      ]);		
+
   
       $admin->roles()->attach($adminRole);
       $admin->permissions = [
@@ -53,6 +42,6 @@ class AdminSeeder extends Seeder
        ];
       $admin->save();
   
-      $this->command->info('Admin User created with username admin@admin.com and password admin');
+      $this->command->info('Usuário padrão dataview@dataview.com.br criado...');
     }
 }

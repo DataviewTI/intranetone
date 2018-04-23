@@ -2,46 +2,31 @@
 
 namespace Dataview\IntranetOne;
 
-/* IMPORTANTE = generalizar a group, e estender dentro das classes separadamente */
-
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Dataview\IntranetOne\IOModel;
 use Dataview\IntranetOne\File as ProjectFile;
 use Illuminate\Support\Facades\Storage;
 
-class Group extends Model
+class Group extends IOModel
 {
-	protected $fillable = ['group','description'];
-	protected $dates = ['deleted_at'];
+  protected $fillable = ['group'];
 
-    public function news(){
-		return $this->hasOne('Dataview\IntranetOne\News');
-	}	
-
-	public function slide(){
-		return $this->hasOne('Dataview\IntranetOne\Slide','id');
-	}	
-
-    public function document(){
-		return $this->hasOne('Dataview\IntranetOne\Document');
-	}	
-
-	public function files(){
+  public function files(){
 		return $this->hasMany('Dataview\IntranetOne\File')->orderBy('order');
-	}	
+	}
 
-	public function getPath($str=''){
+  public function getPath($str=''){
     return storage_path((config('intranetone.path_storage')."groups/group_".$this->id."/".$str));
-	}	
-	public function getPartialPath($str=''){
+	}
+
+  public function getPartialPath($str=''){
     return "groups/group_".$this->id."".$str;
-	}	
+	}
 
 	public function main(){
     return $this->files->where('order',0)->first();
   }
 
-    public function manageImages($files,$params)
+  public function manageImages($files,$params)
   {
     $_imgs = [];
     $params = (object) $params;
@@ -80,12 +65,6 @@ class Group extends Model
 					"mimetype" => $img->mimetype,
 					"order" => $img->order
 				]);	
-					
-					//$__upd->save();
-				//Audit Updated
-				//if($audit = Auditor::execute($img))
-					//Auditor::prune($img);
-
 				array_push($_imgs,$img->id);
 			}
 		}
@@ -95,61 +74,11 @@ class Group extends Model
 		ProjectFile::destroy($to_remove);
 	}
 
-	public function manageFiles($files,$params)
-  	{	
-		$_files = [];
-		foreach($files as $file)
-		{				
-			$file->date = empty($file->date) ? null : $file->date;
-			if($file->id == null)
-			{
-				$_file = new ProjectFile([
-					"file" => $file->name,
-					"caption" => $file->caption,
-					"date" => $file->date,
-					"details" => $file->details,
-					"mimetype" => $file->mimetype,
-					"order" => $file->order,
-				]);
-
-				$_file->setTmp($file->tmp);
-				$_file->setOriginal($params->original);				
-				// foreach($params->sizes as $p => $v)
-				// 	$_file->setSize($p,$v->w,$v->h);
-				
-				$this->files()->save($_file);
-				array_push($_files,$_file->id);
-			}
-			else{
-				$__upd = ProjectFile::find($file->id);//->id)->get();
-				$__upd->update([
-					"file" => $file->name,
-					"caption" => $file->caption,
-					"date" => $file->date,
-					"details" => $file->details,
-					"mimetype" => $file->mimetype,
-					"order" => $file->order
-				]);	
-					
-					//$__upd->save();
-				//Audit Updated
-				//if($audit = Auditor::execute($img))
-					//Auditor::prune($img);
-
-				array_push($_files,$file->id);
-			}
-		}
-		
-		//generate te intersection between updates and all images, the result are the registers to be deleted
-		$to_remove = array_diff(array_column($this->files()->get()->toArray(),'id'),$_files);
-		ProjectFile::destroy($to_remove);
-  }
-  
+ 
   public static function boot() { 
     parent::boot(); 
 
     static::created(function (Group $obj) {
-      //Storage::makeDirectory($obj->getPath(), 0775, true);
       Storage::makeDirectory($obj->getPartialPath(), 0775, true);
     });
   }

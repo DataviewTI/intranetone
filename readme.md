@@ -5,43 +5,35 @@ IntranetOne requires PHP >= 7.1.3
 
 ## Conteúdo
  
--  [Instalação](#instalação)
--  [Migração](#migração) 
- - [Assets](#assets) 
+- [Preparação do Ambiente](#Preparação do Ambiente)
+- [Instalação](#instalação)
+- [Assets](#assets) 
 
-### Instalação
-```sh
-composer require dataview/intranetone
-```
+## Preparação do Ambiente
 
-Instalar o IntranetOne com php artisan
-```sh
-php artisan intranetone:install
-```
+Devido a geração automática de alguns arquivos, são necessárias algumas configurações manuais, conforme abaixo:
 
+ - Configure a conexão com o banco de dados no .ENV. 
 
-**Configurações manuais**
-  
-  
-
- - Adicionar as seguintes linhas ao App/Http/Kernel.php in $routeMiddleware
+ - Adicione as seguintes linhas ao App/Http/Kernel.php in $routeMiddleware
 	 ```php
 	'admin' => \App\Http\Middleware\SentinelAdmin::class,`
- - Configurar config/filesystem.php, alterar o default manualmente ou no .env
+
+ - Configure o arquivo config/filesystem.php, alterar o default manualmente ou no .env
 	 ```php
 	 'intranetone' => [
           'driver' => 'local',
           'root' => storage_path('app/public/intranetone'),
           'url' => env('APP_URL').'/storage/app/public/intranetone',
           'visibility' => 'public',
-        ],
+    ],
 
-### Migração
+ - Configure o arquivo config/app.php, altere a linguagem local para pt-BR
+	 ```php
+       'locale' => 'pt-BR',
 
- -  deletar da pasta de migrations o arquivo:
-	 `2014_10_12_000000_create_users_table`
-	 
- - Adições ao App/Providers/AppServiceProvider
+
+ - Adicione as seguintes linhas ao App/Providers/AppServiceProvider
 
 	 ```php
 		use Illuminate\Support\Facades\Schema;
@@ -53,11 +45,17 @@ php artisan intranetone:install
 			\URL::forceScheme('https');
 			}
 
- - Executar migração com php artisan
-	`php artisan migrate`
+## Instalação
+```sh
+composer require dataview/intranetone
+```
 
- - Fazer a seed dos dados padrão
-	 `php artisan db:seed --class=Dataview\IntranetOne\DatabaseSeeder -v`
+Durante a instalação o processo de migração e seeds já é realizado automaticamente, tanto para a IntranetOne quanto para os pacotes de terceiros requeridos (Sentinel Cartalyst e Own-Audits)
+
+Instalar o IntranetOne com php artisan
+```sh
+php artisan intranetone:install
+```
 
 ## Assets
 

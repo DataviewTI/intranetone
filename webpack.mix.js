@@ -38,7 +38,7 @@ let COMPILE = {
  },
   io:{
     assets:true,
-    sass:false,
+    sass:true,
     img_optimize:{
       state : false
    }
@@ -97,17 +97,17 @@ function __imgOptimize(params){
   Aplication src and destination paths frontend e intranetone
 ----------------------------------------------------------------------------------------------------------*/
 let IO = 'resources/assets/vendors/dataview-intranetone/src/';
+//let IO = 'packages/bower/dataview/src/';
 
 let src = {
   vendors: 'resources/assets/vendors/',
-  assets: 'resources/assets/',
   dataview: IO, //changed when dataview is a module
 
   base:{
     root: IO+'base/',
     js: IO+'base/js/',
     css: IO+'base/css/',
-    vendors: IO+'vendors/',
+    vendors: IO+'base/vendors/',
     images: IO+'base/images/',
   },
 
@@ -188,12 +188,7 @@ let paths = {
 	'onoffcanvas': src.vendors + 'onoffcanvas/dist/',
 	'datatables.net': src.vendors + 'datatables.net/',
 	'datatables.net_bs': src.vendors + 'datatables.net-bs/',
-	'moment': src.vendors + 'moment/',
-	'moment_timezone': src.vendors + 'moment-timezone/',
-	'moment_duration_format': src.vendors + 'moment-duration-format/lib/',
-	'wickedpicker': src.vendors + 'wickedpicker/dist/',
   'dropzone': src.vendors + 'dropzone/dist/',
-  'tinymce': src.vendors + 'tinymce/',
 	'photoswipe': src.vendors + 'photoswipe/dist/',
 	'holderjs': src.vendors + 'holderjs/',
 	'jquery_mask': src.vendors + 'jquery-mask-plugin/dist/',
@@ -359,23 +354,13 @@ if(COMPILE.io.assets){
   }
   /* IO base files for any service */
 
-
-//mix.babel(src.io.css + 'helpers/dataview-custom.js', dest.io.js+'dataview-custom.min.js');
-//mix.babel(src.io.js + 'helpers/dataview-helper.js', dest.io.js+'dataview-helper.min.js');
-
 //move compileds fuelux to dest folder
 mix.copy(src.io.vendors + 'fuelux/fuelux-compiled.min.css', dest.io.css);
 mix.copy(src.io.vendors + 'fuelux/fuelux-compiled.min.js', dest.io.js);
 
 
-//copy vendors
-mix.copyDirectory(paths.tinymce,dest.io.vendors+'tinymce');
-mix.copyDirectory(src.io.vendors + 'tinymce/moxiemanager/', dest.io.vendors + 'tinymce/plugins/moxiemanager/');
-
 // Copy language files
-mix.copy(src.io.vendors +'datatables/datatables-pt-br.json', dest.io.vendors + 'datatables/lang/datatables-pt-br.json');
-mix.copy(src.io.vendors + 'tinymce/pt_BR.js', dest.io.vendors + 'tinymce/langs/pt_BR.js');
-
+mix.copy(src.io.vendors +'datatables/datatables-pt-br.json', dest.io.vendors + 'datatables/lang/datatables-pt-br.json')
 /*---------------------------------------------------------
   - Auth page files (this is not a service)
   for auth files are loaded separated for optimization
@@ -456,9 +441,8 @@ mix.babel([
 	src.io.js + 'defaults/def-datatables.js',
 	src.io.js + 'extensions/ext-datatables.js',
   paths.onoffcanvas + 'onoffcanvas.js',
-  paths.wickedpicker + 'wickedpicker.min.js',
   src.io.js + 'dashboard.js',
-  src.io.js + 'IOService.js',
+  src.io.js + 'IOService.js', //para testes
 ], dest.io.js + 'io-babel-dashboard.min.js');
 
 mix.scripts([
@@ -468,9 +452,20 @@ mix.scripts([
 
 
 
-
-
 }//end IO.assets
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                                                                                              
+  ██████╗  █████╗ ███████╗████████╗███████╗    ███████╗██████╗ ██╗   ██╗    ██╗  ██╗███████╗██████╗ ███████╗
+  ██╔══██╗██╔══██╗██╔════╝╚══██╔══╝██╔════╝    ██╔════╝██╔══██╗██║   ██║    ██║  ██║██╔════╝██╔══██╗██╔════╝
+  ██████╔╝███████║███████╗   ██║   █████╗      ███████╗██████╔╝██║   ██║    ███████║█████╗  ██████╔╝█████╗  
+  ██╔═══╝ ██╔══██║╚════██║   ██║   ██╔══╝      ╚════██║██╔══██╗╚██╗ ██╔╝    ██╔══██║██╔══╝  ██╔══██╗██╔══╝  
+  ██║     ██║  ██║███████║   ██║   ███████╗    ███████║██║  ██║ ╚████╔╝     ██║  ██║███████╗██║  ██║███████╗
+  ╚═╝     ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝    ╚══════╝╚═╝  ╚═╝  ╚═══╝      ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝
+                                                                                                            
+  PASTE ALL SERVICES HERE
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
 

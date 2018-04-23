@@ -23,6 +23,23 @@ Route::group(array('prefix' => 'dropzone'), function () {
 	Route::get('infos-modal/{template}', 'DropZoneController@getModal');
 	Route::post('upload', 'DropZoneController@upload');
 });
+
+# Group Management
+Route::group(array('prefix' => 'group'), function () {
+	Route::get('file/{imgId}/{size?}','GroupController@getFile');
+});		
+
+# Category publics, while a service is created...
+Route::group(array('prefix' => 'categories'), function () {
+  Route::get('list/{id?}/{type?}', 'CategoryController@list');//new approach
+//  Route::get('categories', 'CategoryController@getCategories');
+//  Route::get('subcategories/{catId}', 'CategoryController@getSubCategories');
+//  Route::get('types', 'CategoryController@getTypes');
+//  Route::get('categoriesByType/{typeId}', 'CategoryController@getCategoriesByType');
+});		
+
+
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ....................................................................................
     ██╗     ██████╗              █████╗     ██████╗     ███╗   ███╗    ██╗    ███╗   ██╗

@@ -16,7 +16,7 @@ class File extends Model implements AuditableContract
 	protected $fillable = ['file','caption','date','mimetype','details','order'];
 	protected $appends = ['tmp'=>null,"original"=>false,'sizes'=>null];
 
-    public function group(){
+  public function group(){
 		return $this->belongsTo('Dataview\IntranetOne\Group');
 	}
 
@@ -37,10 +37,7 @@ class File extends Model implements AuditableContract
 	}
 
 	public function makeCopies(){
-		// dump($this->mimetype);
-
 		if(preg_match('/[i][m][a][g][e][\/].*/',$this->mimetype)){
-			// dump($this->appends['sizes']);
 			if($this->appends['sizes'] != null){
 				foreach($this->appends['sizes'] as $pre => $copy)
 					Image::make($this->getTmp())

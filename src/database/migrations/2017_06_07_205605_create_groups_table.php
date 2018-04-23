@@ -14,14 +14,11 @@ class CreateGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('groups', function(Blueprint $table)
-        {
-            $table->increments('id');
-            $table->string('group');
-            $table->text('sizes')->nullable(); //json não dpa certo na versão mysql
-            $table->text('description')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::create('groups', function(Blueprint $table){
+          $table->increments('id');
+          $table->string('group');
+          $table->timestamps();
+          $table->softDeletes();
         });
     }
 
@@ -32,9 +29,9 @@ class CreateGroupsTable extends Migration
      */
     public function down()
     {
-			//apaga o storage
-			File::deleteDirectory(storage_path('dataview_/groups'));
-			
+      //apaga o storage
+      //storage_path((config('intranetone.path_storage')."groups"));
+			//File::deleteDirectory(storage_path('dataview_/groups'));
 			DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 			Schema::dropIfExists('groups');
 			DB::statement('SET FOREIGN_KEY_CHECKS = 1');

@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs d-flex justify-content-start" role="tablist"  id = '{{$_id}}'>
 	@foreach($_tabs as $t)
 			<li class = "nav-item">
-          <a class = "nav-link @if($loop->index == $_active){{'active'}}@endif" href="#{{'tab'.$loop->iteration}}" aria-controls="{{'tab'.$loop->iteration}}" role="tab" data-toggle="tab">
+          <a class = "nav-link @if($loop->index == $_active){{'active'}}@endif" href="#{{'tab'.$loop->iteration}}" aria-controls="{{'tab'.$loop->iteration}}" role="tab" data-toggle="tab" __name = "{{str_slug($t['tab'])}}" __update='false'>
             <i class="{{ $t['icon'] }}"></i> {{ $t['tab'] }}</a>
       </li>
 		@endforeach

@@ -21,10 +21,7 @@
 @section('main-content')
 	<!--section ends-->
   <div class = 'b-red'>
-  @php
-    echo IntranetOneController::getServices();
-  @endphp
-
+    @include('IntranetOne::io.services.dash.content');
   </div>
 	<!-- content -->
   @stop

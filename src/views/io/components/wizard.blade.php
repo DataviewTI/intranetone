@@ -22,7 +22,7 @@
 	<div class="step-content pt-0 mb-1 pb-0" style = "@if(isset($_min_height)) min-height:{{ $_min_height }} @endif">
 		@foreach($_steps as $s)
 			<div class="mt-2 container-fluid mb-0 step-pane @if($loop->first) active @endif " data-step="{{ $loop->iteration}}">
-				@include($s['view'])
+				@include($s['view'],isset($s['params']) ? $s['params'] : [])
 			</div>
 		@endforeach
 	</div>
