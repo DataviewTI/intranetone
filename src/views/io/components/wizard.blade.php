@@ -10,13 +10,13 @@
       @endforeach
     </ul>
     <div class="d-flex actions">
-      <button type="button" class="btn btn-primary btn-prev rounded-0">
+      <button type="button" class="btn btn-secondary btn-prev rounded-0">
         <i class="ico ico-arrow-left mr-2"></i>
       </button>
-      <button type="button" class="btn btn-primary btn-next rounded-0" data-next="" data-last="">
+      <button type="button" class="btn btn-secondary btn-next rounded-0" data-next="" data-last="">
         <i class="ico ico-arrow-right ml-2"></i>
       </button>
-    </div>
+    </div> 
   </div>
 
 	<div class="step-content pt-0 mb-1 pb-0" style = "@if(isset($_min_height)) min-height:{{ $_min_height }} @endif">

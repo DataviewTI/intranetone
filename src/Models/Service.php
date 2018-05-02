@@ -9,5 +9,5 @@ class Service extends Model
 {
 	use SoftDeletes;
 	
-	protected $fillable = ['service','ico','description','order'];
+	protected $fillable = ['service','ico','alias','description','order'];
 }

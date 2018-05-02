@@ -6,10 +6,10 @@
     $is_current_url = (isset($t['href']) && Request::path()==$t['href']) ? 1 : 0;
 
 	@endphp
-	<li class = "@if($is_current_url){{'_active'}}@endif mb-2">
+	<li class = "@if($is_current_url){{'_active'}}@endif mb-2 @if(isset($t['class'])){{$t['class']}}@endif">
 		<a href="@if(isset($t['href'])){{$t['href']}}@else#@endif" class="py-2 d-flex d-inline-block w-100 @if($has_subs) has-arrow @endif"  sign="{{$sign}}" aria-expanded=false>
 			@if(isset($t['icon']) && $t['icon']!=null)
-			<i class="{{$t['icon']}} my-auto"></i>
+			<i class="ico {{$t['icon']}} my-auto"></i>
 			@endif
 			<span class = 'my-auto'>{{$t['title']}}</span>
 		</a>

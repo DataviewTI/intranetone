@@ -1,3 +1,4 @@
+<ul class="dash-menu mt-2 h-100">
 @php
   use Dataview\IntranetOne\IntranetOneController;
 
@@ -6,11 +7,18 @@
   
   $servs = IntranetOneController::getServices();
 
+  array_push($menuItems,[
+			"href"		=>"/admin/dash",
+      "class" => "mt-2",
+			"title"		=>"Dashboard",
+			"icon"	=>"ico-dashboard"
+		]);
+    
   foreach($servs as $s){
     if(Sentinel::getUser()->hasAccess(str_slug($s->service).".*"))
       array_push($menuItems,[
           "title"		=>$s->service,
-          "icon"	=>"ico ico-save",
+          "icon"	=>$s->ico,
           "href"		=>"/admin/".str_slug($s->service),
         ]
       );
@@ -18,8 +26,9 @@
 
   array_push($menuItems,[
 			"href"		=>"/admin/logout",
+      "class" => "mt-5",
 			"title"		=>"Sair",
-			"icon"	=>"ico ico-close"
+			"icon"	=>"ico ico-logout"
 		]);
 
 	@endphp
@@ -28,3 +37,4 @@
 		"_items"=> 	$menuItems,	
 	])
 	@endcomponent
+</ul>

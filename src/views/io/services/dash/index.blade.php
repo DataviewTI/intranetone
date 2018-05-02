@@ -4,18 +4,9 @@
 
 @extends('IntranetOne::io.layout.dashboard')
 
-@section('title')
- @parent | IntranetOne Dashboard
-@stop
-
-
 {{-- page level styles --}}
 @section('header_styles')
 </style>
-@stop
-
-@section('main-heading')
-	<h1>Dashboard</h1>
 @stop
 
 @section('main-content')

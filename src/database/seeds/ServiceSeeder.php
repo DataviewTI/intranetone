@@ -11,8 +11,9 @@ class ServiceSeeder extends Seeder
       if(!Service::where('service','Dashboard')->exists()){
         Service::insert([
           'service' => "Dashboard",
-          'ico' => 'ico ico-save',
-          'description' => 'Dashboard da IntranetOne',
+          'alias' => 'dash',
+          'ico' => 'ico-dashboard',
+          'description' => 'Dashboard IntranetOne',
           'order' => 0
           ]);
       }

@@ -1,5 +1,8 @@
 @php
   use Dataview\IntranetOne\IntranetOneController;
+  $__service = \DB::table('services')
+  ->select('service','ico','alias','description')
+  ->where('alias',request()->segment(count(request()->segments())))->get()->first();
 @endphp
 
 <!DOCTYPE html>
@@ -39,7 +42,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>   
-        @section('title') {{config('intranetone.client.name')}} @endsection @yield('title')
+        @section('title') {{config('intranetone.client.name')}} | {{ $__service->service}} @endsection @yield('title')
     </title>
     <!-- global css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bsmd4.min.css') }}" />
@@ -91,11 +94,13 @@
           <div class="side-content">
             <!-- BEGIN .side-nav -->
             <nav class="side-nav">
-
+              <div class = 'd-flex' style = 'height:100px'>
+                <a href = '/admin/dash' class = 'd-flex h-100'>
+                  <img src = "{{asset('/io/images/logo-intranet.png')}}" class = 'img-fluid d-flex m-auto'/>
+                </a>
+              </div>
               <!-- BEGIN: side-nav-content -->
-              <ul class="dash-menu mt-2">
 								@include('IntranetOne::io.layout.menu')
-              </ul>
               <!-- END: side-nav-content -->
             </nav>
             <!-- END: .side-nav -->
@@ -116,12 +121,12 @@
 
           <!-- BEGIN .main-heading -->
           <header class="main-heading">
-						@yield('main-heading')
+						<h1 class = 'text-default'><i class = 'ico {{$__service->ico}}'></i> {{$__service->service}} - {{$__service->description}} @yield('main-heading')</h1>
           </header>
           <!-- END: .main-heading -->
 
           <!-- BEGIN .main-content -->
-					<div class="main-content">
+					<div class="main-content">  
 						@yield('main-content')
 					</div>
           <!-- END: .main-content -->

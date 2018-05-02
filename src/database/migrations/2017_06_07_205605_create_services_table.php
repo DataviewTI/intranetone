@@ -18,7 +18,8 @@ class CreateServicesTable extends Migration
         {
             $table->increments('id');
             $table->string('service',30);
-            $table->string('ico');//{name:xxx,value:'\0001'}
+            $table->char('alias',20);
+            $table->string('ico');
             $table->string('description')->nullable();
             $table->smallInteger('order')->unsigned()->default(0);
             $table->timestamps();
