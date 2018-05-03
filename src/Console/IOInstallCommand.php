@@ -56,7 +56,7 @@ class IOInstallCommand extends Command
         }
 
         if(!$audits_exists)
-          Artisan::call('audit:install');
+          Artisan::call('auditing:install');
 
         $this->info('Criando link simbólico...');
         Artisan::call('storage:link');
