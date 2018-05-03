@@ -27,5 +27,4 @@
 
 @section('footer_scripts')
 @include('IntranetOne::base.social.google-youtube');
-
 @stop

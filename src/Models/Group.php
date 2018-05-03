@@ -23,7 +23,7 @@ class Group extends IOModel
 	}
 
 	public function main(){
-    return $this->files->where('order',0)->first();
+    return $this->files->where('order',$this->files->min('order'))->first();
   }
 
   public function manageImages($files,$params)
