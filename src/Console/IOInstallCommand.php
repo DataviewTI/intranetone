@@ -45,8 +45,8 @@ class IOInstallCommand extends Command
             $audits_exists = true;
         }
 
-        if(!$audits_exists)
-          Artisan::call('audit:install');
+        IntranetOne::installMessages($this);
+
 
         IntranetOne::installMessages($this);
         if(count($migrations_to_remove))
@@ -55,6 +55,8 @@ class IOInstallCommand extends Command
             unlink(database_path('migrations/'.$f));
         }
 
+        if(!$audits_exists)
+          Artisan::call('audit:install');
 
         $this->info('Criando link simbólico...');
         Artisan::call('storage:link');
