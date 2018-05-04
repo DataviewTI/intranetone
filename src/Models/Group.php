@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Group extends IOModel
 {
-  protected $fillable = ['group'];
+  protected $fillable = ['group','sizes'];
 
   public function files(){
 		return $this->hasMany('Dataview\IntranetOne\File')->orderBy('order');

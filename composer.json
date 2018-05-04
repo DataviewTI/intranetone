@@ -21,8 +21,7 @@
     "laravel": {
         "providers": [
             "\\Dataview\\IntranetOne\\IntranetOneServiceProvider",
-            "\\Cartalyst\\Sentinel\\Laravel\\SentinelServiceProvider",
-            "\\OwenIt\\Auditing\\AuditingServiceProvider"
+            "\\Cartalyst\\Sentinel\\Laravel\\SentinelServiceProvider"
         ],
         "aliases": {
           "Activation" : "Cartalyst\\Sentinel\\Laravel\\Facades\\Activation",
