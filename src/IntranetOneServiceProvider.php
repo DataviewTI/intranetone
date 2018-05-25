@@ -12,7 +12,7 @@ class IntranetOneServiceProvider extends ServiceProvider
     {
       $this->publishes([
         __DIR__.'/config/intranetone.php' => config_path('intranetone.php'),
-        __DIR__.'/Http/Middleware/SentinelAdmin.php' => app_path('Http/Middleware/SentinelAdmin.php')
+        // __DIR__.'/Http/Middleware/SentinelAdmin.php' => app_path('Http/Middleware/SentinelAdmin.php')
       ]);
       
       $this->publishes([
@@ -38,6 +38,11 @@ class IntranetOneServiceProvider extends ServiceProvider
       $this->app['router']->group(['namespace' => 'dataview\intranetone'], function () {
         include __DIR__.'/routes/web.php';
       });
+
+      //adiciona as middlewares HttpsProtocol e SentinelAdmin ao Kernel
+      $kernel = $this->app->make('Illuminate\Contracts\Http\Kernel');
+      $kernel->pushMiddleware('\Dataview\IntranetOne\Http\Middleware\HttpsProtocol');
+      $this->app['router']->aliasMiddleware('admin', '\Dataview\IntranetOne\Http\Middleware\SentinelAdmin');
       
       $this->app->make('Dataview\IntranetOne\AuthController');
       $this->app->make('Dataview\IntranetOne\DropZoneController');

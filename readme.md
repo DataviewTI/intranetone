@@ -1,6 +1,7 @@
 
 # IntranetOne
 Descrição da IntranetOne
+
 IntranetOne requires PHP >= 7.1.3
 
 ## Conteúdo
@@ -18,9 +19,9 @@ Devido a geração automática de alguns arquivos, são necessárias algumas con
    - defina FILESYSTEM_DRIVER = intranetone
 
 
- - Adicione as seguintes linhas ao App/Http/Kernel.php in $routeMiddleware
+ <!-- - Adicione as seguintes linhas ao App/Http/Kernel.php in $routeMiddleware
 	 ```php
-	'admin' => \App\Http\Middleware\SentinelAdmin::class,
+	'admin' => \App\Http\Middleware\SentinelAdmin::class, -->
 
  - Configure o arquivo config/filesystem.php, adicione o código abaixo ao array "disks"
 	 ```php
@@ -44,9 +45,9 @@ Devido a geração automática de alguns arquivos, são necessárias algumas con
 		public  function  boot(){
 			...
 			Schema::defaultStringLength(191);
-			if(env('APP_ENV')=='production')
-			\URL::forceScheme('https');
-			}
+			
+<!-- if(env('APP_ENV')=='production')
+				\URL::forceScheme('https');  -->
 
 ## Instalação
 ```sh

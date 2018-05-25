@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Middleware;
+// namespace App\Http\Middleware;
+namespace Dataview\IntranetOne\Http\Middleware;
 
 use App\Task;
 use Closure;
