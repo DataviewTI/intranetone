@@ -14,6 +14,12 @@ class Group extends IOModel
 		return $this->hasMany('Dataview\IntranetOne\File')->orderBy('order');
 	}
 
+  public function getSizes($index=false){
+    if(!$index)
+      return $this->sizes;
+	}
+
+
   public function getPath($str=''){
     return storage_path((config('intranetone.path_storage')."groups/group_".$this->id."/".$str));
 	}

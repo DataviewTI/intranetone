@@ -1,0 +1,1 @@
+<script src="https://maps.googleapis.com/maps/api/js?key={{config('intranetone.social_media.google.geocoding')}}" ></script>

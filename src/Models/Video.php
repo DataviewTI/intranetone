@@ -24,12 +24,12 @@ class Video extends Model implements AuditableContract
     return $_data->id;
 	}
 
-  public function getEmbedPlayer($autoplay=0){
+  public function getEmbedPlayer($autoplay=0,$w=640,$h=480){
     $_data = json_decode($this->data);
     if($this->source == 'youtube'){
       $embed = $_data->embed.('&autoplay='.$autoplay);
-      return "<iframe data-start-at = '".($this->start_at)."' id = '".($_data->id)."' data-source = '".($_data->source)."' class='pswp__video' width='960' height='640'"
-      ."src=\"$embed\" frameborder='0' allowfullscreen></iframe>";
+      return "<iframe data-start-at = '".($this->start_at)."' id = '".($_data->id)."' data-source = '".($_data->source)."' class='pswp__video' width='$w' height='$h'"
+      ."src=\"$embed\" frameborder='0' allow='autoplay' allowfullscreen></iframe>";
     }
 
     if($this->source == 'facebook'){

@@ -64,7 +64,7 @@ php artisan intranetone:install
 ## Assets
 
  - Instalar node modules para webpack
- `npm install yarn cross-env babel-preset-es2015 laravel-mix copy-webpack-plugin
+ `npm install yarn browser-sync cross-env babel-preset-es2015 laravel-mix copy-webpack-plugin
     imagemin-webpack-plugin imagemin-jpegtran imagemin-pngquant imagemin-mozjpeg
     imagemin-webp uglifyjs-webpack-plugin --save`
     
