@@ -11,8 +11,8 @@
 
 @section('main-content')
 	<!--section ends-->
-  <div class = 'b-red'>
-    @include('IntranetOne::io.services.dash.content');
+  <div class = 'h-100'>
+    @include('IntranetOne::io.services.dash.content')
   </div>
 	<!-- content -->
   @stop
