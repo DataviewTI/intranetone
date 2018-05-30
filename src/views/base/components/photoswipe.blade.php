@@ -33,7 +33,7 @@
 				<button class="pswp__button pswp__button--arrow--left" title="Anterior (seta esquerda)"></button>
 				<button class="pswp__button pswp__button--arrow--right" title="Proxima (seta direita)"></button>
 				<div class="pswp__caption">
-					<div class="pswp__caption__center">
+					<div class="pswp__caption__center text-center">
 					</div>
 				</div>
 			</div>
