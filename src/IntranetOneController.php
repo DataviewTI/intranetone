@@ -10,7 +10,7 @@ class IntranetOneController extends Controller
   static function getServices(){
 
     return DB::table('services')
-    ->select('service','ico','description')
+    ->select('service','ico','alias','description')
     ->orderBy('order')
     ->distinct()
     ->get();
