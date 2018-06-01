@@ -19,7 +19,7 @@
       array_push($menuItems,[
           "title"		=>$s->service,
           "icon"	=>$s->ico,
-          "href"		=>"/admin/".str_slug($s->service),
+          "href"		=>"/admin/".str_slug($s->alias),
         ]
       );
   }
