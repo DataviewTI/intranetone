@@ -22,21 +22,36 @@ return [
       "cnpj"=>""
     ],
     'path_storage' => 'app/public/intranetone/',
-      'social_media'=>[
-        'facebook'=>[
-          'app_id'=>'000000000000000',
-          'app_version'=>'v2.11',
-          'long_token' =>'informe o long token',
-          "locale"=>"pt_BR",
-          'publisher'=>""
-        ],
-        'twitter'=>[
-          'user'=>'',
-          'publisher'=>""
-        ],
-        'google'=>[
-          'UA'=>'UA-000000000-0'
-        ]
+    'social_media'=>[
+      'facebook'=>[
+        'app_id'=>'000000000000000',
+        'app_version'=>'v2.11',
+        'long_token' =>'informe o long token',
+        "locale"=>"pt_BR",
+        'publisher'=>""
+      ],
+      'twitter'=>[
+        'user'=>'',
+        'publisher'=>""
+      ],
+      'google'=>[
+        'UA'=>'teste'
       ]
-    ];
+    ],
+    'gallery' => [
+      'crop' => [
+        'activate' => false,
+        'aspect_ratio_x' => '1',
+        'aspect_ratio_y' => '1',
+      ]
+    ],
+    'news' => [
+      'crop' => [
+        'activate' => false,
+        'aspect_ratio_x' => '1',
+        'aspect_ratio_y' => '1',
+      ]
+    ]
+
+  ];
 
