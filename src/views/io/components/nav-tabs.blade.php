@@ -18,7 +18,7 @@
 <div class="tab-content pt-2" id = '{{$_id}}-container'>
 	@foreach($_tabs as $t)
 		<div role="tabpanel" class="tab-pane @if($loop->index == $_active){{'active'}}@endif" id = "{{'tab'.$loop->iteration}}">
-			@include($t['view'])
+			@include($t['view'],isset($t['params']) ? $t['params'] : [])
 		</div>
 	@endforeach
 </div>

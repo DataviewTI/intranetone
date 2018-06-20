@@ -1,10 +1,11 @@
 @php
-  $categories = Dataview\IntranetOne\Category::select('id','category','category_id')
-  ->whereHas('maincategory',function($q) use ($cat){
-      $q->where('category',$cat);
-  })
-  ->get()
-  ->split(3);
+  use Dataview\IntranetOne\CategoryController;
+  
+  $serviceMainCat = Dataview\IntranetOne\Category::select('id','category','category_id')
+	->where('category',$cat)
+  ->get();
+  
+  $categories = CategoryController::serviceChildCategories($serviceMainCat[0]->id)->split(3);
 @endphp
 
 <div class = 'row pt-2'>

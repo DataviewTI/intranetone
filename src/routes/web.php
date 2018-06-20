@@ -32,6 +32,10 @@ Route::group(array('prefix' => 'group'), function () {
 # Category publics, while a service is created...
 Route::group(array('prefix' => 'categories'), function () {
   Route::get('list/{id?}/{type?}', 'CategoryController@list');//new approach
+  Route::get('serviceChildCats/{service}', 'CategoryController@dtServiceChildCategories');//new approach
+  Route::post('create/', 'CategoryController@create');//new approach
+  Route::post('update/', 'CategoryController@update');//new approach
+  Route::get('delete/{id}', 'CategoryController@delete');//new approach
 //  Route::get('categories', 'CategoryController@getCategories');
 //  Route::get('subcategories/{catId}', 'CategoryController@getSubCategories');
 //  Route::get('types', 'CategoryController@getTypes');

@@ -17,11 +17,16 @@ class CategoryRequest extends FormRequest
     }
 
     public function sanitize(){
-		$input = $this->all();
+        $input = $this->all();
+        
+        if (!array_key_exists("erasable", $input))
+            $input['erasable'] = 1;
+        
+        $input['category_slug'] = str_slug($input['category'], '-');
 
         if(!array_key_exists('category_id',$input)){
 		    $input['category_id'] = null;
-        }            
+        }
 
 		$this->replace($input);
 	}
