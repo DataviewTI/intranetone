@@ -90,24 +90,33 @@ class Install extends Command
           '--class' => DatabaseSeeder::class,
         ]);
         
-        /** Processo de instalação individual de pacotes via PNPM via package.json->IODependencies */
+        // Processo de instalação individual de pacotes via PNPM via package.json->IODependencies
         $pkg = json_decode(file_get_contents(IntranetOneServiceProvider::pkgAddr('/assets/package.json')),true);
 
-        $this->line("Preparando instalação com PNPM");
+        //$this->line("Preparando instalação com PNPM");
+        //(new Process('npm install -g pnpm'))->run();
+        
         (new Process('npm set progress=false'))->run();
-        (new Process('npm install -g pnpm'))->run();
-
         $this->comment('Instalando npm package '.$pkg['name'].'@'.$pkg['version']);
 
-        (new Process('npm install vendor/dataview/'.$pkg['name'].'/src/assets'))->setTimeout(36000)->run();
+        try{
+          (new Process('npm install vendor/dataview/'.$pkg['name'].'/src/assets'))->setTimeout(36000)->mustRun();
+        }
+        catch(ProcessFailedException $exception){
+          $this->error($exception->getMessage());
+        }
 
         $this->line('Instalando dependencias...');
 
         $bar = $this->output->createProgressBar(count($pkg['IODependencies'])+1);
         foreach($pkg['IODependencies'] as $key => $value){
-          $bar->advance();
-          $this->comment(" instalando ".$key.'@'.$pkg['IODependencies'][$key]);
-          (new Process('pnpm install '.$key.'@'.$pkg['IODependencies'][$key]))->setTimeout(36000)->run();
+          try{
+            $bar->advance();
+            $this->comment(" instalando ".$key.'@'.$pkg['IODependencies'][$key]);
+            (new Process('npm install '.$key.'@'.$pkg['IODependencies'][$key]))->setTimeout(36000)->mustRun();
+          }catch (ProcessFailedException $exception){
+            $this->error($exception->getMessage());
+          }
         }
         (new Process('npm set progress=true'))->run();
         $bar->finish();

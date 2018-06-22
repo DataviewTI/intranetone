@@ -46,8 +46,12 @@ class IOServiceRemoveCmd extends Command
         IntranetOne::installMessages($this,1);
         $this->line('Removendo assets...');
         (new Process('npm set progress=false'))->run();
-        (new Process('npm install -g pnpm'))->run();
-        (new Process('pnpm remove intranetone-'.$s))->setTimeout(36000)->run();
+        try{
+          (new Process('npm remove intranetone-'.$s))->setTimeout(36000)->mustRun();
+        }catch (ProcessFailedException $exception){
+          $this->error($exception->getMessage());
+        }
+
         (new Process('npm set progress=true'))->run();
         
         $this->info(' ');

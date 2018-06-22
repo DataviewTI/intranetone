@@ -45,29 +45,37 @@ class IOServiceInstallCmd extends Command
         '--class' => $this->param->seeder
       ]);
     
-        /** Processo de instalação individual de pacotes via PNPM via package.json->IODependencies */
-        $pkg = json_decode(file_get_contents($this->param->provider::pkgAddr('/assets/package.json')),true);
+      /** Processo de instalação individual de pacotes via PNPM via package.json->IODependencies */
+      $pkg = json_decode(file_get_contents($this->param->provider::pkgAddr('/assets/package.json')),true);
 
-        $this->line("Preparando instalação com PNPM");
-        (new Process('npm set progress=false'))->run();
-        (new Process('npm install -g pnpm'))->run();
+      (new Process('npm set progress=false'))->run();
 
-        $this->comment('Instalando npm package '.$pkg['name'].'@'.$pkg['version']);
+      $this->comment('Instalando npm package '.$pkg['name'].'@'.$pkg['version']);
 
+      try{
         (new Process('npm install vendor/dataview/io'.$this->param->service.'/src/assets'))->setTimeout(36000)->run();
+      }
+      catch(ProcessFailedException $exception){
+        $this->error($exception->getMessage());
+      }
 
-        $this->line('Instalando dependencias...');
 
-        $bar = $this->output->createProgressBar(count($pkg['IODependencies'])+1);
-        foreach($pkg['IODependencies'] as $key => $value){
+      $this->line('Instalando dependencias...');
+
+      $bar = $this->output->createProgressBar(count($pkg['IODependencies'])+1);
+      foreach($pkg['IODependencies'] as $key => $value){
+        try{
           $bar->advance();
           $this->comment(" instalando ".$key.'@'.$pkg['IODependencies'][$key]);
-          (new Process('pnpm install '.$key.'@'.$pkg['IODependencies'][$key]))->setTimeout(36000)->run();
+          (new Process('npm install '.$key.'@'.$pkg['IODependencies'][$key]))->setTimeout(36000)->mustRun();
+        }catch (ProcessFailedException $exception){
+          $this->error($exception->getMessage());
         }
-        (new Process('npm set progress=true'))->run();
-        $bar->finish();
-        /** fim do processo de instalação de pacotes */
+      }
+      (new Process('npm set progress=true'))->run();
+      $bar->finish();
+      /** fim do processo de instalação de pacotes */
 
-        $this->info(' IntranetOne - '.$s.' Instalado com sucesso! _|_');
-    }
+      $this->info(' IntranetOne - '.$s.' Instalado com sucesso! _|_');
+  }
 }
