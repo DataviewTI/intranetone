@@ -1,0 +1,108 @@
+.custom-dz-template{
+  margin:.3em;
+  overflow:hidden!important;
+}
+.dropzone.dz-clickable > .custom-dz-template{
+  padding:3px;
+
+}
+
+.dropzone.dz-clickable > .custom-dz-template:before,
+.dropzone.dz-clickable > .custom-dz-template:after
+{
+  font-family:'intranetone';
+  content:"\0059";
+  position:absolute;
+  color:#80b85c;
+  font-size:.8em;
+  letter-spacing:1px;
+  margin-top:-1px;
+}
+.dropzone.dz-clickable > .custom-dz-template:before{
+  margin-top:-4px;
+  height:0;
+}
+
+.dropzone.dz-clickable > .custom-dz-template:after{
+  font-family:inherit!important;
+  content:"Foto Principal";
+  top:32px;
+  left:30px;
+}
+.dropzone.dz-clickable > .custom-dz-template~.custom-dz-template:before,
+.dropzone.dz-clickable > .custom-dz-template~.custom-dz-template:after{
+    content:none
+}
+
+
+
+/*Container Infos*/
+
+.dz-container-infos
+{
+  position:relative;
+  float:left;
+  width:100%;
+}
+.dz-container-infos .progress{
+  height:20px;
+}
+.dz-container-infos .dz-info-container{
+  padding:0 .3em!important;
+  margin-top:-20px;
+  height:0;
+  position:relative;
+}
+.dz-container-infos .dz-info{
+  font-size:.8em;
+  color:#fff;
+  text-shadow:0 0 1px rgba(0,0,0,.9);
+}
+
+.dz-img-loading{
+/*  background:transparent url('/images/loaders/loader-21.gif') no-repeat center center;*/
+  position:relative;
+  z-index: 1;
+}
+
+.dz-img-loading::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:rgba(255,255,255,.5);
+}
+.dz-img-loading::after{
+  font-family:'intranetone';
+  content:'\0043';
+  position:absolute;
+  font-size:64px;
+  left: calc(50% - 40px);
+  top: calc(50% - 40px);
+  width:80px;
+  height:80px;
+  line-height:80px;
+  text-align:center;
+  -webkit-animation: rotation 4s infinite linear;
+  animation: rotation 4s infinite linear;
+  color:#666;
+  text-shadow:0 0 3px rgba(255,255,255,.3);
+}
+
+
+/*.dz-img-loading img{
+  cursor:wait;
+  opacity:.6;
+}*/
+
+
+.dz-buttons-container{
+  margin-bottom:-16px;
+  position:relative!important;
+  opacity:1;
+  z-index: 3;
+}
+
+  

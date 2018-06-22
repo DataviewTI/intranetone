@@ -1,0 +1,90 @@
+/*------------------------------------------------------------------------------
+|SIDE
+*/
+#app-side-hoverable-toggler{
+  cursor:pointer;
+}
+.app-side,.app-side.is-hoverable:hover {
+  width: 200px;
+  overflow:hidden;
+}
+
+@media (min-width: 992px) {
+  .app-side.is-open ~ .app-main {
+    margin-left: 200px;
+  }
+}
+
+.side-content{
+	height:9999px;
+}
+.side-footer,.side-content,.side-heading{
+	border-right:1px #ccc solid;
+}
+
+/*------------------------------------------------------------------------------
+|HEADING
+*/
+.app-heading{
+  background-color:#333!important;
+  padding:.3em .5em;
+}
+
+
+.app-heading .user-infos span{
+  color:#fff;
+}
+
+.main-heading{
+	border-bottom:1px #ccc solid;	
+}
+.main-heading h1{
+	font-size:1.1em;
+	padding:.5em .5em .5em 1em;
+  margin:0;
+  background-color:#f4f4f4;
+	color:#888;
+}
+.app-infos h1{
+	color:#fff;
+  font-size:1.2em;
+  letter-spacing:1px;
+  margin:0;
+}
+
+a.onoffcanvas-toggler{
+	min-width:1.5rem!important;
+  min-height:1.5rem!important;
+  margin-right:14px;
+  margin-left:7px;
+}
+
+a.onoffcanvas-toggler:after,a.onoffcanvas-toggler:before{
+	border-color:#fff;
+}
+/*------------------------------------------------------------------------------
+|CONTENT
+*/
+.app-main {
+	/*hack to force inside elements to get max size, why?? I have no Idea how this works, check for other solution */
+  width:0;
+}
+.main-content{
+	padding:.5em;
+  overflow-x:hidden;
+  padding-bottom:0;
+  height:0!important;
+}
+/*------------------------------------------------------------------------------
+|FOOTER
+*/
+
+.main-footer{
+	display:none;
+}
+
+.app-footer{
+	border-top:1px #ccc solid;
+  padding:.3em;
+}
+

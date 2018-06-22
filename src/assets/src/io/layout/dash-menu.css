@@ -1,0 +1,34 @@
+.dash-menu li a{
+  text-decoration:none;
+	-moz-transition: background .3s ease;
+	-ms-transition: background .3s ease;
+	-o-transition: background .3s ease;
+  transition: background .3s ease;
+}
+
+.dash-menu li a >.ico{
+  font-size:26px;
+  margin-left:14px;
+  margin-right:10px;
+}
+
+.is-hoverable .dash-menu li a > span{
+  display:none;
+}
+
+.is-hoverable:hover .dash-menu li a > span{
+  display:inline;
+}
+
+.dash-menu li:hover a,
+.dash-menu li._active a{
+  background-color:#333;
+}
+.dash-menu li a >.ico,
+.dash-menu li a > span{
+  color:#333;
+}
+.dash-menu li:hover a > *,
+.dash-menu li._active a > *{
+color:#fff;
+}

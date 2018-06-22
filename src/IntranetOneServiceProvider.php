@@ -4,10 +4,12 @@ namespace Dataview\IntranetOne;
 
 use Illuminate\Support\ServiceProvider;
 
-use Dataview\IntranetOne\Console\IOInstallCommand;
-
 class IntranetOneServiceProvider extends ServiceProvider
 {
+    public static function pkgAddr($addr){
+      return __DIR__.'/'.$addr;
+    }
+
     public function boot()
     {
       $this->publishes([
@@ -31,7 +33,8 @@ class IntranetOneServiceProvider extends ServiceProvider
         return new IntranetOne;
       });*/
       $this->commands([
-        IOInstallCommand::class,
+        Console\Install::class,
+        Console\Remove::class,
       ]);
 
       //define um namespace para cada rota carregada através do package

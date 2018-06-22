@@ -1,0 +1,11 @@
+/*TABLE BUTTON*/
+.btn-dt-button{
+  color:#111;
+  opacity:.8;
+  background-color:rgba(255,255,255,0)!important;
+}
+
+.btn-dt-button:hover{
+  opacity:1;
+  font-size:17px;
+}

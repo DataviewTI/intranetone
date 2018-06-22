@@ -49,7 +49,7 @@ class IntranetOne
     shuffle($msg);
     while($i--){
       sleep(mt_rand(1,$len));
-      $cmd->info(array_shift($msg));
+      $cmd->comment(array_shift($msg));
     }
     sleep($posdelay);
   }

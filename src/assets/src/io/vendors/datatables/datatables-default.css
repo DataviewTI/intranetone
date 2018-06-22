@@ -1,0 +1,119 @@
+/*hide datatable filter*/
+.dataTables_filter {
+  display: none;
+}
+
+.dataTables_wrapper.container-fluid.dt-bootstrap4{
+  padding:0;
+}
+
+.dataTables_info{
+  float:left;
+}
+
+/*THEAD */
+
+.dataTable thead tr th{
+  padding-top:5px;
+  padding-bottom:5px;
+  font-weight:normal;
+  color:#009688;
+  border-bottom:none;
+}
+.dataTable thead tr th.sorting{
+  position:relative;
+}
+.dataTable thead tr th.sorting::before,
+.dataTable thead tr th.sorting::after,
+.dataTable thead tr th.sorting_asc::before,
+.dataTable thead tr th.sorting_asc::after,
+.dataTable thead tr th.sorting_desc::before,
+.dataTable thead tr th.sorting_desc::after{
+  font-family:intranetone;
+  content:'\0048';
+  top:0;
+  width:auto;
+  height:0;
+  width:0;
+  margin:auto;
+  line-height:100%;
+  font-size:16px;
+  right:15px;
+}
+.dataTable thead tr th.sorting::before,
+.dataTable thead tr th.sorting_asc::before,
+.dataTable thead tr th.sorting_desc::before{
+  content:'\0049';
+  right:23px;
+}
+/*TBODY*/
+table.dataTable tbody tr td{
+  padding:.3em .5em!important;
+  vertical-align:bottom!important;
+}
+
+
+.dataTable tbody tr.even{ 
+  background-color:#fff;
+}
+
+.dataTable tbody tr.odd{ 
+  background-color:#ededed;
+}
+
+/*TABLE BUTTON*/
+
+.btn-dt-button{
+  width:24px!important;
+  height:24px!important;
+  line-height:12px!important;
+  color:#fff;
+  border-radius:10%;
+  overflow:hidden;
+  box-sizing:content-box;
+  cursor:pointer;
+  opacity:.9;
+}
+
+.btn-dt-button:hover{
+  opacity:1;
+  box-shadow:1px 1px 2px rgba(0,0,0,.4);
+}
+
+.container-dtbutton > .btn-dt-button{
+  margin-right:4px;
+}
+.container-dtbutton > .btn-dt-button:last-of-type{
+  margin-right:0;
+}
+
+.dataTables_empty{
+  position:relative;
+}
+
+.dataTables_empty{
+  height:244px!important;
+  line-height:244px;
+  font-size:32px;
+  color:#666!important;
+  background-color:#fafafa;
+}
+
+
+/*verificar depois com mais dados se o processando permanece legível*/
+.dataTables_processing{
+  border:1px blue solid;
+  display:none!important;
+}
+
+
+.dataTables_processing::after{
+  font-family:intranetone;
+  content:'\0043';
+  position:absolute;
+  border:1px red solid;
+  width:auto;
+  top:0;
+  left:-20px;
+  font-size:22px;
+}

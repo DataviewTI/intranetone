@@ -1,0 +1,11 @@
+html {
+  height:100%;
+}
+
+#login-box{
+  padding:1em;
+  border: 1px solid #dee3e4;
+  border-radius:0.3em;
+  background-color:rgba(255,255,255,.8);
+  box-shadow:1px 1px 6px rgba(0,0,0,.2);
+}

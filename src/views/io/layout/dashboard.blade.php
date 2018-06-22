@@ -162,10 +162,12 @@
 	<script type = 'text/javascript' src="{{ asset('js/popper.min.js') }}"></script>
 	<script type = 'text/javascript' src="{{ asset('js/bsmd4.min.js') }}"></script>
   <script type = "text/javascript" src="{{ asset('io/js/fuelux-compiled.min.js') }}"></script>
-
   <script type="text/javascript" src="{{ asset('io/js/io-babel-dashboard.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('io/js/io-dashboard.min.js') }}"></script>
-  <script>$(document).ready(function(){$('body').bootstrapMaterialDesign();});</script>
+  <script type="text/javascript" assync defer src="{{ asset('io/js/io-dashboard.min.js') }}"></script>
+  <script>$(document).ready(function(){
+    $('body').bootstrapMaterialDesign();
+    OnoffCanvas.autoinit(true);
+  });</script>
 
 
 <!-- end of global js -->

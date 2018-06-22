@@ -1,8 +1,0 @@
-- Tentar colocar o carregamento dos aliases e providers do sentinel e outros pacotes no "laravel extra" do composer.json
-
-
- - encontrar uma forma de não precisar registrar todos os controllers...
-
- - verificar como configurar o bower.json para forçar sempre a última versão
-
- 

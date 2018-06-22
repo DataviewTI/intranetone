@@ -1,0 +1,47 @@
+.btn-ico i.ico{
+  font-size:16px;
+}
+.btn-ico.btn-lg i.ico{
+  font-size:22px;
+}
+
+.btn-ico i.ico::before{
+  vertical-align: middle;
+  margin-top:-3px;
+}
+.ico::before{
+  vertical-align: middle;
+  margin-top:-3px;
+}
+
+.ico-spin::before{
+  -webkit-animation: rotation 2s infinite linear;
+  animation: rotation 2s infinite linear;
+}
+
+.ico-spin-fast::before{
+  -webkit-animation: rotation 1s infinite linear;
+  animation: rotation 1s infinite linear;
+}
+.ico-spin-slow::before{
+  -webkit-animation: rotation 4s infinite linear;
+  animation: rotation 4s infinite linear;
+}
+
+@-webkit-keyframes rotation{
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+      -webkit-transform: rotate(359deg);
+  }
+}
+
+@keyframes rotation{
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+      -webkit-transform: rotate(359deg);
+  }
+}

@@ -66,6 +66,9 @@
           <!--facebook-->
           <!-- gera problema, usar um dnone?-->
           <div class="vplayer fb-video d-none facebook-responsive" id = 'facebook-player' data-href="" data-allowfullscreen="true"></div>
+          <div class = 'form-group' style = 'position:absolute; top:0'>
+            <input type = 'hidden' name='imageorvideo' value='0' />
+          </div>
         </div>
       </div>
     </div>

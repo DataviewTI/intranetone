@@ -15,7 +15,8 @@
   "require": {
     "cartalyst/sentinel": "2.0.*",
     "owen-it/laravel-auditing": "^6.0",
-    "yajra/laravel-datatables-oracle": "~8.0"
+    "yajra/laravel-datatables-oracle": "~8.0",
+    "symfony/process": "^4.1"
   },
   "extra": {
     "laravel": {

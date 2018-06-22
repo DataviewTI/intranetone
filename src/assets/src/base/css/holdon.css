@@ -1,0 +1,21 @@
+/* default hold on big size*/
+.sk-bounce {
+  width: 120px;
+  height: 40px;
+  text-align: center;
+  margin-left:-40px;
+}
+
+.sk-bounce > div {
+  width: 32px;
+  height: 32px;
+  background-color:#fff;
+  opacity:.8;
+}
+
+#holdon-message{
+  opacity:.8;
+  font-family:inherit;
+  font-size:32px;
+  letter-spacing:2px;
+}

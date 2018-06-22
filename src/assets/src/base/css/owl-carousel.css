@@ -1,0 +1,34 @@
+.owl-nav-side{
+  font-family:'dv icons';
+  position:absolute;
+  width:100%;
+  height:50%;
+  margin:auto;
+  bottom:0;
+}
+.owl-nav-side .owl-prev,.owl-nav-side .owl-next{
+  position:absolute;
+  font-size:20px;
+  cursor:pointer;
+  top:-25%;
+  font-weight:bold;
+  color:#4caf50;
+}
+.owl-nav-side .owl-prev:hover,.owl-nav-side .owl-next:hover{
+  text-shadow:1px 1px 5px rgba(0,0,0,.2);
+}
+
+.owl-nav-side .owl-prev.disabled:hover,.owl-nav-side .owl-next.disabled:hover{
+  text-shadow:none;
+}
+
+.owl-nav-side .owl-prev.disabled, .owl-nav-side .owl-next.disabled{
+  cursor:default!important;
+  opacity:.5!important;
+}
+.owl-nav-side .owl-prev{
+  left:-30px;
+}
+.owl-nav-side .owl-next{
+  right:-30px;
+}

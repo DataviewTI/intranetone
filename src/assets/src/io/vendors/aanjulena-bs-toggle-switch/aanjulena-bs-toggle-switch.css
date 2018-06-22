@@ -1,0 +1,374 @@
+.example .aanjulena-btn-toggle {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.aanjulena-btn-toggle {
+  margin: 0 4rem;
+  padding: 0;
+  position: relative;
+  border: none;
+  height: 1.5rem;
+  width: 3rem;
+  border-radius: 1.5rem;
+  color: #6b7381;
+  background: #bdc1c8;
+}
+.aanjulena-btn-toggle:focus,
+.aanjulena-btn-toggle.focus,
+.aanjulena-btn-toggle:focus.active,
+.aanjulena-btn-toggle.focus.active {
+  outline: none;
+}
+.aanjulena-btn-toggle:before,
+.aanjulena-btn-toggle:after {
+  line-height: 1.5rem;
+  width: 4rem;
+  text-align: center;
+  font-weight: 400;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: absolute;
+  bottom: 0;
+  transition: opacity .25s;
+}
+.aanjulena-btn-toggle:before {
+  content: attr(data-off);
+  left: -4rem;
+}
+.aanjulena-btn-toggle:after {
+  content: attr(data-on);
+  right: -4rem;
+  opacity: .5;
+}
+.aanjulena-btn-toggle > .handle {
+  position: absolute;
+  top: 0.1875rem;
+  left: 0.1875rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 1.125rem;
+  background: #fff;
+  transition: left .25s;
+}
+.aanjulena-btn-toggle.active {
+  transition: background-color 0.25s;
+}
+.aanjulena-btn-toggle.active > .handle {
+  left: 1.6875rem;
+  transition: left .25s;
+}
+.aanjulena-btn-toggle.active:before {
+  opacity: .5;
+}
+.aanjulena-btn-toggle.active:after {
+  opacity: 1;
+}
+.aanjulena-btn-toggle.btn-sm:before,
+.aanjulena-btn-toggle.btn-sm:after {
+  line-height: -0.5rem;
+  color: #fff;
+  letter-spacing: .75px;
+  left: 0.4125rem;
+  width: 2.325rem;
+}
+.aanjulena-btn-toggle.btn-sm:before {
+  text-align: right;
+}
+.aanjulena-btn-toggle.btn-sm:after {
+  text-align: left;
+  opacity: 0;
+}
+.aanjulena-btn-toggle.btn-sm.active:before {
+  opacity: 0;
+}
+.aanjulena-btn-toggle.btn-sm.active:after {
+  opacity: 1;
+}
+.aanjulena-btn-toggle.btn-xs:before,
+.aanjulena-btn-toggle.btn-xs:after {
+  display: none;
+}
+.aanjulena-btn-toggle:before,
+.aanjulena-btn-toggle:after {
+  color: #6b7381;
+}
+.aanjulena-btn-toggle.active {
+  background-color: #29b5a8;
+}
+.aanjulena-btn-toggle.btn-lg {
+  margin: 0 5rem;
+  padding: 0;
+  position: relative;
+  border: none;
+  height: 2.5rem;
+  width: 5rem;
+  border-radius: 2.5rem;
+}
+.aanjulena-btn-toggle.btn-lg:focus,
+.aanjulena-btn-toggle.btn-lg.focus,
+.aanjulena-btn-toggle.btn-lg:focus.active,
+.aanjulena-btn-toggle.btn-lg.focus.active {
+  outline: none;
+}
+.aanjulena-btn-toggle.btn-lg:before,
+.aanjulena-btn-toggle.btn-lg:after {
+  line-height: 2.5rem;
+  width: 5rem;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: absolute;
+  bottom: 0;
+  transition: opacity .25s;
+}
+.aanjulena-btn-toggle.btn-lg:before {
+  content: 'Não';
+  left: -4rem;
+}
+.aanjulena-btn-toggle.btn-lg:after {
+  content: 'Sim';
+  right: -4rem;
+  opacity: .5;
+}
+.aanjulena-btn-toggle.btn-lg > .handle {
+  position: absolute;
+  top: 0.3125rem;
+  left: 0.3125rem;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 1.875rem;
+  background: #fff;
+  transition: left .25s;
+}
+.aanjulena-btn-toggle.btn-lg.active {
+  background-color:#80b85c;
+  transition: background-color 0.25s;
+}
+.aanjulena-btn-toggle.btn-lg.active > .handle {
+  left: 2.8125rem;
+  transition: left .25s;
+}
+.aanjulena-btn-toggle.btn-lg.active:before {
+  opacity: .5;
+}
+.aanjulena-btn-toggle.btn-lg.active:after {
+  opacity: 1;
+}
+.aanjulena-btn-toggle.btn-lg.btn-sm:before,
+.aanjulena-btn-toggle.btn-lg.btn-sm:after {
+  line-height: 0.5rem;
+  color: #fff;
+  letter-spacing: .75px;
+  left: 0.6875rem;
+  width: 3.875rem;
+}
+.aanjulena-btn-toggle.btn-lg.btn-sm:before {
+  text-align: right;
+}
+.aanjulena-btn-toggle.btn-lg.btn-sm:after {
+  text-align: left;
+  opacity: 0;
+}
+.aanjulena-btn-toggle.btn-lg.btn-sm.active:before {
+  opacity: 0;
+}
+.aanjulena-btn-toggle.btn-lg.btn-sm.active:after {
+  opacity: 1;
+}
+.aanjulena-btn-toggle.btn-lg.btn-xs:before,
+.aanjulena-btn-toggle.btn-lg.btn-xs:after {
+  display: none;
+}
+.aanjulena-btn-toggle.btn-sm {
+  margin: 0 0.5rem;
+  padding: 0;
+  position: relative;
+  border: none;
+  height: 1.5rem;
+  width: 3rem;
+  border-radius: 1.5rem;
+}
+.aanjulena-btn-toggle.btn-sm:focus,
+.aanjulena-btn-toggle.btn-sm.focus,
+.aanjulena-btn-toggle.btn-sm:focus.active,
+.aanjulena-btn-toggle.btn-sm.focus.active {
+  outline: none;
+}
+.aanjulena-btn-toggle.btn-sm:before,
+.aanjulena-btn-toggle.btn-sm:after {
+  line-height: 1.5rem;
+  width: 0.5rem;
+  text-align: center;
+  font-weight: 400;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: absolute;
+  top:.5rem;
+  transition: opacity .25s;
+}
+.aanjulena-btn-toggle.btn-sm:before {
+  content: attr(data-off);
+  left: -0.5rem;
+}
+.aanjulena-btn-toggle.btn-sm:after {
+  content: attr(data-on);
+  right: -0.5rem;
+  opacity: .5;
+}
+.aanjulena-btn-toggle.btn-sm > .handle {
+  position: absolute;
+  top: 0.1875rem;
+  left: 0.1875rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 1.125rem;
+  background: #fff;
+  transition: left .25s;
+}
+.aanjulena-btn-toggle.btn-sm.active {
+  transition: background-color 0.25s;
+}
+.aanjulena-btn-toggle.btn-sm.active > .handle {
+  left: 1.6875rem;
+  transition: left .25s;
+}
+.aanjulena-btn-toggle.btn-sm.active:before {
+  opacity: .5;
+}
+.aanjulena-btn-toggle.btn-sm.active:after {
+  opacity: 1;
+}
+.aanjulena-btn-toggle.btn-sm.btn-sm:before,
+.aanjulena-btn-toggle.btn-sm.btn-sm:after {
+  line-height: -0.5rem;
+  color: #fff;
+  letter-spacing: .75px;
+  left: 0.4125rem;
+  width: 2.325rem;
+}
+.aanjulena-btn-toggle.btn-sm.btn-sm:before {
+  text-align: right;
+}
+.aanjulena-btn-toggle.btn-sm.btn-sm:after {
+  text-align: left;
+  opacity: 0;
+}
+.aanjulena-btn-toggle.btn-sm.btn-sm.active:before {
+  opacity: 0;
+}
+.aanjulena-btn-toggle.btn-sm.btn-sm.active:after {
+  opacity: 1;
+}
+.aanjulena-btn-toggle.btn-sm.btn-xs:before,
+.aanjulena-btn-toggle.btn-sm.btn-xs:after {
+  display: none;
+}
+.aanjulena-btn-toggle.btn-xs {
+  margin: 0 0;
+  padding: 0;
+  position: relative;
+  border: none;
+  height: 1rem;
+  width: 2rem;
+  border-radius: 1rem;
+}
+.aanjulena-btn-toggle.btn-xs:focus,
+.aanjulena-btn-toggle.btn-xs.focus,
+.aanjulena-btn-toggle.btn-xs:focus.active,
+.aanjulena-btn-toggle.btn-xs.focus.active {
+  outline: none;
+}
+.aanjulena-btn-toggle.btn-xs:before,
+.aanjulena-btn-toggle.btn-xs:after {
+  line-height: 1rem;
+  width: 0;
+  text-align: center;
+  font-weight: 400;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: absolute;
+  bottom: 0;
+  transition: opacity .25s;
+}
+.aanjulena-btn-toggle.btn-xs:before {
+  content: attr(data-off);
+  left: 0;
+}
+.aanjulena-btn-toggle.btn-xs:after {
+  content: attr(data-on);
+  right: 0;
+  opacity: .5;
+}
+.aanjulena-btn-toggle.btn-xs > .handle {
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 0.75rem;
+  background: #fff;
+  transition: left .25s;
+}
+.aanjulena-btn-toggle.btn-xs.active {
+  transition: background-color 0.25s;
+}
+.aanjulena-btn-toggle.btn-xs.active > .handle {
+  left: 1.125rem;
+  transition: left .25s;
+}
+.aanjulena-btn-toggle.btn-xs.active:before {
+  opacity: .5;
+}
+.aanjulena-btn-toggle.btn-xs.active:after {
+  opacity: 1;
+}
+.aanjulena-btn-toggle.btn-xs.btn-sm:before,
+.aanjulena-btn-toggle.btn-xs.btn-sm:after {
+  line-height: -1rem;
+  color: #fff;
+  letter-spacing: .75px;
+  left: 0.275rem;
+  width: 1.55rem;
+}
+.aanjulena-btn-toggle.btn-xs.btn-sm:before {
+  text-align: right;
+}
+.aanjulena-btn-toggle.btn-xs.btn-sm:after {
+  text-align: left;
+  opacity: 0;
+}
+.aanjulena-btn-toggle.btn-xs.btn-sm.active:before {
+  opacity: 0;
+}
+.aanjulena-btn-toggle.btn-xs.btn-sm.active:after {
+  opacity: 1;
+}
+.aanjulena-btn-toggle.btn-xs.btn-xs:before,
+.aanjulena-btn-toggle.btn-xs.btn-xs:after {
+  display: none;
+}
+.aanjulena-btn-toggle.btn-secondary {
+  color: #6b7381;
+  background: #bdc1c8;
+}
+.aanjulena-btn-toggle.btn-secondary:before,
+.aanjulena-btn-toggle.btn-secondary:after {
+  color: #6b7381;
+}
+.aanjulena-btn-toggle.btn-secondary.active {
+  background-color: #ff8300;
+}
+
+
+/* REMOVE/UPDATE MATERIAL CLASSES, transformar em um componente completo depois */
+.aanjulena-btn-toggle:hover,.aanjulena-btn-toggle.focus{
+  background-color:#bdc1c8;
+}
+.aanjulena-btn-toggle.active:hover,.aanjulena-btn-toggle.active.focus{
+  background-color:#80b85c;
+}
