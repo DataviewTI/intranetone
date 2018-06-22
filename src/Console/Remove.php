@@ -8,8 +8,6 @@ use Cartalyst\Sentinel\Laravel\SentinelServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Dataview\IntranetOne\IntranetOne;
 use Dataview\IntranetOne\DatabaseSeeder;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Dataview\IntranetOne\Service;
 
 class Remove extends Command

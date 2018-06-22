@@ -90,7 +90,7 @@ class Install extends Command
           '--class' => DatabaseSeeder::class,
         ]);
         
-        /** Processo de instalação individual de pacotes via PNPM via package.json->devDependencies */
+        /** Processo de instalação individual de pacotes via PNPM via package.json->IODependencies */
         $pkg = json_decode(file_get_contents(IntranetOneServiceProvider::pkgAddr('/assets/package.json')),true);
 
         $this->line("Preparando instalação com PNPM");
@@ -103,11 +103,11 @@ class Install extends Command
 
         $this->line('Instalando dependencias...');
 
-        $bar = $this->output->createProgressBar(count($pkg['devDependencies'])+1);
-        foreach($pkg['devDependencies'] as $key => $value){
+        $bar = $this->output->createProgressBar(count($pkg['IODependencies'])+1);
+        foreach($pkg['IODependencies'] as $key => $value){
           $bar->advance();
-          $this->comment(" instalando ".$key.'@'.$pkg['devDependencies'][$key]);
-          (new Process('pnpm install '.$key.'@'.$pkg['devDependencies'][$key]))->setTimeout(36000)->run();
+          $this->comment(" instalando ".$key.'@'.$pkg['IODependencies'][$key]);
+          (new Process('pnpm install '.$key.'@'.$pkg['IODependencies'][$key]))->setTimeout(36000)->run();
         }
         (new Process('npm set progress=true'))->run();
         $bar->finish();

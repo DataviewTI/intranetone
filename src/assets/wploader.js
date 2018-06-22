@@ -306,12 +306,12 @@ function IntranetOne2(params={}){
 
 
   this.compile = (params={})=>{
-    //$.compileBase();
-    //$.compileIO();
+    $.compileBase();
+    $.compileIO();
 
-    /*if(params.services!==undefined)
+    if(params.services!==undefined)
       for(let p in params.services)
-        params.services[p].compile($);*/
+        params.services[p].compile($);
 
     mix.webpackConfig({ plugins: $.WEBPACK_PLUGINS });
   }
