@@ -49,6 +49,7 @@ function IntranetOne2(params={}){
     animate:'node_modules/animate.css/',
     sweetalert2:'node_modules/sweetalert2/dist/',
     jquery_mask: 'node_modules/jquery-mask-plugin/dist/',
+    bs:'node_modules/bootstrap/dist/',
     io:{
       fuelux: 'node_modules/fuelux/',
       toastr:'node_modules/toastr/build/',
@@ -122,13 +123,16 @@ function IntranetOne2(params={}){
   this.compileBase = (callback = ()=>{})=>{
 
     mix.babel(src.root+'social/fb/facebook-sdk-loader.js', dest.js + 'facebook-sdk-loader.min.js');
-    mix.babel(src.vendors+'bsmd4/bsmd4.0.0.js',dest.js+'bsmd4.min.js');
+    //mix.babel(src.vendors+'bsmd4/bsmd4.0.0.js',dest.js+'bsmd4.min.js');
+    mix.scripts(dep.bs+'js/bootstrap.min.js', dest.js+'bootstrap.min.js');
     mix.babel(dep.jquery+'jquery.min.js', dest.js+'jquery.min.js');
     mix.babel(dep.jquery+'jquery.slim.min.js', dest.js+'jquery.slim.min.js');
 
-    mix.styles([
+    /*mix.styles([
       src.vendors + 'bsmd4/custom-bsmd.css',
     ], dest.css + 'bsmd4.min.css');
+    */
+    mix.copy(dep.bs+'css/bootstrap.min.css',dest.css);
 
     if(!config.optimize)
       mix.copyDirectory(src.root+'images',dest.root+'images');
@@ -310,8 +314,9 @@ function IntranetOne2(params={}){
     $.compileIO();
 
     if(params.services!==undefined)
-      for(let p in params.services)
-        params.services[p].compile($);
+      params.services.forEach((p)=>{
+        p.compile($);
+      })
 
     mix.webpackConfig({ plugins: $.WEBPACK_PLUGINS });
   }

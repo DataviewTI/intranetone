@@ -45,7 +45,7 @@
         @section('title') {{config('intranetone.client.name')}} | {{ $__service->service}} @endsection @yield('title')
     </title>
     <!-- global css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bsmd4.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('io/css/fuelux-compiled.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('io/css/io-dashboard.min.css') }}"/>
 
@@ -160,12 +160,12 @@
 	<script type = 'text/javascript'>var laravel_token = '{{ csrf_token() }}';</script>
   <script type = 'text/javascript' src="{{ asset('js/jquery.min.js') }}"></script>
 	<script type = 'text/javascript' src="{{ asset('js/popper.min.js') }}"></script>
-	<script type = 'text/javascript' src="{{ asset('js/bsmd4.min.js') }}"></script>
+	<script type = 'text/javascript' src="{{ asset('js/bootstrap.min.js') }}"></script>
   <script type = "text/javascript" src="{{ asset('io/js/fuelux-compiled.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('io/js/io-babel-dashboard.min.js') }}"></script>
   <script type="text/javascript" assync defer src="{{ asset('io/js/io-dashboard.min.js') }}"></script>
   <script>$(document).ready(function(){
-    $('body').bootstrapMaterialDesign();
+    //$('body').bootstrapMaterialDesign();
     OnoffCanvas.autoinit(true);
   });</script>
 
