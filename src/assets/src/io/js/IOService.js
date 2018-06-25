@@ -9,6 +9,11 @@ class IOService{
       this.defaults = {ajax:null}
       this.name=params.name;
       this.path=params.name.toLowerCase(),
+      this.cdt = null, //categories datatable
+      this.cem = $('#categories-crud-modal'), //category edit modal
+      this.createCategory = null, //service's categories 
+      this.updateCategory = null, //service's categories 
+      this.deleteCategory = null, //service's categories 
       this.dt = null,
       this.fv=null;
       this.dz=null;
@@ -346,5 +351,208 @@ class IOService{
         callback(self);
       }
     }//end ajax error
+
+
+
+
+
+    if(self.cem.length > 0){
+      self.cdt = $('#categories-table').DataTable({
+        aaSorting:[[0,"desc"]],
+        searching: false,
+        ajax: '/categories/serviceChildCats/'+serviceMainCat.id,
+        initComplete:function(data){
+          
+        },
+        footerCallback:function(row, data, start, end, display){
+        },
+        columns: [
+          { data: 'id', name: 'id'},
+          { data: 'category', name: 'category'},
+          { data: 'category_id', name: 'category_id'},
+          { data: 'description', name: 'description'},
+          { data: 'actions', name: 'actions'},
+        ],
+        columnDefs:
+        [
+          {targets:'__dt_',width:"5%",className:"text-center"},
+          {targets:'__dt_categoria',width:"20%"},
+          {targets:'__dt_categoria-pai',width:"10%",className:"text-center"},
+          {
+            targets:'__dt_acoes',width:"8%",className:"text-center",searchable:false,orderable:false,render:function(data,type,row,y){
+              return self.cdt.addDTButtons({
+                buttons:[
+                  {ico:'ico-edit',_class:'text-info',title:'editar'},
+                  {ico:'ico-trash',_class:'text-danger',title:'excluir'},
+              ]});
+            }
+          },
+        ]	
+      }).on('xhr.dt', function (e, settings, json, xhr) {
+        self.cem.find('select#category_id').empty();
+
+        self.cem.find('select#category_id').append( 
+          "<option value='"+serviceMainCat.id+"'>Nenhuma</option>"
+        ); 
+        
+        json.data.forEach(function f(item, index) {
+          self.cem.find('select#category_id').append(
+            "<option value='"+item.id+"'>#"+item.id+" - "+item.category+"</option>"
+          );
+        })
+  
+      }).on('click',".btn-dt-button[data-original-title=editar]",function(){
+        console.log('teste');
+        
+        var data = self.cdt.row($(this).parents('tr')).data();
+  
+        self.cem.find('input#edit').val(data.id);
+        self.cem.find('input#category').val(data.category);
+        self.cem.find('textarea#description').val(data.description);
+        self.cem.find('select#category_id').val(data.category_id);
+         
+        self.cem.modal('show'); 
+      }).on('click','.ico-trash',function(){
+        var data = self.cdt.row($(this).parents('tr')).data();
+        self.deleteCategory(data.id);
+      }); 
+  
+      $('button#new-category').on('click',function(){
+        self.cem.find('input#edit').val(-1);
+        self.cem.find('input#category').val("");
+        self.cem.find('textarea#description').val("");
+        self.cem.find('select#category_id').val(serviceMainCat.id);
+  
+        self.cem.modal('show');
+      });
+  
+      $('button#save-category').on('click',function(){
+        var formData = $('#category-form').serializeArray();  
+        
+        if(self.cem.find('input#edit').val() == '-1')
+          self.createCategory(formData);
+        else  
+          self.updateCategory(formData);
+      });
+    }
+    
+
+    this.createCategory = function createCategory(formData){
+      $.ajax({ 
+        url: '/categories/create',
+        method: 'POST',
+        data: formData,
+        beforeSend: function(){
+          HoldOn.open({message:"Salvando dados, aguarde...",theme:'sk-bounce'});
+        },
+        success: function(data){
+          if(data.success)
+          {
+            self.tabs['categorias'].setState(true);
+            self.tabs['categorias'].tab.tab('show');
+            self.cem.modal('hide'); 
+            HoldOn.close();
+            swal({
+              title:"Cadastro efetuado com sucesso!",
+              confirmButtonText:'OK',
+              type:"success",
+              onClose:function(){
+                // self.cdt.ajax.reload();
+                // self.cdt.draw(true);
+                location.reload();
+              }
+            });
+          }
+        },
+        error:function(ret){
+          self.defaults.ajax.onError(ret,self.callbacks.create.onError);
+        }
+      });//end ajax
+    }
+    
+    this.updateCategory = function updateCategory(formData){
+      $.ajax({ 
+        url: '/categories/update',
+        method: 'POST',
+        data: formData,
+        beforeSend: function(){
+          HoldOn.open({message:"Atualizando dados, aguarde...",theme:'sk-bounce'});
+        },
+        success: function(data){
+          if(data.success)
+          {
+            self.tabs['categorias'].setState(true);
+            self.tabs['categorias'].tab.tab('show');
+            self.cem.modal('hide'); 
+            HoldOn.close();
+            swal({
+              title:"O registro foi atualizado com sucesso!",
+              confirmButtonText:'OK',
+              type:"success",
+              onClose:function(){
+                // self.cdt.ajax.reload();
+                // self.cdt.draw(true);
+                location.reload();
+              }
+            });
+          }
+        },
+        error:function(ret){
+          self.defaults.ajax.onError(ret,self.callbacks.create.onError);
+        }
+      });//end ajax
+    }
+    
+    this.deleteCategory = function deleteCategory(id){
+      swal.queue([{
+        title:"Excluir Registro?",
+        html:"Ao executar esta ação <b>todas as informações vinculadas a este registro serão perdidas</b>, confirma a exclusão?",
+        type:"question",
+        confirmButtonText:"<i class = 'ico ico-thumbs-up'></i> Sim, confirmo",
+        cancelButtonText:"<i class = 'ico ico-thumbs-down'></i> Não, cancelar",
+        showCancelButton: true,
+        reverseButtons:true,
+        showLoaderOnConfirm: true,
+        preConfirm: function(){
+          return new Promise(function (resolve) {
+            $.get("/categories/delete/"+id)
+              .done(function (ret){
+                
+                if(ret.sts == true)
+                {
+                  swal.insertQueueStep({
+                    title:"Registro excluído!",
+                    html:"O registro <b>"+(id)+"</b> foi excluído do sistema!",
+                    type:"success"
+                  })
+                }
+                else
+                  swal.insertQueueStep({
+                      title:"Ocorreram problemas, o registro não pode ser removido!",
+                        type:"error",
+                  });
+                  
+                // self.cdt.ajax.reload();
+                // self.cdt.draw(true);
+                resolve();
+                location.reload();
+              })
+              .fail(function(ret) {
+                if(ret.status == 403){
+                  var data = JSON.parse(ret.responseText);
+                  for(var err in data.errors){
+                    toastr["error"](data.errors[err]);
+                  }
+                }
+                resolve();
+              })
+          })
+        }
+      }]);
+    }
+
+
+
+    
   }
 }//end DVService
