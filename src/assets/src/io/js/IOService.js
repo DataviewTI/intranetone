@@ -529,13 +529,13 @@ class IOService{
                 else
                   swal.insertQueueStep({
                       title:"Ocorreram problemas, o registro não pode ser removido!",
-                        type:"error",
+                      type:"error",
+                      
                   });
                   
                 // self.cdt.ajax.reload();
                 // self.cdt.draw(true);
                 resolve();
-                location.reload();
               })
               .fail(function(ret) {
                 if(ret.status == 403){
@@ -546,6 +546,10 @@ class IOService{
                 }
                 resolve();
               })
+          }).then(function(value) {
+            setTimeout(function(){ 
+              location.reload();
+            }, 2000);
           })
         }
       }]);
