@@ -18,7 +18,7 @@ class Install extends Command
     protected $name = 'intranetone:install';
     protected $description = 'Instalação do pacote Dataview/IntranetOne';
     public function handle()
-    {/*
+    {
         IntranetOne::installMessages($this);
 
         $this->line('Publicando os arquivos de configuração...');
@@ -89,7 +89,7 @@ class Install extends Command
         Artisan::call('db:seed', [
           '--class' => DatabaseSeeder::class,
         ]);
-        */
+        
         // Processo de instalação individual de pacotes via PNPM via package.json->IODependencies
         $pkg = json_decode(file_get_contents(IntranetOneServiceProvider::pkgAddr('/assets/package.json')),true);
 
