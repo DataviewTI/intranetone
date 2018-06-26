@@ -1,7 +1,7 @@
 <?php
 namespace Dataview\IntranetOne\Console;
 
-ini_set('max_execution_time', 900);
+ini_set('max_execution_time', 3600);
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
