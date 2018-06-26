@@ -100,7 +100,7 @@ class Install extends Command
         $this->comment('Instalando npm package '.$pkg['name'].'@'.$pkg['version']);
 
         try{
-          (new Process('npm install vendor/dataview/'.$pkg['name'].'/src/assets'))->setTimeout(36000)->mustRun();
+          (new Process('npm install vendor/dataview/'.$pkg['name'].'/src/assets'))->setTimeout(3600)->mustRun();
         }
         catch(ProcessFailedException $exception){
           $this->error($exception->getMessage());
@@ -113,9 +113,13 @@ class Install extends Command
           try{
             $bar->advance();
             $this->comment(" instalando ".$key.'@'.$pkg['IODependencies'][$key]);
-            (new Process('npm install '.$key.'@'.$pkg['IODependencies'][$key]))->setTimeout(36000)->mustRun();
+            (new Process('npm install '.$key.'@'.$pkg['IODependencies'][$key]))->setTimeout(3600)->mustRun();
           }catch (ProcessFailedException $exception){
             $this->error($exception->getMessage());
+          }
+          catch (RuntimeException $exception){
+            $this->error($exception->getMessage());
+            $this->error("colocar em fila e tentar novamente");
           }
         }
         (new Process('npm set progress=true'))->run();
