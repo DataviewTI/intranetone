@@ -18,7 +18,7 @@ class Install extends Command
     protected $name = 'intranetone:install';
     protected $description = 'Instalação do pacote Dataview/IntranetOne';
     public function handle()
-    {
+    {/*
         IntranetOne::installMessages($this);
 
         $this->line('Publicando os arquivos de configuração...');
@@ -89,7 +89,7 @@ class Install extends Command
         Artisan::call('db:seed', [
           '--class' => DatabaseSeeder::class,
         ]);
-        
+        */
         // Processo de instalação individual de pacotes via PNPM via package.json->IODependencies
         $pkg = json_decode(file_get_contents(IntranetOneServiceProvider::pkgAddr('/assets/package.json')),true);
 
@@ -100,12 +100,13 @@ class Install extends Command
         $this->comment('Instalando npm package '.$pkg['name'].'@'.$pkg['version']);
 
         try{
-          (new Process('npm install vendor/dataview/'.$pkg['name'].'/src/assets'))->setTimeout(3600)->mustRun();
+          (new Process('npm install vendor/dataview/'.$pkg['name'].'/src/assets/'))->setTimeout(3600)->mustRun();
         }
         catch(ProcessFailedException $exception){
           $this->error($exception->getMessage());
         }
 
+        //(new Process('npm set preserve-symlinks=true'))->run();
         $this->line('Instalando dependencias...');
 
         $bar = $this->output->createProgressBar(count($pkg['IODependencies'])+1);
@@ -120,6 +121,9 @@ class Install extends Command
           catch (RuntimeException $exception){
             $this->error($exception->getMessage());
             $this->error("colocar em fila e tentar novamente");
+          }catch (Exception $exception){
+            $this->error("exceção geral");
+            $this->error($exception->getMessage());
           }
         }
         (new Process('npm set progress=true'))->run();
