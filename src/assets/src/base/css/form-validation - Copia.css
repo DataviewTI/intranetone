@@ -11,12 +11,13 @@
 /* focus out and empty normal*/
 .form-group .bmd-label-floating,
 .form-group .bmd-label-static{
-  color:#009688;
+  color:#000;
+  font-size:17px;
 }
 /* focus out and empty required*/
 .form-group .bmd-label-floating.__required,
 .form-group .bmd-label-static.__required{
-  color:#d9534f;
+  color:#000;
 }
 
 /* any label FOCUSED, EMPTY*/
@@ -24,7 +25,8 @@
 .form-group.is-focused .bmd-label-static,
 .form-group.is-focused .bmd-label-floating.__required,
 .form-group.is-focused .bmd-label-static.__required{
-  color:green;
+  color:#000;
+  font-size:15px;
 }
 
 /* any label FILLED, EMPTY OR FILLED*/
@@ -32,7 +34,19 @@
 .form-group.is-filled .bmd-label-static,
 .form-group.is-filled .bmd-label-floating.__required,
 .form-group.is-filled .bmd-label-static.__required{
-  color:#009688;
+  color:#000;
+  font-size:15px;
+}
+
+.form-group .bmd-label-floating{
+  margin-top:8px;
+}
+
+.form-group .bmd-label-static,
+.form-group.is-filled .bmd-label-static,
+.form-group.is-focused .bmd-label-floating,
+.form-group.is-filled .bmd-label-floating{
+  margin-top:-4px;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,34 +59,21 @@
     ╚═╝    ╚═╝  ╚═══╝    ╚═╝          ╚═════╝        ╚═╝       ╚══════╝
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.form-group  input, .form-group  select{
-  /* border-radius: 0; */
-}
-
-.form-group  .form-control{
-  background-image: none;
-  border: 1px solid #ced4da!important;
-}
+/*.form-group  .form-control{
+  background-image: linear-gradient(0deg,rgba(0,0,0,.2) 2px,rgba(0,150,136,0) 0),linear-gradient(0deg,rgba(0,0,0,.1) 1px,transparent 0);
+  
+}*/
 
 /* any label FOCUSED, EMPTY*/
 .form-group.is-focused input.form-control{
-  color:#444;
+  color:#000;
 }
 
 /* any label FILLED, EMPTY OR FILLED*/
 .form-group.is-filled input.form-control{
-  color:#444;
+  color:#000;
 }
 
-.form-group  .form-control::placeholder{
-  color: rgba(0,0,0,.2);
-}
-.form-group  .form-control:-ms-input-placeholder{
-  color: rgba(0,0,0,.2);
-}
-.form-group  .form-control::-ms-input-placeholder{
-  color: rgba(0,0,0,.2);
-}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                                                                                           
@@ -87,9 +88,9 @@
 
 .form-group .fv-ico{
   position:absolute;
-  right:20px;
-  margin-top:-32px;
-  font-size: 12px;
+  right:18px;
+  top:43px;
+  font-size: 10px;
 }
 .form-group.has-error .fv-ico{
   color:#d9534f;
