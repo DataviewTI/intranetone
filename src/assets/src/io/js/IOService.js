@@ -4,6 +4,7 @@
 
 class IOService{
   constructor(params,callback){
+    console.log('SSSS');
       this.toView=null;
       this.tabs={};
       this.defaults = {ajax:null}
@@ -55,19 +56,24 @@ class IOService{
 
 
         $('.btn-new').on('click',function (e){
+          $('.btn-new').blur();
           swal({
             title:"Novo Registro",
             text:"Deseja iniciar o cadastro de um novo registro?",
             showCancelButton:true,
             type:"question",
-            }).then(function(){
-              self.unload(self);
-              self.callbacks.unload(self);
-              setTimeout(function(){
-                self.tabs['cadastrar'].tab.tab('show');
-                self.df.find("input:enabled,input:enabled").first().focus();
-              },100);
-              //document.location.reload();
+            }).then((result)=>{
+                if(result.value){ 
+                  // self.cdt.ajax.reload();
+                  // self.cdt.draw(true);
+                  self.unload(self);
+                  self.callbacks.unload(self);
+                  setTimeout(function(){
+                    self.tabs['cadastrar'].tab.tab('show');
+                    self.df.find("input:enabled,input:enabled").first().focus();
+                  },100);
+                  //document.location.reload();
+                }
             })
           });
 
