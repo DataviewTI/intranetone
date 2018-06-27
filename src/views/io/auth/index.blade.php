@@ -17,7 +17,7 @@ session_start();
   <title>{{config('site.title').config('site.posfix')}} @yield('title')</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/bsmd4.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('io/css/io-mix-auth.min.css') }}" />
   </head>
 <body class = 'h-100'>
@@ -36,7 +36,7 @@ session_start();
 	<script type = 'text/javascript'>var laravel_token = '{{ csrf_token() }}';</script>
   <script type = 'text/javascript' src="{{ asset('js/jquery.min.js') }}"></script>
 	<script type = 'text/javascript' src="{{ asset('js/popper.min.js') }}"></script>
-	<script type = 'text/javascript' src="{{ asset('js/bsmd4.min.js') }}"></script>
+	<script type = 'text/javascript' src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<script type = 'text/javascript' src="{{ asset('io/js/io-babel-auth.min.js') }}"></script>
 	<script type = 'text/javascript' src="{{ asset('io/js/io-mix-auth.min.js') }}"></script>
 

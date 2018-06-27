@@ -11,6 +11,7 @@ const imageminMozjpeg = require('imagemin-mozjpeg');
 function IntranetOne2(params={}){
   
   let $ = this;
+  this.mix = mix;
   let src = {
     root:'node_modules/intranetone/src/base/',
     js:'node_modules/intranetone/src/base/js/',
@@ -21,6 +22,12 @@ function IntranetOne2(params={}){
       js:'node_modules/intranetone/src/io/js/',
       css:'node_modules/intranetone/src/io/css/',
       vendors:'node_modules/intranetone/src/io/vendors/',
+    },
+    fe:{
+      root:'resources/assets/dataview/fe/',
+      js:'resources/assets/dataview/fe/js/',
+      css:'resources/assets/dataview/fe/css/',
+      vendors:'resources/assets/dataview/fe/vendors/',
     },
   }
   this.src = src;
@@ -35,6 +42,12 @@ function IntranetOne2(params={}){
       js:'public/io/js/',
       css:'public/io/css/',
       vendors:'public/io/vendors/',
+    },
+    fe:{
+      root:'public/fe/',
+      js:'public/fe/js/',
+      css:'public/fe/css/',
+      vendors:'public/fe/vendors/',
     }
   }
   this.dest = dest;
@@ -60,21 +73,22 @@ function IntranetOne2(params={}){
       },
       elektron: 'node_modules/elektron/',
       onoffcanvas: 'node_modules/onoffcanvas/dist/',
-    
     }
-    
   }
   this.dep = dep;
 
   let config = params.config || {
     optimize:false,
     sass:false,
-    cb:()=>{},
     io:{
       optimize:false,
       sass:true,
       fe:false,
-      cb:()=>{}
+    },
+    fe:{
+      optimize:false,
+      sass:true,
+      fe:false,
     },
   }
   this.setConfig = (module,param,value)=>{
@@ -85,6 +99,7 @@ function IntranetOne2(params={}){
       config[module][param] = value;
     }
   }
+  this.config = config;
   
   this.WEBPACK_PLUGINS = [];
   
@@ -120,7 +135,7 @@ function IntranetOne2(params={}){
     }));
   }
     
-  this.compileBase = (callback = ()=>{})=>{
+  this.compileBase = (cb = ()=>{})=>{
 
     mix.babel(src.root+'social/fb/facebook-sdk-loader.js', dest.js + 'facebook-sdk-loader.min.js');
     //mix.babel(src.vendors+'bsmd4/bsmd4.0.0.js',dest.js+'bsmd4.min.js');
@@ -161,7 +176,7 @@ function IntranetOne2(params={}){
       src.css + 'datapicker.css',
     ], dest.css + 'pickadate-full.min.css'); 
     
-    mix.babel([ //or script
+    mix.scripts([ //or script
       dep.photoswipe + 'photoswipe.min.js',
       dep.photoswipe + 'photoswipe-ui-default.min.js',
       src.js + 'photoswipe-loader.js',
@@ -173,26 +188,25 @@ function IntranetOne2(params={}){
       ignore: ['*.css']
     });
     
-    config.cb();
   }//end compile base
 
-  this.compileIO = (callback = ()=>{})=>{
+  this.compileIO = (cb= ()=>{})=>{
     mix.copyDirectory(src.io.vendors+'glyphter-font/fonts/',dest.root+'fonts');
 
     if(config.io.sass){
-      mix.less(dep.io.fuelux + 'less/fuelux.less', $.__root(src.io.vendors + 'fuelux/compiled_less/fuelux.css'))
-      .less(dep.io.fuelux + 'less/fuelux-core.less', $.__root(src.io.vendors + 'fuelux/compiled_less/fuelux-core.css'))
-      .less(dep.io.fuelux + 'less/wizard.less', $.__root(src.io.vendors + 'fuelux/compiled_less/wizard.css'))
-      .less(dep.io.fuelux + 'less/utility.less', $.__root(src.io.vendors + 'fuelux/compiled_less/utility.css'))
-      .less(dep.io.fuelux + 'less/pillbox.less', $.__root(src.io.vendors + 'fuelux/compiled_less/pillbox.css'))
+      mix.less(dep.io.fuelux + 'less/fuelux.less', $.__root(dest.io.vendors + 'fuelux/compiled_less/fuelux.css'))
+      .less(dep.io.fuelux + 'less/fuelux-core.less', $.__root(dest.io.vendors + 'fuelux/compiled_less/fuelux-core.css'))
+      .less(dep.io.fuelux + 'less/wizard.less', $.__root(dest.io.vendors + 'fuelux/compiled_less/wizard.css'))
+      .less(dep.io.fuelux + 'less/utility.less', $.__root(dest.io.vendors + 'fuelux/compiled_less/utility.css'))
+      .less(dep.io.fuelux + 'less/pillbox.less', $.__root(dest.io.vendors + 'fuelux/compiled_less/pillbox.css'))
       //less(paths.fuelux + 'less/combobox.less', dest.css + '/compiled_less/combobox.css');      
 
       mix.styles([
-        src.io.vendors + 'fuelux/compiled_less/fuelux.css',
-        src.io.vendors + 'fuelux/compiled_less/fuelux-core.css',
-        src.io.vendors + 'fuelux/compiled_less/wizard.css',
-        src.io.vendors + 'fuelux/compiled_less/pillbox.css',
-        src.io.vendors + 'fuelux/compiled_less/utility.css',
+        dest.io.vendors + 'fuelux/compiled_less/fuelux.css',
+        dest.io.vendors + 'fuelux/compiled_less/fuelux-core.css',
+        dest.io.vendors + 'fuelux/compiled_less/wizard.css',
+        dest.io.vendors + 'fuelux/compiled_less/pillbox.css',
+        dest.io.vendors + 'fuelux/compiled_less/utility.css',
         //dest.css + 'compiled_less/combobox.css',
       ], dest.io.vendors + 'fuelux/fuelux-compiled.min.css');
 
@@ -305,11 +319,11 @@ function IntranetOne2(params={}){
       src.js + 'defaults/def-sweetalert2.js',
     ], dest.io.js + 'io-dashboard.min.js');
     
-    config.io.cb();
+    //config.io.cb();
   }//end compile IO
 
 
-  this.compile = (params={})=>{
+  this.compile = (params={},cb)=>{
     $.compileBase();
     $.compileIO();
 
@@ -318,13 +332,32 @@ function IntranetOne2(params={}){
         p.compile($);
       })
 
+    if(cb!==undefined)
+      cb($);
+
     mix.webpackConfig({ plugins: $.WEBPACK_PLUGINS });
+  }
+
+  this.compileFE = ()=>{
+    mix.copyDirectory($.src.fe.vendors+'glyphter-font/fonts/',$.dest.root+'fonts');
+    if(!$.config.fe.optimize)
+      mix.copyDirectory($.src.fe.root+'images', $.dest.fe.root+'images');
+    else{
+      __imgOptimize({
+        from: $.src.fe.root+'images',
+        to: $.__root($.dest.fe.root+'images'),
+        ignore: [
+          'source/**/*',
+        ],
+      });
+    }
+    //override base favicons
+    mix.copyDirectory($.src.fe.root+'images/favicon', $.dest.root+'images/favicon');
+    mix.copy($.src.fe.root+ 'images/favicon/favicon.ico', $.dest.root);    
   }
   
 }
 
-exports.printMsg = ()=>{
-  console.log("compilando assets para IntranetOne Gallery");
-}
+
 
 module.exports = new IntranetOne2();
