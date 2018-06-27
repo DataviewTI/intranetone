@@ -289,6 +289,7 @@ function IntranetOne2(params={}){
       src.io.root + 'custom/custom-wickedpicker.css',
       src.io.root + 'custom/custom-datatables.css',
       src.io.root + 'custom/custom-form-validation.css',
+      src.io.root + 'custom/custom-dashboard.css',
       dep.io.elektron + 'dist/elektron.min.css',
       dep.io.onoffcanvas + 'onoffcanvas.min.css',
       src.io.root + 'layout/datatables.css',

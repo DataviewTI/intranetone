@@ -9,3 +9,20 @@
   opacity:1;
   font-size:17px;
 }
+
+.paginate_button.previous,.paginate_button.next{
+  color: #009688; 
+}
+
+.paginate_button.previous:hover, .paginate_button.next:hover{
+  color: #004a43;
+}
+
+.dataTables_empty{
+  height: 180px!important;
+  line-height: 180px!important;
+}
+
+.dt-filters-container .form-group{
+  margin-bottom: 0;
+}
