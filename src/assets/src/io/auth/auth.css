@@ -17,13 +17,7 @@ input:-webkit-autofill:active {
   box-shadow:1px 1px 6px rgba(0,0,0,.2);
 }
 
-<<<<<<< HEAD
-.form-group .fv-ico{
-  right:0;
-}
-=======
 .form-control-feedback{
   right:2px;
   top:20px;
 } 
->>>>>>> pre update for rebase with new formvalidation

@@ -40,10 +40,7 @@ session_start();
 	<script type = 'text/javascript' src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<script type = 'text/javascript' src="{{ asset('io/js/io-babel-auth.min.js') }}"></script>
 	<script type = 'text/javascript' src="{{ asset('io/js/io-mix-auth.min.js') }}"></script>
-<<<<<<< HEAD
 	<script type = 'text/javascript' src="{{ asset('io/js/io-form-validation.min.js') }}"></script>
 
-=======
->>>>>>> pre update for rebase with new formvalidation
 </body>
 </html>

@@ -59,15 +59,15 @@
     </div>  
     <div class = 'row d-flex'>
       <div class="col-md-12 col-sm-12 pl-1" id = 'embed-container-video'> 
-        <div class="embed-responsive embed-responsive-16by9 embed-responsive __video facebook-responsive">
-          <!--youtube-->
-          <iframe class = 'vplayer d-none' id = 'youtube-player' style = 'width:100%;'
-           src="" frameborder="0"  allow="autoplay" allow="encrypted-media" allowfullscreen></iframe>
-          <!--facebook-->
-          <!-- gera problema, usar um dnone?-->
-          <div class="vplayer fb-video d-none facebook-responsive" id = 'facebook-player' data-href="" data-allowfullscreen="true"></div>
-          <div class = 'form-group' style = 'position:absolute; top:0'>
-            <input type = 'hidden' name='imageorvideo' value='0' />
+        <div class = 'form-group d-flex w-100'>
+          <div class="embed-responsive embed-responsive-16by9 embed-responsive __video facebook-responsive">
+            <!--youtube-->
+            <iframe class = 'vplayer d-none' id = 'youtube-player' style = 'width:100%;'
+            src="" frameborder="0"  allow="autoplay" allow="encrypted-media" allowfullscreen></iframe>
+            <!--facebook-->
+            <!-- gera problema, usar um dnone?-->
+            <div class="vplayer fb-video d-none facebook-responsive" id = 'facebook-player' data-href="" data-allowfullscreen="true"></div>
+              <input type = 'hidden' name='imageorvideo' value='0' />
           </div>
         </div>
       </div>

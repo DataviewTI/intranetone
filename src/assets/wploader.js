@@ -262,8 +262,8 @@ function IntranetOne2(params={}){
     ], dest.io.css + 'io-mix-auth.min.css');
 
     mix.styles([
-      src.css + 'form-validation.css',
       src.vendors+'formvalidation-dist-v1.0.1/dist/css/formValidation.min.css',
+      src.css + 'form-validation.css',
     ], dest.io.css + 'io-form-validation.min.css');
 
     mix.babel([

@@ -9,8 +9,8 @@ input:-webkit-autofill:active {
   margin-bottom:32px;
 }
 .form-control,.form-control:focus{
-  -webkit-box-shadow: none;
-  box-shadow: none;
+  -webkit-box-shadow: none!important;
+  box-shadow: none!important;
   border:none;
   border-bottom:1px #ccc solid;
   background-color:rgba(255,255,255,0);
@@ -35,32 +35,38 @@ select.form-control{
 }
 
 /*ERROR*/
-.form-group.has-error .form-control{
+.form-group.has-danger .form-control{
   border-color:#ff5722;
 }
 
-.form-group.has-error label,
-.form-group.has-error .help-block,
-.form-group.has-error .form-control-feedback{
+.form-group.has-danger label,
+.form-group.has-danger .help-block,
+.form-group.has-danger .fv-plugins-icon{
   color:#ff5722;
 }
 
-.form-group.has-success .form-control-feedback{
+.form-group.has-success .fv-plugins-icon{
   color:#8bb91c;
 }
 
-.form-group.has-error .help-block{
+.form-group.has-danger .help-block{
   opacity:1;
 }
 
-.form-control-feedback{
+.fv-plugins-icon{
   font-size:10px;
   position:absolute;
-  right:20px;
-  top:30px;
+  right:1px;
+  height: 28px!important;
+  line-height: 28px!important;
+  width: auto!important;
 }
-
-.form-group .help-block{
-  position:absolute;
-  opacity:0;
+.fv-plugins-message-container{
+  position:absolute!important;
+}
+.fv-plugins-message-container .fv-help-block{
+  color:#fe5722!important;
+}
+.picker ~ .fv-plugins-message-container{
+  margin-top:-25px;
 }
