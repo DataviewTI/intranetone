@@ -4,7 +4,7 @@
 
 class IOService{
   constructor(params,callback){
-    console.log('SSSS');
+      console.log('SSSS');
       this.toView=null;
       this.tabs={};
       this.defaults = {ajax:null}
@@ -18,7 +18,8 @@ class IOService{
       this.dt = null,
       this.fv=null;
       this.dz=null;
-      this.df=$('#default-form');
+      this.dfId = 'default-form';
+      this.df=$('#'+this.dfId);
       this.wz=$('#default-wizard').wizard();
       this.callbacks={
         view:{onSuccess:function(){},onError:function(){}},
@@ -93,11 +94,12 @@ class IOService{
     //methods
     /** DEFAULT Wizard actions*/
     this.wizardActions = function(callback){
+      
       this.wz.keys={
-        fv: this.df.data('formValidation'),
+        fv: this.fv,
         numtabs:this.df.find('.step-pane').length,
       }
-      
+
       if(this.wz.keys.numtabs==1){
         $(".btn-next").addClass('btn-success').addClass("btn-success");
         $(".btn-next .ico").removeClass('ico-arrow-right').addClass("ico-save");
@@ -108,71 +110,99 @@ class IOService{
       return self.wz.on('actionclicked.fu.wizard', function(e, data){
         self.fv.caller = 'wizard';
         self.wz.keys.step = data.step;
+        self.wz.keys.direction = data.direction;
         self.wz.keys.container = self.df.find('.step-pane[data-step="' + self.wz.keys.step +'"]');
-        self.wz.keys.fv.validateContainer(self.wz.keys.container);
-        //??global or not?
-        var isValidStep = self.wz.keys.fv.isValidContainer(self.wz.keys.container);
-        
-        //saindo do penúltimo para o último
-        if(self.wz.keys.step==self.wz.keys.numtabs-1 && isValidStep){
-          $(".btn-next").addClass('btn-success');
-          $(".btn-next .ico").removeClass('ico-arrow-right').addClass("ico-save");
-        }
 
-        //voltando do último para o penúltimo
-        if(self.wz.keys.step==self.wz.keys.numtabs && data.direction == 'previous' && isValidStep){
-          console.log('ultimo para penult')
-          $(".btn-next").removeClass('btn-success').addClass("btn-secondary");
-          $(".btn-next .ico").removeClass('ico-save').addClass("ico-arrow-right");
-        } 
-
-        if (isValidStep === false || isValidStep === null){
+        if(self.wz.keys.step!=self.wz.keys.numtabs){
           e.preventDefault();
         }
-      })
 
-      .on('finished.fu.wizard', function(e){
+        if(self.wz.keys.direction == 'previous'){
+          //voltando do último para o penúltimo
+          if(self.wz.keys.step==self.wz.keys.numtabs && self.wz.keys.direction == 'previous'){
+            // console.log('ultimo para penultimo');
+            $(".btn-next").removeClass('btn-success').addClass("btn-secondary");
+            $(".btn-next .ico").removeClass('ico-save').addClass("ico-arrow-right");
+          } 
+          
+          self.wz.wizard('selectedItem',{step:self.wz.keys.step-1});
+        }else{
+          //??global or not?
+          var isValidStep = null;
+          self.wz.keys.fv[self.wz.keys.step-1].validate().then(function(status) {
+            
+            if(status === 'Valid')
+              isValidStep = true;
+            else
+              isValidStep = false; 
 
-        var isValidStep = self.wz.keys.fv.isValidContainer(self.wz.keys.container);
-        callback();
-        //prepare extra data to submit
-        if(isValidStep === true){
-          if(self.toView != null){
-            self.update(self.toView);
-          }
-          else{
+            //saindo do penúltimo para o último
+            if(self.wz.keys.step==self.wz.keys.numtabs-1 && isValidStep){
+              // console.log('penultimo para ultimo');
+              $(".btn-next").addClass('btn-success');
+              $(".btn-next .ico").removeClass('ico-arrow-right').addClass("ico-save");
+            }
 
-            $.ajax({
-              url: self.wz.keys.fv.$form.attr('action'),
-              method: 'POST',
-              data: self.wz.keys.fv.$form.serializeArray(),
-              beforeSend: function(){
-                //HoldOn.open({message:"Salvando dados, aguarde...",theme:'sk-bounce'});
-              },
-              success: function(data){
-                if(data.success)
-                {
-                  self.tabs['listar'].setState(true);
-                  self.callbacks.create.onSuccess(data);
-                  HoldOn.close();
-                  swal({
-                    title:"Cadastro efetuado com sucesso!",
-                    confirmButtonText:'OK',
-                    type:"success",
-                    onClose:function(){
-                      self.unload(self);
-                    }
-                  });
-                }
-              },
-              error:function(ret){
-                self.defaults.ajax.onError(ret,self.callbacks.create.onError);
-              }
-            });//end ajax
-          }//endelse
+            if (isValidStep != false && isValidStep != null){
+              self.wz.wizard('selectedItem',{step:self.wz.keys.step+1});
+            }
+              
+          });
         }
+        
+      })
+      .on('finished.fu.wizard', function(e){
+        
+        var isValidStep = null;
+        self.wz.keys.fv[self.wz.keys.fv.length-1].validate().then(function(status) {
+          if(status === 'Valid')
+            isValidStep = true;
+          else
+            isValidStep = false; 
+
+          callback();
+          //prepare extra data to submit
+          if(isValidStep === true){
+            if(self.toView != null){
+              self.update(self.toView);
+            }
+            else{
+
+              $.ajax({
+                url: self.df.attr('action'),
+                method: 'POST',
+                data: self.df.serializeArray(),
+                beforeSend: function(){
+                  HoldOn.open({message:"Salvando dados, aguarde...",theme:'sk-bounce'});
+                },
+                success: function(data){
+                  if(data.success)
+                  {
+                    self.tabs['listar'].setState(true);
+                    self.callbacks.create.onSuccess(data);
+                    HoldOn.close();
+                    swal({
+                      title:"Cadastro efetuado com sucesso!",
+                      confirmButtonText:'OK',
+                      type:"success",
+                      onClose:function(){
+                        self.unload(self);
+                      }
+                    });
+                  }
+                },
+                error:function(ret){
+                  self.defaults.ajax.onError(ret,self.callbacks.create.onError);
+                }
+              });//end ajax
+            }//endelse
+          }
+            
+        });
+        
       }).
       on('stepclicked.fu.wizard', function(e, data){
+        
         if(data.step!==self.wz.keys.numtabs){
           $(".btn-next").removeClass('btn-success');
           $(".btn-next .ico").removeClass('ico-save').addClass("ico-arrow-right");
@@ -200,6 +230,12 @@ class IOService{
             $('.btn-info-edit').css({'display':'inline'}).find('.badge').text(data.id);
             
             self.callbacks.view.onSuccess(data);
+
+            //when editing, need to repeat this peace of code 
+            if(self.wz.keys.numtabs==1){
+              $(".btn-next").addClass('btn-success').addClass("btn-success");
+              $(".btn-next .ico").removeClass('ico-arrow-right').addClass("ico-save");
+            }
             
             setTimeout(function(){
               self.tabs['cadastrar'].tab.tab('show');
@@ -226,7 +262,7 @@ class IOService{
         dataType: "json",
         data: self.wz.keys.fv.$form.serializeArray(),
         beforeSend: function(){
-          HoldOn.open({message:"Atualizando dados, aguarde...",theme:'sk-bounce'});
+          // HoldOn.open({message:"Atualizando dados, aguarde...",theme:'sk-bounce'});
         },
         success: function(ret){
           HoldOn.close();
@@ -307,11 +343,15 @@ class IOService{
         $(".btn-next").removeClass('btn-success').addClass('btn-primary').get();
         $(".btn-next .ico").removeClass('ico-save').addClass("ico-arrow-right");
         $(".btn-next").get()[0].firstChild.nodeValue = $(".btn-next").attr('data-next');
-    // }
+      // }
       self.toView = null;
       self.df[0].reset();
       $('.btn-info-edit').css({'display':'none'}).find('.badge').text('');
-      self.df.data('formValidation').resetForm();
+      
+      self.fv.forEach(function f(element, index, array) {
+        self.fv[index].resetForm(true);
+      });
+
       self.callbacks.unload(self);
       self.wz.wizard('selectedItem',{step:1});
       self.df.find("input:enabled").first().focus();
@@ -408,8 +448,6 @@ class IOService{
         })
   
       }).on('click',".btn-dt-button[data-original-title=editar]",function(){
-        console.log('teste');
-        
         var data = self.cdt.row($(this).parents('tr')).data();
   
         self.cem.find('input#edit').val(data.id);
@@ -566,3 +604,4 @@ class IOService{
     
   }
 }//end DVService
+

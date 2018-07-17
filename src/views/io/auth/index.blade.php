@@ -19,6 +19,7 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('io/css/io-mix-auth.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('io/css/io-form-validation.min.css') }}" />
   </head>
 <body class = 'h-100'>
   <div class="container h-100">
@@ -39,7 +40,7 @@ session_start();
 	<script type = 'text/javascript' src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<script type = 'text/javascript' src="{{ asset('io/js/io-babel-auth.min.js') }}"></script>
 	<script type = 'text/javascript' src="{{ asset('io/js/io-mix-auth.min.js') }}"></script>
+	<script type = 'text/javascript' src="{{ asset('io/js/io-form-validation.min.js') }}"></script>
 
-  <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 </body>
 </html>

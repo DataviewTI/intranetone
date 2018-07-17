@@ -48,6 +48,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('io/css/fuelux-compiled.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('io/css/io-dashboard.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('io/css/io-form-validation.min.css') }}" />
 
     <!--page level css-->
     @yield('header_styles')
@@ -164,6 +165,7 @@
   <script type = "text/javascript" src="{{ asset('io/js/fuelux-compiled.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('io/js/io-babel-dashboard.min.js') }}"></script>
   <script type="text/javascript" assync defer src="{{ asset('io/js/io-dashboard.min.js') }}"></script>
+	<script type = 'text/javascript' src="{{ asset('io/js/io-form-validation.min.js') }}"></script>
   <script>$(document).ready(function(){
     //$('body').bootstrapMaterialDesign();
     OnoffCanvas.autoinit(true);

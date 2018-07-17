@@ -58,10 +58,12 @@ function IntranetOne2(params={}){
     pickadate: 'node_modules/pickadate/lib/',
     photoswipe: 'node_modules/photoswipe/dist/',
     dv_formvalidation:'node_modules/dv-formvalidation/dist/',
+    // dv_formvalidation:'node_modules/formvalidation-dist-v1.0.1/dist/',
     dv_holdonjs:'node_modules/dv-holdOn/src/',
     animate:'node_modules/animate.css/',
     sweetalert2:'node_modules/sweetalert2/dist/',
     jquery_mask: 'node_modules/jquery-mask-plugin/dist/',
+    es6_shim: 'node_modules/es6-shim/',
     bs:'node_modules/bootstrap/dist/',
     io:{
       fuelux: 'node_modules/fuelux/',
@@ -249,8 +251,6 @@ function IntranetOne2(params={}){
       src.io.vendors + 'glyphter-font/css/intranetone.css',
       src.io.vendors + 'glyphter-font/css/custom-gi-intranetone.css',
       src.vendors + 'glyphter-font/glyphter-font.css',
-      src.css + 'form-validation.css',
-      dep.dv_formvalidation + 'css/formValidation.min.css',
       dep.sweetalert2 + 'sweetalert2.min.css',
       dep.animate + 'animate.min.css',
       dep.dv_holdonjs + 'css/HoldOn.min.css',
@@ -258,14 +258,23 @@ function IntranetOne2(params={}){
       src.io.root + 'auth/auth.css',
     ], dest.io.css + 'io-mix-auth.min.css');
 
+    mix.styles([
+      src.css + 'form-validation.css',
+      src.vendors+'formvalidation-dist-v1.0.1/dist/css/formValidation.min.css',
+    ], dest.io.css + 'io-form-validation.min.css');
+
     mix.babel([
-      dep.dv_formvalidation + 'js/formValidation.min.js',
-      dep.dv_formvalidation + 'js/framework/bootstrap.min.js',
-      dep.dv_formvalidation + 'js/language/pt_BR.js',
       dep.dv_holdonjs + 'js/HoldOn.min.js',
       dep.io.toastr + 'toastr.min.js',
       src.io.root + 'auth/auth.js',
     ], dest.io.js + 'io-babel-auth.min.js');
+
+    mix.scripts([
+      dep.es6_shim+'es6-shim.js',
+      src.vendors+'formvalidation-dist-v1.0.1/dist/js/FormValidation.js',
+      src.vendors+'formvalidation-dist-v1.0.1/dist/js/plugins/Bootstrap.js',
+      src.vendors+'formvalidation-dist-v1.0.1/dist/js/locales/pt_BR.js',
+    ], dest.io.js + 'io-form-validation.min.js');
 
     mix.scripts([
       dep.sweetalert2 + 'sweetalert2.min.js',
@@ -278,7 +287,6 @@ function IntranetOne2(params={}){
       src.io.vendors + 'glyphter-font/css/custom-gi-intranetone.css',
       src.vendors + 'glyphter-font/glyphter-font.css',
       src.io.root + 'layout/dashboard.css',
-      dep.dv_formvalidation + 'css/formValidation.min.css',
       src.css + 'form-validation.css',
       dep.sweetalert2 + 'sweetalert2.min.css',
       dep.dv_holdonjs + 'css/HoldOn.min.css',
@@ -302,10 +310,6 @@ function IntranetOne2(params={}){
 
 
     mix.babel([
-      src.js + 'dv-base-helper.js',
-      src.vendors+'formvalidation-dist-v0.8.1/formValidation-custom.js',  
-      dep.dv_formvalidation + 'js/framework/bootstrap.min.js',
-      dep.dv_formvalidation + 'js/language/pt_BR.js',
       dep.dv_holdonjs + 'js/HoldOn.min.js',
       dep.io.datatables.js + 'jquery.dataTables.js',
       src.io.js + 'defaults/def-datatables.js',
@@ -315,6 +319,7 @@ function IntranetOne2(params={}){
     ], dest.io.js + 'io-babel-dashboard.min.js');
     
     mix.scripts([
+      src.js + 'dv-base-helper.js',
       dep.io.onoffcanvas + 'onoffcanvas.js',
       dep.sweetalert2 + 'sweetalert2.min.js',
       src.js + 'defaults/def-sweetalert2.js',

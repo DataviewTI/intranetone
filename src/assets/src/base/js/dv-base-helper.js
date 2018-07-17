@@ -126,5 +126,11 @@ String.prototype.slug = function(separator)
 {
 	separator = separator | '-';
 	var flip = separator == '-' ? '_' : '-';
-	return this.toLowerCase().replace(flip, separator).replace(new RegExp('[^a-z0-9' + separator + '\\s]', 'g'), '').replace(new RegExp('[' + separator + '\\s]+', 'g'), separator).replace(new RegExp('^[' + separator + '\\s]+|[' + separator + '\\s]+$', 'g'),'');
+	return this.toString().toLowerCase().replace(flip, separator).replace(new RegExp('[^a-z0-9' + separator + '\\s]', 'g'), '').replace(new RegExp('[' + separator + '\\s]+', 'g'), separator).replace(new RegExp('^[' + separator + '\\s]+|[' + separator + '\\s]+$', 'g'),'');
 }
+
+/*
+|--------------------------------------------------------------------------
+| String class prototypes
+|--------------------------------------------------------------------------
+*/

@@ -43,6 +43,7 @@
     "copy-webpack-plugin": "^4.5.1",
     "imagemin-mozjpeg": "^7.0.0",
     "imagemin-webpack-plugin": "^2.1.5",
-    "onoffcanvas":"^2.1.0"
+    "onoffcanvas":"^2.1.0",
+    "es6-shim": "^0.35.3"
   }
 }
