@@ -1,11 +1,11 @@
 <form action="{{ route('signin') }}" method="post" id="login_form" autocomplete="off">
-  <div class="form-group">
+  <div class="form-group position-relative mt-4">
     <label for="email" class="bmd-label-floating">Email</label>
-  <input autocomplete="@if(env('APP_ENV') == 'production') {{'off'}} @else {{ 'on' }} @endif" type="email" class="form-control form-control-lg" id="email" name = 'email'>
+  <input autocomplete="@if(env('APP_ENV') == 'production'){{'off'}}@else{{'on'}}@endif" type="email" class="form-control form-control-lg" id="email" name = 'email'>
   </div>
-  <div class="form-group bmd-form-group">
+  <div class="form-group position-relative">
     <label for="password" class="bmd-label-floating">Senha</label>
-    <input autocomplete="@if(env('APP_ENV') == 'production') {{'new-password'}} @else {{ 'on' }} @endif" type="password" class="form-control form-control-lg" id="password" name = 'password'>
+    <input autocomplete="@if(env('APP_ENV') == 'production'){{'new-password'}}@else{{'on'}}@endif" type="password" class="form-control form-control-lg" id="password" name = 'password'>
   </div>
   <br/>
   <div class="checkbox">

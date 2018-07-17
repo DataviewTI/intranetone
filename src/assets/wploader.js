@@ -178,11 +178,14 @@ function IntranetOne2(params={}){
       src.css + 'datapicker.css',
     ], dest.css + 'pickadate-full.min.css'); 
     
-    mix.scripts([ //or script
-      dep.photoswipe + 'photoswipe.min.js',
-      dep.photoswipe + 'photoswipe-ui-default.min.js',
-      src.js + 'photoswipe-loader.js',
-    ], dest.vendors + 'photoswipe/photoswipe.min.js');
+    //Corrigir posteriormente, fazer funcionar com babel
+    if(process.env.NODE_ENV !== 'production')
+      mix.scripts([
+        dep.photoswipe + 'photoswipe.min.js',
+        dep.photoswipe + 'photoswipe-ui-default.min.js',
+        src.js + 'photoswipe-loader.js',
+      ], dest.vendors + 'photoswipe/photoswipe.min.js');
+  
 
     $.__imgOptimize({
       from: dep.photoswipe + 'default-skin',

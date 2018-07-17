@@ -1,6 +1,13 @@
 html {
   height:100%;
 }
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
 
 #login-box{
   padding:1em;
@@ -10,6 +17,13 @@ html {
   box-shadow:1px 1px 6px rgba(0,0,0,.2);
 }
 
+<<<<<<< HEAD
 .form-group .fv-ico{
   right:0;
 }
+=======
+.form-control-feedback{
+  right:2px;
+  top:20px;
+} 
+>>>>>>> pre update for rebase with new formvalidation

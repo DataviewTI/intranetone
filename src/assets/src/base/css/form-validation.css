@@ -1,3 +1,10 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 .form-group{
   margin-bottom:32px;
 }
@@ -41,7 +48,6 @@ select.form-control{
 .form-group.has-success .form-control-feedback{
   color:#8bb91c;
 }
-
 
 .form-group.has-error .help-block{
   opacity:1;
