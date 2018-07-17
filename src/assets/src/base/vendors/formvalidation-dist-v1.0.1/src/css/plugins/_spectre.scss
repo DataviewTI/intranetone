@@ -1,0 +1,30 @@
+.fv-plugins-spectre {
+  .form-checkbox .form-icon,
+  .form-radio .form-icon {
+    margin: 0;
+    //top: 1.2rem;
+  }
+
+  .input-group .fv-plugins-icon {
+    // Need to have a bigger index than `.input-group .form-input:focus` (which is 1)
+    z-index: 2;
+  }
+
+  &:not(.form-horizontal) {
+    .form-group.has-error .fv-plugins-icon {
+      margin-top: 4px;
+    }
+
+    .form-group.has-error .fv-plugins-icon-check {
+      margin-top: 0;
+    }
+
+    .form-group.has-success .fv-plugins-icon {
+      margin-top: 15px;
+    }
+
+    .form-group.has-success .fv-plugins-icon-check {
+      margin-top: 0;
+    }
+  }
+}
