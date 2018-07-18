@@ -34,27 +34,24 @@ class AdminSeeder extends Seeder
         'permissions' => array('admin' => true),
       ]);	
 
+      $adminRole->permissions = [
+        'dash.view' => true,
+      ];
+      $adminRole->save();
+
       $userRole = Sentinel::getRoleRepository()->createModel()->create([
         'name' => 'User',
         'slug' => 'user',
         'permissions' => array('user' => true),
       ]);	
 
-      $admin->roles()->attach($adminRole);
-      $admin->permissions = [
-        'dash.view' => true,
-        'user.create' => true,
-        'user.delete' => true,
-        'user.update' => true,
-        'user.view' => true,
-       ];
-      $admin->save();
-  
-      $user->roles()->attach($userRole);
-      $user->permissions = [
+      $userRole->permissions = [
         'dash.view' => true,
        ];
       $user->save();
+
+      $admin->roles()->attach($adminRole);
+      $user->roles()->attach($userRole);
 
       $this->command->info('Usuário padrão dataview@dataview.com.br criado...');
     }
