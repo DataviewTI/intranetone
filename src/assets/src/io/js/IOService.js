@@ -223,7 +223,7 @@ class IOService{
           HoldOn.open({message:"Carregando dados, aguarde...",theme:'sk-bounce'});
         },
         success: function(ret){
-
+          
           if(ret.success){
             var data = ret.data[0];
             self.toView = data.id;
@@ -260,7 +260,7 @@ class IOService{
         url:self.path+"/update/"+id,
         cache:false,
         dataType: "json",
-        data: self.wz.keys.fv.$form.serializeArray(),
+        data: self.df.serializeArray(),
         beforeSend: function(){
           // HoldOn.open({message:"Atualizando dados, aguarde...",theme:'sk-bounce'});
         },
