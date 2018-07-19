@@ -59,6 +59,20 @@ Instalar o IntranetOne com php artisan
 ```sh
 php artisan intranetone:install
 ```
+Após a instalação, altere o *User Resolver* no arquivo de configuração config/audit.php
+```php
+return [
+    ...
+
+    'resolver' = [
+        ...
+        'user' => Dataview\IntranetOne\Resolvers\UserResolver::class,
+        ...
+    ],
+
+    ...
+];
+```
 
 ## Assets
 
