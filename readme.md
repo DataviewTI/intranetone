@@ -6,9 +6,11 @@ IntranetOne requires PHP >= 7.1.3
 
 ## Conteúdo
  
-- [Preparação do Ambiente](#Preparação do Ambiente)
-- [Instalação](#instalação)
-- [Assets](#assets) 
+- [IntranetOne](#intranetone)
+  - [Conteúdo](#conte%C3%BAdo)
+  - [Preparação do Ambiente](#prepara%C3%A7%C3%A3o-do-ambiente)
+  - [Instalação](#instala%C3%A7%C3%A3o)
+  - [Assets](#assets)
 
 ## Preparação do Ambiente
 
@@ -16,6 +18,7 @@ Devido a geração automática de alguns arquivos, são necessárias algumas con
 
 ###Configurações no .ENV
 - Configure a conexão com o banco de dados no .ENV. 
+- Configure a conexão com o servidor SMTP para envio de emails no .ENV (MAIL_DRIVER, MAIL_HOST, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_ENCRYPTION). 
 - defina FILESYSTEM_DRIVER = intranetone
 
 - Configure o arquivo config/filesystem.php, adicione o código abaixo ao array "disks"
