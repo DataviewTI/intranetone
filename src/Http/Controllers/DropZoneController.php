@@ -27,5 +27,8 @@ class DropZoneController extends Controller
 	}
 	public function getModal($template='default'){
 		return view('IntranetOne::io.components.dropzone.dropzone-infos-modal-'.$template);
-	}
+  }
+	public function getCropModal($template='default'){
+		return view('IntranetOne::io.components.dropzone.dropzone-crop-modal-'.$template);
+	}  
 }

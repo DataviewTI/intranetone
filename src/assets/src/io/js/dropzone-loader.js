@@ -20,12 +20,12 @@ class DropZoneLoader{
       url:"/dropzone/upload",
       thumbnailWidth: params.thumbnailWidth || 800,
       thumbnailHeight: params.thumbnailHeight || 600,
+      crop: params.crop || false,
       previewsContainer:params.id,
       init:function(){
-        this.reloadImages = function(data){
-          console.log(data);
+        this.reloadImages = data =>{
 
-          data.group.files.forEach(function(img,i){
+          data.group.files.forEach((img,i)=>{
             var _pat = "/group/file/"+img.id+"/thumb?nocash="+moment().format('x');
             var mockFile = {name:_pat, size: 0 };
             _this.files.push(mockFile);
@@ -65,6 +65,87 @@ class DropZoneLoader{
           });
         };
 
+        this.on('thumbnail',file=>{
+          if(!file.cropped)
+            this.showCropModal(file);
+        });
+
+        this.showCropModal = (file,status=false)=>{
+          if(file.upload !== undefined){
+            this.options.crop.file = file;
+            file.cropped = status; 
+            this.options.crop.modal.modal('show');
+        }
+      }
+        
+        if(params.crop){
+          $.ajax({
+            url:'/dropzone/crop-modal/default',
+            dataType:'html',
+            _dz:$(this)[0],
+            success: function(data){
+              this._dz.options.crop = params.crop;
+              let __crop = this._dz.options.crop;
+
+              __crop.file = null;
+              __crop.modal = $(data);
+              __crop.modal.find('.zoom-in').on('click',() => __crop.img.data('cropper').zoom(0.1));
+              __crop.modal.find('.zoom-out').on('click',() => __crop.img.data('cropper').zoom(-0.1));
+              __crop.modal.find('.rotate-left').on('click',() => __crop.img.data('cropper').rotate(-90));
+              __crop.modal.find('.rotate-right').on('click',() => __crop.img.data('cropper').rotate(90));
+              
+              __crop.modal.on('hidden.bs.modal', function (e) {
+                let _crop = __this.options.crop;
+                if(!_crop.file.cropped)
+                  __this.removeFile(_crop.file);          
+                  
+                _crop.file = null;
+               _crop.modal.find('.image-container').html('');
+              });
+
+              __crop.modal.on('show.bs.modal', function (e) {
+                let _crop = __this.options.crop;
+                var reader = new FileReader();
+                var $img =  $('<img style="max-width: 100%;"/>').css({'opacity':0}); //prevent flick
+
+                reader.onloadend = ()=> { 
+                  _crop.modal.find('.image-container').html($img); 
+                  $img.attr('src', reader.result);
+                  _crop.ready(_crop);
+                  var aspecRatio = _crop.aspect_ratio_x / _crop.aspect_ratio_y;
+                  $img.cropper({
+                      viewMode: 0, 
+                      aspectRatio: aspecRatio,
+                      // autoCropArea: 1,
+                      movable: false,
+                      cropBoxResizable: true,
+                      // minContainerWidth: 850
+                  });
+                  _crop.img = $img;
+                }
+                reader.readAsDataURL(_crop.file);
+              });
+              
+              __crop.modal.find('.crop-upload').on('click',()=>{
+                let _crop = __this.options.crop;
+                var blob = _crop.img.cropper('getCroppedCanvas').toDataURL();
+                var newFile = dataURItoBlob(blob);
+                newFile.name = _crop.file.name;
+                __this.removeFile(_crop.file)
+                __this.options.crop.file = newFile;
+                __this.options.crop.file.cropped = true;
+                __this.addFile(newFile);
+                __this.processQueue();
+                _crop.modal.modal('hide');
+              });              
+              
+              __crop.aspect_ratio_x = params.crop.aspect_ratio_x || 1;
+              __crop.aspect_ratio_y  = params.crop.aspect_ratio_y || 1;
+              __crop.ready  = params.crop.ready || (()=>{});
+            }
+          });
+        }//end crop
+
         this.copy_params	= params.copy_params || {original:true,sizes:{}}
         //set thumb images as default
         if(this.copy_params.sizes!=={})
@@ -80,7 +161,7 @@ class DropZoneLoader{
               this._dz.options.previewTemplate = data;
             }
         });
-            
+                    
         this.getOrderedDataImages = function(){
           var _files = [];
           $(this.element).find('.custom-dz-template.dz-success.dz-image-preview input[data-dz-embed-data]').each(function(a,b){
@@ -167,10 +248,12 @@ class DropZoneLoader{
       //file.infos.mimetype = file.type;
       _preview.find("[data-dz-name]").text(file.infos.name);
       
+      _preview.find('.dz-crop').on('click',function(){
+      });
       _preview.find('.dz-cancel').on('click',function(){
           this.cancel();
       });
-        _preview.find('.dz-edit').on('click',function(){
+      _preview.find('.dz-edit').on('click',function(){
         _modal.modal({
           show:false,
           keyboard:false,
@@ -239,6 +322,12 @@ class DropZoneLoader{
         el.find(".dz-cancel").css({'display':'none'});
         el.find(".dz-img-container").removeClass('dz-img-loading')
         $('.btn-next').removeAttr('disabled');
+        
+        /* future crop implementation on edit
+          if(params.crop !== undefined && params.crop!== false){
+            el.find(".dz-crop").removeClass('invisible');
+        }*/
+
       }
       else
         el.find("[data-dz-name]").text('carregando...');

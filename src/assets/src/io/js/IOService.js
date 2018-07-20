@@ -4,7 +4,6 @@
 
 class IOService{
   constructor(params,callback){
-      console.log('SSSS');
       this.toView=null;
       this.tabs={};
       this.defaults = {ajax:null}
