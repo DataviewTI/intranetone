@@ -283,6 +283,22 @@ function IntranetOne2(params={}){
       dep.sweetalert2 + 'sweetalert2.min.js',
     ], dest.io.js + 'io-mix-auth.min.js');
 
+    mix.styles([
+      src.io.vendors + 'glyphter-font/css/intranetone.css',
+      src.io.vendors + 'glyphter-font/css/custom-gi-intranetone.css',
+      src.vendors + 'glyphter-font/glyphter-font.css',
+      dep.dv_holdonjs + 'css/HoldOn.min.css',
+      src.css + 'holdon.css',
+      dep.io.toastr + 'toastr.min.css',
+      src.io.root + 'auth/password-reset.css',
+    ], dest.io.css + 'io-mix-password-reset.min.css');
+
+    mix.scripts([
+      dep.dv_holdonjs + 'js/HoldOn.min.js',
+      dep.io.toastr + 'toastr.min.js',
+      src.io.root + 'auth/password-reset.js',
+    ], dest.io.js + 'io-babel-password-reset.min.js');
+
     /** DASHBOARD */
 
     mix.styles([

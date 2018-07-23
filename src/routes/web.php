@@ -60,13 +60,14 @@ Route::group(['prefix' => 'admin','middleware' => ['web']],function(){
   Route::get('signin',['as' => 'signin', 'uses' => 'AuthController@getSignin']);
   Route::post('signin', 'AuthController@postSignin');
   Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
-/*
-  Route::get('forgot-password/{userId}/{passwordResetCode}', array('as' => 'forgot-password-confirm', 'uses' => 'AuthController@getForgotPasswordConfirm'));
-  Route::post('forgot-password/{userId}/{passwordResetCode}', 'AuthController@postForgotPasswordConfirm');
 
-});
+  Route::get('password/request', 'AuthController@showPasswordRequestForm')->name('password.request');
+  Route::post('password/email', 'AuthController@sendPasswordResetEmail')->name('password.email');
+  Route::get('password/edit/{userId}/{token}', function($userId, $token){
+    return view('IntranetOne::io.auth.password.edit', ['userId' => $userId, 'token' => $token]);
+  })->name('password.edit');
+  Route::post('password/reset', 'AuthController@passwordReset')->name('password.reset');
 
-  */
 });
 //Após Login, dentro do dashboard todos passam pelo midlware admin 
 Route::group(['prefix' => 'admin', 'middleware' => ['web','admin'], 'as' => 'admin.'],function(){
@@ -92,4 +93,3 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web','admin'], 'as' => 'adm
   });
 
 }); //end midlware admin
-

@@ -15,6 +15,7 @@ use Sentinel;
 use URL;
 use Validator;
 use View;
+use Dataview\IntranetOne\Mail\ForgotPassword as ForgotPassword;
 
 class AuthController
 {
@@ -30,7 +31,6 @@ class AuthController
       echo "S";
     }
     
-
 		public function index(){
 			if(Sentinel::check())
         return Sentinel::check(); //CHANGE to set first Service
@@ -49,7 +49,6 @@ class AuthController
       else
         return view('IntranetOne::io.auth.index');
     }
-
 
     public function postSignin(Request $request)
     {
@@ -71,73 +70,57 @@ class AuthController
         $this->messageBag->add('Conta suspensa temporariamente');
       }
       return json_encode(['status'=>false,'message_bag'=>$this->messageBag]);
-	}
+	  }
 
-		
-    public function postForgotPassword(Request $request)
+		public function showPasswordRequestForm()
+    {
+        return view('IntranetOne::io.auth.password.request');
+    }
+
+    public function sendPasswordResetEmail(Request $request)
     {
         $rules = ['email' => 'required|email'];
-
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails())
-						return json_encode(['status'=>false,'message_bag'=>$this->messageBag]);
-
-        try {
-					$user = Sentinel::findByCredentials(['email' => $request->get('email')]);
-					if (!$user) {
-						return json_encode(['status'=>false,'message_bag'=>'usuário não encontrado!']);
-					}
-
-					$activation = Activation::completed($user);
-					if(!$activation)
-						return json_encode(['status'=>false,'message_bag'=>'usuário não ativado!']);
-
-					$reminder = Reminder::exists($user) ?: Reminder::create($user);
-
-					$data = ['user' => $user,'forgotPasswordUrl' => URL::route('admin-forgot-password-confirm', [$user->id, $reminder->code])];
-
-					Mail::send('emails.forgot-password', $data, function ($m) use ($user) {
-							$m->to($user->email, $user->first_name . ' ' . $user->last_name);
-							$m->subject('Redefinir minha senha');
-					});
-        } catch (UserNotFoundException $e) {
-            // Even though the email was not found, we will pretend
-            // we have sent the password reset code through email,
-            // this is a security measure against hackers.
+          return json_encode(['status'=>false,'message_bag'=>$validator->errors()->all()]);
+        else{
+          try {
+            $user = Sentinel::findByCredentials(['email' => $request->get('email')]);
+            if (!$user) {
+              return json_encode(['status'=>false,'message_bag'=>['O email informado não está cadastrado']]);
+            }
+  
+            // $activation = Activation::completed($user);
+            // if(!$activation)
+            // 	return json_encode(['status'=>false,'message_bag'=>'usuário não ativado!']);
+  
+            $reminder = Reminder::exists($user) ?: Reminder::create($user);
+            $mailData = ['user' => $user,'passwordResetUrl' => route('password.edit', [$user->id, $reminder->code])];
+            Mail::to($user)->send(new ForgotPassword($mailData));
+  
+          } catch (UserNotFoundException $e) {
+              // Even though the email was not found, we will pretend
+              // we have sent the password reset code through email,
+              // this is a security measure against hackers.
+          }
+  
+          return json_encode(['status'=>true,'message_bag'=>['Um email de redefinição de senha foi enviado para '.$request->get('email')]]);
         }
-
-        //  Redirect to the forgot password
-				return json_encode(['status'=>true,'message_bag'=>'email enviado com sucesso!']);
     }
 
-    public function getForgotPasswordConfirm($userId,$passwordResetCode = null)
-    {
-			if(!$user = Sentinel::findById($userId))
-					return Redirect::route('forgot-password')->with('error',"Email não encontrado em nossa base de dados!");
-
-			if($reminder = Reminder::exists($user)){
-					if($passwordResetCode == $reminder->code)
-							return view('IntranetOne::io.auth.forgot-password-confirm');
-					else
-							return 'code does not match';
-			}
-			else
-					return 'does not exists';
-    }
-
-
-    public function postForgotPasswordConfirm(Request $request, $userId, $passwordResetCode = null){
-        $rules = ['password'=>'required|between:3,32','password_confirm' => 'required|same:password'];
-        $validator = Validator::make($request->all(), $rules);
+    public function passwordReset(Request $request){
+        $rules = ['password'=>'required|between:3,32','confirm_password' => 'required|same:password'];
+        $inputs = $request->all();
+        $validator = Validator::make($inputs, $rules);
 
         if($validator->fails())
-						return json_encode(['status'=>false,'message_bag'=>$validator]);
+          return json_encode(['status'=>false,'message_bag'=>$validator->errors()->all()]);
 
-				$user = Sentinel::findById($userId);
-        if(!$reminder = Reminder::complete($user, $passwordResetCode, $request->get('password')))
-						return json_encode(['status'=>false,'message_bag'=>Lang::get('auth/message.forgot-password-confirm.error')]);
-	
-				return json_encode(['status'=>true,'message_bag'=>"Senha redefinida com sucesso, efetue o login!"]);
+        $user = Sentinel::findById($inputs['userId']);
+        if(!$reminder = Reminder::complete($user, $inputs['token'], $request->get('password')))
+						return json_encode(['status'=>false,'message_bag'=>['Não foi possível completar a operação. Faça uma nova solicitação de redefinição de senha']]);
+
+				return json_encode(['status'=>true,'message_bag'=>["Senha redefinida com sucesso!"]]);
 		}
 }

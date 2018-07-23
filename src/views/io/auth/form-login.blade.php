@@ -20,7 +20,7 @@
     </button>
    </div>
    <br />
-   <a href = '#' class = 'float-right'>esqueci minha senha</a>
+   <a href = "{{ route('password.request') }}" class = 'float-right'>Esqueci minha senha</a>
   
   </p>
 </form>
