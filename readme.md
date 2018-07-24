@@ -10,7 +10,7 @@ IntranetOne requires PHP >= 7.1.3
   - [Conteúdo](#conte%C3%BAdo)
   - [Preparação do Ambiente](#prepara%C3%A7%C3%A3o-do-ambiente)
   - [Instalação](#instala%C3%A7%C3%A3o)
-  - [Assets](#assets)
+  - [Webpack](#webpack)
 
 ## Preparação do Ambiente
 
@@ -73,14 +73,16 @@ return [
     ...
 ];
 ```
-
-## Assets
-
-- Instale o pacote de assets da intranetone via NPM
-
-```sh
-npm install assets-intranetone --save
+Configure o Model app/User.php para extender a classe EloquentUser 
+```php
+use Cartalyst\Sentinel\Users\EloquentUser as EloquentUser;
+...
+class User extends EloquentUser
+{
+...
 ```
+
+## Webpack
 
 - Configure o webpack conforme abaixo 
 ```js
