@@ -262,7 +262,7 @@ class IOService{
         dataType: "json",
         data: self.df.serializeArray(),
         beforeSend: function(){
-          // HoldOn.open({message:"Atualizando dados, aguarde...",theme:'sk-bounce'});
+          HoldOn.open({message:"Atualizando dados, aguarde...",theme:'sk-bounce'});
         },
         success: function(ret){
           HoldOn.close();

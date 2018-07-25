@@ -62,12 +62,12 @@ class AuthController
       }
       catch (NotActivatedException $e)
       {
-        $this->messageBag->add('Conta não ativada');
+        $this->messageBag->add('notActivated','Esta conta não está ativada. Verifique seu email pelo link de ativação');
       }
       catch (ThrottlingException $e)
       {
         $delay = $e->getDelay();
-        $this->messageBag->add('Conta suspensa temporariamente');
+        $this->messageBag->add('accountSuspended','Conta suspensa temporariamente');
       }
       return json_encode(['status'=>false,'message_bag'=>$this->messageBag]);
 	  }
@@ -100,9 +100,9 @@ class AuthController
             Mail::to($user)->send(new ForgotPassword($mailData));
   
           } catch (UserNotFoundException $e) {
-              // Even though the email was not found, we will pretend
-              // we have sent the password reset code through email,
-              // this is a security measure against hackers.
+            // Even though the email was not found, we will pretend
+            // we have sent the password reset code through email,
+            // this is a security measure against hackers.
           }
   
           return json_encode(['status'=>true,'message_bag'=>['Um email de redefinição de senha foi enviado para '.$request->get('email')]]);

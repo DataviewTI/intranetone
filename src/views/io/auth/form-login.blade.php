@@ -1,3 +1,8 @@
+@if (session('activation'))
+    <div class="alert @if(session('activation')['status']) alert-success @else alert-danger @endif">
+        {{ session('activation')['message'] }}
+    </div>
+@endif
 <form action="{{ route('signin') }}" method="post" id="login_form" autocomplete="off">
   <div class="form-group position-relative mt-4">
     <label for="email" class="bmd-label-floating">Email</label>
