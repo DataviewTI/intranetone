@@ -40,15 +40,11 @@ class Group extends IOModel
 		foreach($files as $img)
 		{
       $img  = (object) $img;
-
-			$img->date = empty($img->date) ? null : $img->date;
-			if($img->id == null)
-			{
+			//$img->date = empty($img->date) ? null : $img->date;
+			if($img->id == null){
 				$_img = new ProjectFile([
 					"file" => $img->name,
-					"caption" => $img->caption,
-					"date" => $img->date,
-					"details" => $img->details,
+					"data" => json_encode($img->data),
 					"mimetype" => $img->mimetype,
 					"order" => $img->order,
 				]);
@@ -65,9 +61,7 @@ class Group extends IOModel
 				$__upd = ProjectFile::find($img->id);//->id)->get();
 				$__upd->update([
 					"file" => $img->name,
-					"caption" => $img->caption,
-					"date" => $img->date,
-					"details" => $img->details,
+					"data" => json_encode($img->data),
 					"mimetype" => $img->mimetype,
 					"order" => $img->order
 				]);	

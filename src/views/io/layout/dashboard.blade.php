@@ -176,5 +176,6 @@
 <!-- begin page level js -->
 @yield('footer_scripts')
 <!-- end page level js -->
+@yield('before_body_close')
 </body>
 </html>

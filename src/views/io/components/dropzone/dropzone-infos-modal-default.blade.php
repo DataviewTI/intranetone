@@ -1,5 +1,5 @@
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" tabindex="-1" id = 'edit-modal' role="dialog" aria-labelledby="EditModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title"><i class = 'ico ico-image'></i> Detalhar Informações da Imagem</h5>
@@ -9,26 +9,26 @@
       </div>
       <div class="modal-body">
         <div class = 'row'>
-          <div class = 'col-sm-5'>
+          <div class = 'col-5 col-xs-12'>
             <div class = 'thumbnail'>
               <img class = 'img-fluid w-100' dz-info-modal = 'img'/>
             </div>
           </div>
-          <div class = 'col-sm-7'>
+          <div class = 'col-7 col-xs-12'>
             <div class="form-group">
-              <label for = 'dz-info-modal-caption' class="bmd-label-floating">Titulo da Foto</label>
-              <input type ='text' class = 'form-control form-control-lg' id = 'dz-info-modal-caption' dz-info-modal = 'caption'>
+              <label for = 'dz-info-caption' class="bmd-label-floating">Titulo da Foto</label>
+              <input id = 'dz-info-caption' type ='text' class = 'form-control form-control-lg'>
             </div>
             <div class="form-group">
-              <label for = 'dz-info-modal-date' class="bmd-label-floating">Data da Foto</label>
-              <input type ='text' class = 'form-control form-control-lg datapicker'  id = 'dz-info-modal-date' dz-info-modal='date'>
+              <label for = 'dz-info-date' class="bmd-label-floating">Data da Foto</label>
+              <input id = 'dz-info-date' type ='text' class = 'form-control form-control-lg datapicker' >
             </div>
           </div>
         </div>
         <div class = 'row'>
           <div class = 'col-sm-12'>
-            <label for = 'dz-info-modal-caption' class="bmd-label-static">Outras Informações</label>
-            <textarea class = 'form-control form-control-lg'  id = 'dz-info-modal-details' dz-info-modal='details' style = 'height:80px'></textarea>
+            <label for = 'dz-info-caption' class="bmd-label-static">Outras Informações</label>
+            <textarea id = 'dz-info-details' class = 'form-control form-control-lg' style = 'height:80px'></textarea>
           </div>
         </div>
       </div>

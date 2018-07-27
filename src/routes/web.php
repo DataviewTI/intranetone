@@ -21,7 +21,7 @@ use Dataview\IntranetOne;
 Route::group(array('prefix' => 'dropzone'), function () {
 	Route::get('preview-template/{template}', 'DropZoneController@getPreviewTemplate');
 	Route::get('crop-modal/{template}', 'DropZoneController@getCropModal');
-	Route::get('infos-modal/{template}', 'DropZoneController@getModal');
+	Route::get('edit-modal/{template}', 'DropZoneController@getModal');
 	Route::post('upload', 'DropZoneController@upload');
 });
 

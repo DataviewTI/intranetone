@@ -1,6 +1,5 @@
 Dropzone.autoDiscover = false;
 
-
 class DropZoneLoader{
   constructor(params,callback){
       var __this = new Dropzone(params.id,{ 
@@ -22,27 +21,24 @@ class DropZoneLoader{
       thumbnailWidth: params.thumbnailWidth || 800,
       thumbnailHeight: params.thumbnailHeight || 600,
       crop: params.crop || false,
-      buttons: params.buttons || {},
-      mainImage:params.mainImage || true,
       previewsContainer:params.id,
       init:function(){
-
-        this.buttons = {}
         this.reloadImages = data =>{
 
           data.group.files.forEach((img,i)=>{
-
-            var _pat = `/group/file/${img.id}/thumb?nocash=${moment().format('x')}`;
+            var _pat = "/group/file/"+img.id+"/thumb?nocash="+moment().format('x');
             var mockFile = {name:_pat, size: 0 };
             _this.files.push(mockFile);
             _this.emit("addedfile",mockFile);
             _this.files[i].infos = {
-              data:JSON.parse(img.data),
               name:img.file,
+              caption:img.caption,
+              details:img.details,
               mimetype:img.mimetype,
+              link:img.link,
+              date: img.date,
               id : img.id
             }
-
             __this.emit("thumbnail",mockFile,_pat);
             __this.emit("success",mockFile,JSON.stringify({
               'file_name':img.file,
@@ -70,7 +66,7 @@ class DropZoneLoader{
         };
 
         this.on('thumbnail',file=>{
-          if(params.crop && !file.cropped)
+          if(!file.cropped)
             this.showCropModal(file);
         });
 
@@ -81,24 +77,15 @@ class DropZoneLoader{
             this.options.crop.modal.modal('show');
         }
       }
-      // transform cropper dataURI output to a Blob which Dropzone accepts
-      this.dataURItoBlob= dataURI=>{
-        let byteString = atob(dataURI.split(',')[1]);
-        let ab = new ArrayBuffer(byteString.length);
-        let ia = new Uint8Array(ab);
-        for (let i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
-        }
-        return new Blob([ab], { type: 'image/jpeg' });
-      }        
-      if(params.crop){
-        $.ajax({
+        
+        if(params.crop){
+          $.ajax({
             url:'/dropzone/crop-modal/default',
             dataType:'html',
             _dz:$(this)[0],
             success: function(data){
-              __this.options.crop = typeof(params.crop)=='boolean' ? {} : params.crop;
-              let __crop = __this.options.crop;
+              this._dz.options.crop = params.crop;
+              let __crop = this._dz.options.crop;
 
               __crop.file = null;
               __crop.modal = $(data);
@@ -127,12 +114,11 @@ class DropZoneLoader{
                   _crop.ready(_crop);
                   var aspecRatio = _crop.aspect_ratio_x / _crop.aspect_ratio_y;
                   $img.cropper({
-                      viewMode: 0,
-                      dragMode: 'move',
+                      viewMode: 0, 
                       aspectRatio: aspecRatio,
                       // autoCropArea: 1,
                       movable: false,
-                      cropBoxResizable: _crop.cropBoxResizable || false,
+                      cropBoxResizable: true,
                       // minContainerWidth: 850
                   });
                   _crop.img = $img;
@@ -143,7 +129,7 @@ class DropZoneLoader{
               __crop.modal.find('.crop-upload').on('click',()=>{
                 let _crop = __this.options.crop;
                 var blob = _crop.img.cropper('getCroppedCanvas').toDataURL();
-                var newFile = __this.dataURItoBlob(blob);
+                var newFile = dataURItoBlob(blob);
                 newFile.name = _crop.file.name;
                 __this.removeFile(_crop.file)
                 __this.options.crop.file = newFile;
@@ -165,165 +151,36 @@ class DropZoneLoader{
         if(this.copy_params.sizes!=={})
           this.copy_params.sizes['thumb']={w:this.options.thumbnailWidth,h:this.options.thumbnailHeight}
 
-        //this.modal = $(this.element).parent().find('.modal.fade').prop('id','_'+getRandomString(10));
+        this.modal = $(this.element).parent().find('.modal.fade').prop('id','_'+getRandomString(10));
 
         $.ajax({
           url:'/dropzone/preview-template/default',
           dataType:'html',
           _dz:$(this)[0],
           success: function(data){
-              let $prv = $(data);
-              if(params.mainImage==false)
-                $prv.addClass('no-main-image');
-
-              __this.options.previewTemplate = $prv.get(0).outerHTML;
-
-              //adiciona botões extras ou remove
-                for(let b in params.buttons){
-                  if(params.buttons[b] == false)
-                    $prv.find(`.dz-${b}`).addClass('d-none');
-                  else{
-                    params.buttons[b].name = `dz-${b}`;
-                    __this.addButton(params.buttons[b]);
-                  }
-                }
-                if(__this.options.buttons.edit !== false){
-                  $.ajax({
-                    url:'/dropzone/edit-modal/default',
-                    dataType:'html',
-                    _dz:$(this)[0],
-                    success: function(data){
-                      $('body').append($(data));
-                      __this.addButton({
-                          name:'dz-edit',
-                          ico:'ico-edit',
-                          bg:'bg-danger',
-                          tooltip:'Editar',
-                          action:(file)=>{
-                            __this.addModal({
-                              obj:$('#edit-modal'),
-                              file,
-                              onShow:(_file,obj)=>{
-                                obj.find("#dz-info-date").pickadate({
-                                  container:document.body,
-                                });
-                                let _date = file.infos.data.edit.date;
-
-                                if(_date == null || _date == '')
-                                  obj.find("#dz-info-date").pickadate('picker').clear();
-                                else
-                                  obj.find("#dz-info-date").pickadate('picker').set('select',_date,{
-                                     format: 'yyyy-mm-dd' 
-                                  });
-                              },
-                              onSave:(_file,obj)=>{
-                                _file.infos.data.edit.date = obj.find("#dz-info-date").pickadate('picker').get('select','yyyy-mm-dd');
-                              }
-                            })
-                          }
-                      });
-                    }
-                  });
-               }
+              this._dz.options.previewTemplate = data;
             }
         });
                     
-        this.getOrderedDataImages = ()=>{
+        this.getOrderedDataImages = function(){
           var _files = [];
-        //this.files.forEach((a,b)=>{
-          //console.log(a.infos);
-         //});
           $(this.element).find('.custom-dz-template.dz-success.dz-image-preview input[data-dz-embed-data]').each(function(a,b){
             var obj = JSON.parse($(b).val());
                 obj.order=a+1;
-              _files.push(obj);
+                _files.push(obj);
           });
           return _files;
         }
 
-        this.addButton = function(params){
-          let $btn = $("<span class='dv-btn-circle ml-1' data-toggle='tooltip' data-placement='top'>");
-          let $prv = $(__this.options.previewTemplate);
-          //let $prv = params.prv || params.file.previewElement;
-          let _name = params.name || 'dz-'+(getRandomString(5));
-            $btn.addClass(_name)
-            .addClass(params.bg || 'bg-success')
-            .addClass(params.fg || 'text-white')
-            .addClass(params.title || '')
-            .prop(`data-dz-${_name}`);
-            if(params.tooltip!== undefined)
-                $btn.prop('title',params.tooltip);
-          
-            $btn.append(`<i class = 'ico ${params.ico || 'ico-save'}'></i>`);
-            $prv.find('.dz-buttons-container').append($btn);
-            //update previewTemplate
-            __this.options.previewTemplate = $prv.get(0).outerHTML;
-            __this.buttons[_name] = params;
-          }
-
-          this.addModal = function(params){
-          let obj = typeof(params.obj) == 'string' ? $(`#${params.id}`) : params.obj;
-
-          if(typeof(obj.modal) !== 'function')
-            obj.modal('show');
-          else{
-            obj.modal({
-              show:false,
-              keyboard:false,
-              backdrop:'static',
-            })
-            .on('show.bs.modal', function (){
-              let _preview = $(params.file.previewElement);
-              let img = obj.find("[dz-info-modal='img']");
-              img.prop('src',_preview.find('[data-dz-thumbnail]').attr('src'));
-
-              obj.find("[id*='dz-info-']").each((a,b)=>{
-                let _inp = $(b);
-                let _inp_name = _inp.attr('id').substr(_inp.attr('id').lastIndexOf('-')+1);
-                let _name = obj.attr('id').substr(0,obj.attr('id').indexOf('-'));
-                _inp.val(params.file.infos.data[_name][_inp_name]);
-              })
-              if(params.onShow!==undefined)
-                params.onShow(params.file,obj);
-                
-              obj.find("[dz-info-modal='btn-save']").on('click',function(){
-                //percorre todos os elementos do form
-                obj.find("[id*='dz-info-']").each((a,b)=>{
-                  let _inp = $(b);
-                  let _inp_name = _inp.attr('id').substr(_inp.attr('id').lastIndexOf('-')+1);
-                  let _name = obj.attr('id').substr(0,obj.attr('id').indexOf('-'));
-                  params.file.infos.data[_name][_inp_name] = _inp.val();
-                })
-                if(params.onSave !== undefined)
-                  params.onSave(params.file,obj);
-
-                setTimeout(function(){
-                  $(params.file.previewElement).find('[data-dz-embed-data]').val(JSON.stringify(params.file.infos));
-                },300);
-
-                obj.modal('hide');
-              });
-            })
-            .on('shown.bs.modal', function (e){
-              obj.find("[id*='dz-info-']").first().focus();
-            })
-            .on('hidden.bs.modal', function (e){
-              obj.off('show.bs.modal');
-              obj.find("[dz-info-modal='btn-save']").off('click');
-            });
-            
-            obj.modal('show');
-          }
-        }
-
-        $("<input type = 'hidden' name = '__dz_images'/>").appendTo($(this.element).parent());
-        $("<input type = 'hidden' name = '__dz_copy_params'/>").appendTo($(this.element).parent());
-
+        $(document.createElement('input')).attr('name','__dz_images').prop('type','hidden').appendTo($(this.element).parent());
+        $(document.createElement('input')).attr('name','__dz_copy_params').prop('type','hidden').appendTo($(this.element).parent());
+        
         var _this = this;
         this.on("thumbnail", function(file){
           // Do the dimension checks you want to do
-          if(file.width > 4000 || file.height > 4000){
-            toastr["error"](`As dimensões do arquivo (${file.width}x${file.height}) excedem o máximo permitido pelo servidor , < 4000px na altura e largura`);
+          if(file.width > 4000 || file.height > 4000) 
+          {
+            toastr["error"]("As dimensões do arquivo ("+(file.width+'x'+file.height)+") excedem o máximo permitido pelo servidor , < 4000px na altura e largura");
             _this.removeFile(file);
           }
             $("[data-toggle='tooltip']").tooltip();
@@ -334,32 +191,15 @@ class DropZoneLoader{
         var str = getRandomString(16)+ext;
         return str;
       },
-
-
-    }).on('removedfile',(file)=>{
-      if(__this.files.length==0)
+    }).on('removedfile',function(file){
+        if(this.files.length==0)
         $(params.id).addClass('dz-drop-files-here');
-      if(params.removedFile !== undefined)
-        params.removedFile(file);
-   }).on('addedfile',function(file){	
+        if(params.removedFile !== undefined)
+          params.removedFile(file);
+    }).on('addedfile',function(file){	
       
-    file.infos = {id:null,name:null,mimetype:null,tmp:null,order:0,data:{}}
-      for(let b in this.buttons)
-        if(this.buttons[b].action !== undefined){
-          let _name = b.substr(b.indexOf('-')+1);
-          let _obj = $(`#${_name}-modal`);
-          file.infos.data[_name] = {}
-          _obj.find("[id*='dz-info-']").each((a,b)=>{
-            let _inp = $(b);
-            let inp_name = _inp.attr('id').substr(_inp.attr('id').lastIndexOf('-')+1);
-            file.infos.data[_name][inp_name] = ""
-          });
-
-          $(file.previewElement).find(`.${b}`).on('click',function(e){
-            __this.buttons[b].action(file);
-        });
-      }
-
+      file.infos = {'caption':null,'date':null,'link':null,'details':null,'mimetype':null,'name':null,'tmp':null,'id':null,order:0}
+      
       $(file.previewElement).find('.dz-cancel').on('click',function(){
         swal({
           title:"Cancelar Upload",
@@ -383,7 +223,7 @@ class DropZoneLoader{
           imageAlt: 'Custom image',
           showCancelButton: true,
           }).then((result) => {
-            if(result.value==true) {
+            if (result.value==true) {
               __this.removeFile(file);
             }
           })
@@ -413,7 +253,55 @@ class DropZoneLoader{
       _preview.find('.dz-cancel').on('click',function(){
           this.cancel();
       });
-  
+      _preview.find('.dz-edit').on('click',function(){
+        _modal.modal({
+          show:false,
+          keyboard:false,
+          backdrop:'static',
+        })
+        .on('show.bs.modal', function (e){
+          var img = $("[dz-info-modal='img']");
+          img.prop('src',_preview.find('[data-dz-thumbnail]').attr('src'));
+          $("[dz-info-modal='date']").pickadate({
+            container:document.body,
+          });
+          
+          img.prop('src',_preview.find('[data-dz-thumbnail]').attr('src'));
+          $(this).find("[dz-info-modal='caption']").val(file.infos.caption);				
+          $(this).find("[dz-info-modal='details']").val(file.infos.details);				
+          $(this).find("[dz-info-modal='link']").val(file.infos.link);				
+          
+          if(file.infos.date == null || file.infos.date == '')
+            $(this).find("[dz-info-modal='date']").pickadate('picker').clear();
+          else
+            $(this).find("[dz-info-modal='date']").pickadate('picker').set('select',file.infos.date, { format: 'yyyy-mm-dd' });
+          
+          $(this).find("[dz-info-modal='btn-save']").on('click',function(){
+            file.infos.caption = _modal.find("[dz-info-modal='caption']").val();
+            file.infos.details = _modal.find("[dz-info-modal='details']").val();
+            file.infos.link = _modal.find("[dz-info-modal='link']").val();
+            file.infos.date = _modal.find("[dz-info-modal='date']").pickadate('picker').get('select','yyyy-mm-dd');
+            _modal.modal('hide');
+          
+            
+            setTimeout(function(){
+              _preview.find('[data-dz-embed-data]').val(JSON.stringify(file.infos));
+            },300);
+          
+          });
+        })
+        .on('shown.bs.modal', function (e){
+          $(this).find("[dz-info-modal='caption']").focus();
+        })
+        .on('hidden.bs.modal', function (e){
+          $(this).off('show.bs.modal');
+          $(this).find("[dz-info-modal='btn-save']").off('click');
+        });
+        
+        _modal.modal('show');
+
+      }).removeAttr('disabled');
+
       //hack to can retrieve infos os adition
       setTimeout(function(){
         _preview.find('[data-dz-embed-data]').val(JSON.stringify(file.infos));
@@ -430,7 +318,7 @@ class DropZoneLoader{
       if(progress >= 100){
         el.find("[data-dz-percent]").text(el.find(".dz-info-file-size").text());
         el.find(".progress-bar").removeClass('progress-bar-animated progress-bar-striped')//.addClass('bg-info');
-        //el.find(".dz-reorder, .dz-delete, .dz-edit").removeClass('invisible')
+        el.find(".dz-reorder, .dz-delete, .dz-edit").removeClass('invisible')
         el.find(".dz-cancel").css({'display':'none'});
         el.find(".dz-img-container").removeClass('dz-img-loading')
         $('.btn-next').removeAttr('disabled');
@@ -449,19 +337,21 @@ class DropZoneLoader{
       switch(err)
       {
         case "INVALID FILE": 
-          toastr["error"]("São aceitas somente imagens PNG, JPG e GIF",`Imagem <strong>${file.name}</strong> Inválida!`)
+          toastr["error"]("São aceitas somente imagens PNG, JPG e GIF", "Imagem <strong>"+(file.name)+"</strong> Inválida!")
           _this.removeFile(file);
           break;
         case "FILE TOO BIG": //{{filesize}} and {{maxFilesize}}
-          toastr["error"](`O tamanho da imagem não pode ser superior a <strong>${_this.options.maxFilesize.toFixed(1)}mb</strong>`, `Imagem <strong>${file.name}</strong> Inválida!`)
+          toastr["error"]("O tamanho da imagem não pode ser superior a <strong>"+((_this.options.maxFilesize).toFixed(1))+'mb</strong>', "Imagem <strong>"+(file.name)+"</strong> Inválida!")
           _this.removeFile(file);
           break;
         case "RESPONSE ERROR": //{{statusCode}}
-          toastr["error"]("Erro de resposta","erro de resposta")
+          toastr["error"]("AASA","aa")
           _this.removeFile(file);
           break;
       }
     });
+
+
 
     return __this;
   }

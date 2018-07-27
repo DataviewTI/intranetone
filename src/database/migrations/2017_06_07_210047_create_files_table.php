@@ -18,10 +18,8 @@ class CreateFilesTable extends Migration
 				$table->increments('id');
 				$table->string('file');
 				$table->integer('group_id')->unsigned()->nullable();
-				$table->string('caption')->nullable();
-				$table->date('date')->nullable();
-				$table->text('details')->nullable();
-                $table->char('mimetype',100)->nullable();
+        $table->text('data')->nullable();
+        $table->char('mimetype',50)->nullable();
 				$table->integer('order')->unsigned()->default(0);
 				$table->timestamps();
 				$table->softDeletes();

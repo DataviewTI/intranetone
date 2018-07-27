@@ -1,13 +1,10 @@
 	<div class="custom-dz-template mt-1">
 		<div class = 'dz-buttons-container d-flex justify-content-end mr-1'>
-        <span class="dv-btn-circle dz-delete invisible ml-1 bg-danger text-white" data-dz-delete="" data-toggle='tooltip' data-placement='top' title='Remover'>
+        <span class="dv-btn-circle dz-delete ml-1 bg-danger text-white" data-dz-delete="" data-toggle='tooltip' data-placement='top' title='Remover'>
         <i class = 'ico ico-trash'></i>
         </span>
-			<span class="dv-btn-circle dz-reorder invisible ml-1 bg-info text-white" data-dz-reorder data-toggle='tooltip' data-placement='top' title='Mover'>
+			<span class="dv-btn-circle dz-reorder ml-1 bg-info text-white" data-dz-reorder data-toggle='tooltip' data-placement='top' title='Mover'>
 				  <i class = 'ico ico-move'></i>
-        </span>
-			<span class="dv-btn-circle dz-edit ml-1 invisible bg-warning text-white" data-toggle='tooltip' data-placement='top' title='Editar'>
-				<i class = 'ico ico-edit'></i>
       </span>
 			<span class="dv-btn-circle dz-cancel ml-1 bg-danger text-white" data-toggle='tooltip' data-placement='top' title='cancelar upload'>
 				<i class = 'ico ico-close'></i>

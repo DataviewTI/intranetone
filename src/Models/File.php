@@ -13,7 +13,7 @@ class File extends Model implements AuditableContract
 {
 	use Auditable;
 	protected $auditTimestamps = true;
-	protected $fillable = ['file','caption','date','mimetype','details','order'];
+	protected $fillable = ['file','mimetype','order','data'];
 	protected $appends = ['tmp'=>null,"original"=>false,'sizes'=>null];
 
   public function group(){
@@ -63,7 +63,18 @@ class File extends Model implements AuditableContract
 	public function setTmp($str){
 		$this->appends['tmp'] = $str;
 		return $this;
-	}
+  }
+  
+  public function getData($index=null,$key=null){
+    $data = json_decode($this->data);
+    return $index == null ? $data : ($key==null ? $data->{$index} : $data->{$index}->{$key});
+
+    /*try{
+      return $index == null ? $data : $key==null ? $data->{$index} : $data->{$index}->{$key}; 
+    }
+    catch(Exception $e){}
+    return null;*/
+  }
 
 	public function getTmp(){
 		return $this->appends['tmp'];

@@ -33,19 +33,22 @@
 .dropzone.dz-clickable > .custom-dz-template~.custom-dz-template:after{
     content:none
 }
-
+.custom-dz-template.no-main-image::before,
+.custom-dz-template.no-main-image::after{
+  content:none!important;
+}
 
 
 /*Container Infos*/
 
-.dz-container-infos
-{
+.dz-container-infos{
   position:relative;
   float:left;
   width:100%;
 }
 .dz-container-infos .progress{
   height:20px;
+  border-radius:0!important;
 }
 .dz-container-infos .dz-info-container{
   padding:0 .3em!important;

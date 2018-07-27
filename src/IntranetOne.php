@@ -13,7 +13,7 @@ class IntranetOne
     }
   }
 
-  static function installMessages($cmd,$len=4,$posdelay=1){
+  static function installMessages($cmd,$len=3,$posdelay=1){
     $msg = [
       "Analyzing coffee quality...",
       "Spending a precious time...",

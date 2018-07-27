@@ -2,7 +2,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Ajuste da Imagem</h5>
+                    <h5 class="modal-title"><i class = 'ico ico-crop-image'></i> AAAjuste da Imagem</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="col-6 d-flex justify-content-end">
-                            <button type="button" class="btn btn-primary crop-upload" style="margin-right: 5px;">Salvar</button>
+                            <button type="button" class="btn btn-primary crop-upload mr-2"><i class = 'ico ico-crop-image'></i>Recortar</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
