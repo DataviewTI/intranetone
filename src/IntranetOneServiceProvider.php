@@ -24,7 +24,8 @@ class IntranetOneServiceProvider extends ServiceProvider
       $this->loadViewsFrom(__DIR__.'/views', 'IntranetOne');
       //$this->loadMigrationsFrom(__DIR__.'/database/migrations');
       
-      //$this->mergeConfigFrom(__DIR__.'/config/filesystems.php', 'filesystems.disks');
+      //$this->mergeConfigFrom(__DIR__.'/config/audit.php', 'audit.resolver');
+      $this->mergeConfigFrom(__DIR__.'/config/filesystems.php', 'filesystems.disks');
     }
 
     public function register()

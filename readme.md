@@ -16,20 +16,11 @@ IntranetOne requires PHP >= 7.1.3
 
 Devido a geração automática de alguns arquivos, são necessárias algumas configurações manuais, conforme abaixo:
 
-###Configurações no .ENV
-- Configure a conexão com o banco de dados no .ENV. 
-- Configure a conexão com o servidor SMTP para envio de emails no .ENV (MAIL_DRIVER, MAIL_HOST, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_ENCRYPTION). 
-- defina FILESYSTEM_DRIVER = intranetone
-
-- Configure o arquivo config/filesystem.php, adicione o código abaixo ao array "disks"
+## Configurações no .ENV
+- Configure a conexão com o banco de dados e adicione as seguintes linhas ao .ENV. 
 
 ```php
-'intranetone' => [
-      'driver' => 'local',
-      'root' => storage_path('app/public/intranetone'),
-      'url' => env('APP_URL').'/storage/app/public/intranetone',
-      'visibility' => 'public',
-],
+FILESYSTEM_DRIVER = intranetone
 ```
 
 - Configure o arquivo config/app.php, altere a linguagem local para pt-BR
