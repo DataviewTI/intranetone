@@ -230,9 +230,6 @@ class DropZoneLoader{
                     
         this.getOrderedDataImages = ()=>{
           var _files = [];
-        //this.files.forEach((a,b)=>{
-          //console.log(a.infos);
-         //});
           $(this.element).find('.custom-dz-template.dz-success.dz-image-preview input[data-dz-embed-data]').each(function(a,b){
             var obj = JSON.parse($(b).val());
                 obj.order=a+1;
@@ -253,7 +250,7 @@ class DropZoneLoader{
             .prop(`data-dz-${_name}`);
             if(params.tooltip!== undefined)
                 $btn.prop('title',params.tooltip);
-          
+            
             $btn.append(`<i class = 'ico ${params.ico || 'ico-save'}'></i>`);
             $prv.find('.dz-buttons-container').append($btn);
             //update previewTemplate

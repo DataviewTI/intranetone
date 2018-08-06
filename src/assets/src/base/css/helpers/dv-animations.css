@@ -1,0 +1,29 @@
+*[__animation_duration]{
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+*[__animation_duration='.5s' ]{-webkit-animation-duration: .5s;  animation-duration: .5s;}
+*[__animation_duration='1s'  ]{-webkit-animation-duration: 1s;   animation-duration: 1s; }
+*[__animation_duration='1.5s']{-webkit-animation-duration: 1.5s; animation-duration: 1.5s}
+*[__animation_duration='2s'  ]{-webkit-animation-duration: 2s;   animation-duration: 2s  }
+*[__animation_duration='2.5s']{-webkit-animation-duration: 2.5s; animation-duration: 2.5s}
+*[__animation_duration='3s'  ]{-webkit-animation-duration: 3s;   animation-duration: 3s  }
+*[__animation_duration='3.5s']{-webkit-animation-duration: 3.5s; animation-duration: 3.5s}
+*[__animation_duration='4s'  ]{-webkit-animation-duration: 4s;   animation-duration: 4s  }
+*[__animation_duration='4.5s']{-webkit-animation-duration: 4.5s; animation-duration: 4.5s}
+*[__animation_duration='5s'  ]{-webkit-animation-duration: 5s;   animation-duration: 5s  }
+*[__animation_duration='5.5s']{-webkit-animation-duration: 5.5s; animation-duration: 5.5s}
+*[__animation_duration='6s'  ]{-webkit-animation-duration: 6s;   animation-duration: 6s }
+
+*[__animation_delay='.5s' ]{-webkit-animation-delay: .5s;  animation-delay: .5s;}
+*[__animation_delay='1s'  ]{-webkit-animation-delay: 1s;   animation-delay: 1s; }
+*[__animation_delay='1.5s']{-webkit-animation-delay: 1.5s; animation-delay: 1.5s}
+*[__animation_delay='2s'  ]{-webkit-animation-delay: 2s;   animation-delay: 2s  }
+*[__animation_delay='2.5s']{-webkit-animation-delay: 2.5s; animation-delay: 2.5s}
+*[__animation_delay='3s'  ]{-webkit-animation-delay: 3s;   animation-delay: 3s  }
+*[__animation_delay='3.5s']{-webkit-animation-delay: 3.5s; animation-delay: 3.5s}
+*[__animation_delay='4s'  ]{-webkit-animation-delay: 4s;   animation-delay: 4s  }
+*[__animation_delay='4.5s']{-webkit-animation-delay: 4.5s; animation-delay: 4.5s}
+*[__animation_delay='5s'  ]{-webkit-animation-delay: 5s;   animation-delay: 5s  }
+*[__animation_delay='5.5s']{-webkit-animation-delay: 5.5s; animation-delay: 5.5s}
+*[__animation_delay='6s'  ]{-webkit-animation-delay: 6s;   animation-delay: 6s }
