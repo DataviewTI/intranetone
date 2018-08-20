@@ -2,11 +2,10 @@
 let mix = require('laravel-mix');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
-//const imageminJpegtran = require('imagemin-jpegtran');
-//const imageminPngquant = require('imagemin-pngquant');
+const MergeIntoSingleFilePlugin = require('webpack-merge-and-include-globally');
 const imageminMozjpeg = require('imagemin-mozjpeg');
-//const imageminWebp = require('imagemin-webp');
-//const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+mix.disableNotifications();
 
 function IntranetOne2(params={}){
   
@@ -58,7 +57,6 @@ function IntranetOne2(params={}){
     pickadate: 'node_modules/pickadate/lib/',
     photoswipe: 'node_modules/photoswipe/dist/',
     dv_formvalidation:'node_modules/dv-formvalidation/dist/',
-    // dv_formvalidation:'node_modules/formvalidation-dist-v1.0.1/dist/',
     dv_holdonjs:'node_modules/dv-holdOn/src/',
     animate:'node_modules/animate.css/',
     sweetalert2:'node_modules/sweetalert2/dist/',
@@ -140,15 +138,10 @@ function IntranetOne2(params={}){
   this.compileBase = (cb = ()=>{})=>{
 
     mix.babel(src.root+'social/fb/facebook-sdk-loader.js', dest.js + 'facebook-sdk-loader.min.js');
-    //mix.babel(src.vendors+'bsmd4/bsmd4.0.0.js',dest.js+'bsmd4.min.js');
     mix.scripts(dep.bs+'js/bootstrap.min.js', dest.js+'bootstrap.min.js');
     mix.babel(dep.jquery+'jquery.min.js', dest.js+'jquery.min.js');
     mix.babel(dep.jquery+'jquery.slim.min.js', dest.js+'jquery.slim.min.js');
 
-    /*mix.styles([
-      src.vendors + 'bsmd4/custom-bsmd.css',
-    ], dest.css + 'bsmd4.min.css');
-    */
     mix.copy(dep.bs+'css/bootstrap.min.css',dest.css);
 
     if(!config.optimize)
@@ -179,13 +172,23 @@ function IntranetOne2(params={}){
     ], dest.css + 'pickadate-full.min.css'); 
     
     //Corrigir posteriormente, fazer funcionar com babel
-    if(process.env.NODE_ENV !== 'production')
-      mix.scripts([
-        dep.photoswipe + 'photoswipe.min.js',
-        dep.photoswipe + 'photoswipe-ui-default.min.js',
-        src.js + 'photoswipe-loader.js',
-      ], dest.vendors + 'photoswipe/photoswipe.min.js');
+    //if(process.env.NODE_ENV !== 'production')
+      // mix.scripts([
+      //   dep.photoswipe + 'photoswipe.min.js',
+      //   dep.photoswipe + 'photoswipe-ui-default.min.js',
+      //   src.js + 'photoswipe-loader.js',
+      // ], dest.vendors + 'photoswipe/photoswipe.min.js');
   
+      $.WEBPACK_PLUGINS.push(new MergeIntoSingleFilePlugin({
+        files:{
+          'vendors/photoswipe/photoswipe.min.js': [
+            dep.photoswipe + 'photoswipe.min.js',
+            dep.photoswipe + 'photoswipe-ui-default.min.js',
+            src.js + 'photoswipe-loader.js',
+          ]
+        },
+      }));
+
 
     $.__imgOptimize({
       from: dep.photoswipe + 'default-skin',
@@ -198,31 +201,13 @@ function IntranetOne2(params={}){
   this.compileIO = (cb= ()=>{})=>{
     mix.copyDirectory(src.io.vendors+'glyphter-font/fonts/',dest.root+'fonts');
 
-    if(config.io.sass){
-      mix.less(dep.io.fuelux + 'less/fuelux.less', $.__root(dest.io.vendors + 'fuelux/compiled_less/fuelux.css'))
-      .less(dep.io.fuelux + 'less/fuelux-core.less', $.__root(dest.io.vendors + 'fuelux/compiled_less/fuelux-core.css'))
-      .less(dep.io.fuelux + 'less/wizard.less', $.__root(dest.io.vendors + 'fuelux/compiled_less/wizard.css'))
-      .less(dep.io.fuelux + 'less/utility.less', $.__root(dest.io.vendors + 'fuelux/compiled_less/utility.css'))
-      .less(dep.io.fuelux + 'less/pillbox.less', $.__root(dest.io.vendors + 'fuelux/compiled_less/pillbox.css'))
-      //less(paths.fuelux + 'less/combobox.less', dest.css + '/compiled_less/combobox.css');      
-
-      mix.styles([
-        dest.io.vendors + 'fuelux/compiled_less/fuelux.css',
-        dest.io.vendors + 'fuelux/compiled_less/fuelux-core.css',
-        dest.io.vendors + 'fuelux/compiled_less/wizard.css',
-        dest.io.vendors + 'fuelux/compiled_less/pillbox.css',
-        dest.io.vendors + 'fuelux/compiled_less/utility.css',
-        //dest.css + 'compiled_less/combobox.css',
-      ], dest.io.vendors + 'fuelux/fuelux-compiled.min.css');
-
-      mix.babel([
-        dep.io.fuelux + 'js/wizard.js',
-        dep.io.fuelux + 'js/dropdown-autoflip.js',
-        dep.io.fuelux + 'js/utilities.js',
-        dep.io.fuelux + 'js/pillbox.js',
-      ], dest.io.vendors + 'fuelux/fuelux-compiled.min.js');
-      
-    }
+   if(config.io.sass){
+    mix.less(dep.io.fuelux + 'less/fuelux.less', dest.io.vendors + 'fuelux/compiled_less/fuelux.css')
+    .less(dep.io.fuelux + 'less/fuelux-core.less',dest.io.vendors + 'fuelux/compiled_less/fuelux-core.css')
+    .less(dep.io.fuelux + 'less/wizard.less', dest.io.vendors + 'fuelux/compiled_less/wizard.css')
+    .less(dep.io.fuelux + 'less/utility.less',dest.io.vendors + 'fuelux/compiled_less/utility.css')
+    .less(dep.io.fuelux + 'less/pillbox.less',dest.io.vendors + 'fuelux/compiled_less/pillbox.css')
+   }
 
       if(!config.io.optimize)
         mix.copyDirectory(src.io.root+'images', dest.io.root+'images');
@@ -235,10 +220,22 @@ function IntranetOne2(params={}){
           ],
         });
       }
-        /* IO base files for any service */
-      //move compileds fuelux to dest folder
-      mix.copy(src.io.vendors + 'fuelux/fuelux-compiled.min.css', dest.io.css);
-      mix.copy(src.io.vendors + 'fuelux/fuelux-compiled.min.js', dest.io.js);
+
+      /* IO base files for any service */
+      mix.styles([
+        dest.io.vendors + 'fuelux/compiled_less/fuelux.css',
+        dest.io.vendors + 'fuelux/compiled_less/fuelux-core.css',
+        dest.io.vendors + 'fuelux/compiled_less/wizard.css',
+        dest.io.vendors + 'fuelux/compiled_less/pillbox.css',
+        dest.io.vendors + 'fuelux/compiled_less/utility.css',
+      ], dest.io.css + 'fuelux-compiled.min.css');
+
+      mix.babel([
+        dep.io.fuelux + 'js/wizard.js',
+        dep.io.fuelux + 'js/dropdown-autoflip.js',
+        dep.io.fuelux + 'js/utilities.js',
+        dep.io.fuelux + 'js/pillbox.js',
+      ], dest.io.js + 'fuelux-compiled.min.js');
 
       // Copy language files
       mix.copy(src.io.vendors +'datatables/datatables-pt-br.json',
@@ -266,22 +263,33 @@ function IntranetOne2(params={}){
       src.css + 'form-validation.css',
     ], dest.io.css + 'io-form-validation.min.css');
 
-    mix.babel([
-      dep.dv_holdonjs + 'js/HoldOn.min.js',
-      dep.io.toastr + 'toastr.min.js',
-      src.io.root + 'auth/auth.js',
-    ], dest.io.js + 'io-babel-auth.min.js');
-
-    mix.scripts([
-      dep.es6_shim+'es6-shim.js',
-      src.vendors+'formvalidation-dist-v1.0.1/dist/js/FormValidation.js',
-      src.vendors+'formvalidation-dist-v1.0.1/dist/js/plugins/Bootstrap.js',
-      src.vendors+'formvalidation-dist-v1.0.1/dist/js/locales/pt_BR.js',
-    ], dest.io.js + 'io-form-validation.min.js');
+    $.WEBPACK_PLUGINS.push(new MergeIntoSingleFilePlugin({
+      files:{
+        'io/js/io-auth.min.js': [
+          src.io.root + 'auth/auth.js',
+          dep.dv_holdonjs + 'js/HoldOn.min.js',
+        ]
+      },
+    }));
 
     mix.scripts([
       dep.sweetalert2 + 'sweetalert2.min.js',
+      dep.io.toastr + 'toastr.min.js',
     ], dest.io.js + 'io-mix-auth.min.js');
+
+
+    $.WEBPACK_PLUGINS.push(new MergeIntoSingleFilePlugin({
+      files:{
+        'io/js/io-form-validation.min.js': [
+          dep.es6_shim+'es6-shim.min.js',
+          src.vendors+'formvalidation-dist-v1.0.1/dist/js/FormValidation.min.js',
+          src.vendors+'formvalidation-dist-v1.0.1/dist/js/plugins/Bootstrap.min.js',
+          src.vendors+'formvalidation-dist-v1.0.1/dist/js/locales/pt_BR.js',
+        ]
+      },
+    }));
+
+    
 
     mix.styles([
       src.io.vendors + 'glyphter-font/css/intranetone.css',
@@ -293,11 +301,20 @@ function IntranetOne2(params={}){
       src.io.root + 'auth/password-reset.css',
     ], dest.io.css + 'io-mix-password-reset.min.css');
 
-    mix.scripts([
+    mix.babel([
       dep.dv_holdonjs + 'js/HoldOn.min.js',
       dep.io.toastr + 'toastr.min.js',
-      src.io.root + 'auth/password-reset.js',
-    ], dest.io.js + 'io-babel-password-reset.min.js');
+    ], dest.io.js + 'io-mix-password-reset.min.js');
+
+    $.WEBPACK_PLUGINS.push(new MergeIntoSingleFilePlugin({
+      files:{
+        'io/js/io-password-reset.min.js': [
+          src.io.root + 'auth/password-reset.js',
+        ]
+      },
+    }));
+
+
 
     /** DASHBOARD */
 

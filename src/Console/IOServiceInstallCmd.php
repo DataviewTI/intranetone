@@ -54,7 +54,7 @@ class IOServiceInstallCmd extends Command
       $this->comment('Instalando npm package '.$pkg['name'].'@'.$pkg['version']);
 
       try{
-        (new Process('npm install vendor/dataview/io'.$this->param->service.'/src/assets'))->setTimeout(3600)->run();
+        (new Process('npm install vendor/dataview/io'.$this->param->service.'/src/assets --save'))->setTimeout(3600)->run();
       }
       catch(ProcessFailedException $exception){
         $this->error($exception->getMessage());
@@ -76,7 +76,7 @@ class IOServiceInstallCmd extends Command
           $bar->advance();
           if($_oldpkg==null){
             $this->comment(" instalando ".$key.'@'.$pkg['IODependencies'][$key]);
-            (new Process('npm install '.$key.'@'.$pkg['IODependencies'][$key]))->setTimeout(3600)->mustRun();
+            (new Process('npm install '.$key.'@'.$pkg['IODependencies'][$key].' --save'))->setTimeout(3600)->mustRun();
           }
           else{ 
             $old_version = preg_replace("/[^0-9]/", "",$_oldpkg->version);
@@ -85,7 +85,7 @@ class IOServiceInstallCmd extends Command
               $this->comment(" em cache ".$key.'@'.$pkg['IODependencies'][$key]);
             else{
               $this->comment(" atualizando ".$key.'@'.$_oldpkg->version.' para '.$pkg['IODependencies'][$key]);
-              (new Process('npm install '.$key.'@'.$pkg['IODependencies'][$key]))->setTimeout(3600)->mustRun();
+              (new Process('npm install '.$key.'@'.$pkg['IODependencies'][$key].' --save'))->setTimeout(3600)->mustRun();
             }
           }
         }catch (ProcessFailedException $exception){

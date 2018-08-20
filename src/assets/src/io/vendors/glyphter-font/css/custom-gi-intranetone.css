@@ -25,3 +25,9 @@
 }
 
 .ico-chevron-left:before{content:'\0047';}
+
+.ico-alignment-top:before{
+  content:'\0025';
+  -webkit-transform: rotateX(180deg); /* Safari */
+  transform: rotateX(180deg);
+}

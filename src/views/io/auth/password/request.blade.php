@@ -20,5 +20,6 @@
 @endsection
 
 @section('scripts')
-  <script type = 'text/javascript' src="{{ asset('io/js/io-babel-password-reset.min.js') }}"></script>
+<script src="{{ asset('io/js/io-mix-password-reset.min.js') }}"></script>
+<script src="{{ asset('io/js/io-password-reset.min.js') }}"></script>
 @endsection

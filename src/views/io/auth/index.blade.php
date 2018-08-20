@@ -34,13 +34,12 @@ session_start();
   </div>
 
   <!-- global js -->
-	<script type = 'text/javascript'>var laravel_token = '{{ csrf_token() }}';</script>
-  <script type = 'text/javascript' src="{{ asset('js/jquery.min.js') }}"></script>
-	<script type = 'text/javascript' src="{{ asset('js/popper.min.js') }}"></script>
-	<script type = 'text/javascript' src="{{ asset('js/bootstrap.min.js') }}"></script>
-	<script type = 'text/javascript' src="{{ asset('io/js/io-babel-auth.min.js') }}"></script>
-	<script type = 'text/javascript' src="{{ asset('io/js/io-mix-auth.min.js') }}"></script>
-	<script type = 'text/javascript' src="{{ asset('io/js/io-form-validation.min.js') }}"></script>
-
+	<script>var laravel_token = '{{ csrf_token() }}';</script>
+  <script src="{{ asset('js/jquery.min.js') }}"></script>
+	<script src="{{ asset('js/popper.min.js') }}"></script>
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('io/js/io-form-validation.min.js') }}"></script>
+	<script src="{{ asset('io/js/io-mix-auth.min.js') }}"></script>
+	<script src="{{ asset('io/js/io-auth.min.js') }}"></script>
 </body>
 </html>
