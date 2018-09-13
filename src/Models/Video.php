@@ -13,7 +13,11 @@ class Video extends Model implements AuditableContract
 {
 	use Auditable;
 	protected $auditTimestamps = true;
-  protected $fillable = ['url','source','title','description','date','data','thumbnail','start_at','order'];
+  protected $fillable = ['url','source','title','description','date','data','thumbnail','start_at','order','group_id'];
+
+  public function group(){
+		return $this->belongsTo('Dataview\IntranetOne\Group');
+	}
 
   public function news(){
     return $this->hasOne('Dataview\IONews\News');
