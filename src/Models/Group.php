@@ -85,7 +85,7 @@ class Group extends IOModel
     
 		foreach($videos as $video)
 		{
-			if($video->dbId == null || $video->dbId == ""){
+			if(!property_exists($video, 'dbId') || $video->dbId == null || $video->dbId == ""){
 				$_video = new Video([
           'url' => $video->url,
           'order' => $video->order,
