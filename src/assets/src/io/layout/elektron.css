@@ -93,7 +93,7 @@ a.onoffcanvas-toggler:after,a.onoffcanvas-toggler:before{
   width:0;
 }
 .main-content{
-	padding:.5em;
+	padding: 15px 25px;
   overflow-x:hidden;
   padding-bottom:0;
   height:0!important;
