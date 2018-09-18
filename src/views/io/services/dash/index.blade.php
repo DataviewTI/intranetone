@@ -6,7 +6,6 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-</style>
 @stop
 
 @section('main-content')

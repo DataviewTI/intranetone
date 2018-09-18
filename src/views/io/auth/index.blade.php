@@ -25,8 +25,8 @@ session_start();
   <div class="container h-100">
       <div class = 'row justify-content-md-center h-100'>
         <div class = 'col-sm-12 col-md-4 align-self-center' id = 'login-box'>
-          <div class = 'd-flex'>
-            <img class = 'my-3 mx-auto img-fluid' src="{{ asset('io/images/logo-intranet.png') }}" alt="logo intranet">
+          <div class = 'd-flex justify-content-center align-items-center'>
+            <img class = 'my-3 mx-auto w-100 h-auto' src="{{ asset('io/images/logo-intranet.png') }}" alt="logo intranet">
           </div>
             @include('IntranetOne::io.auth.form-login')
         </div>

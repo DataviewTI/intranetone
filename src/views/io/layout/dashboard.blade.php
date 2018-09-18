@@ -98,7 +98,7 @@
             <nav class="side-nav">
               <div class = 'd-flex' style = 'height:100px'>
                 <a href = '/admin/dash' class = 'd-flex h-100'>
-                  <img src = "{{asset('/io/images/logo-intranet.png')}}" class = 'img-fluid d-flex m-auto'/>
+                  <img src = "{{asset('/io/images/logo-intranet.png')}}" class = 'img-fluid d-flex m-auto px-2'/>
                 </a>
               </div>
               <!-- BEGIN: side-nav-content -->
