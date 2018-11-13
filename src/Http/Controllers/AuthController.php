@@ -39,8 +39,9 @@ class AuthController
 		}
 
     public function getLogout(){
+      if(Sentinel::getUser())
         Sentinel::logout();
-          return redirect('admin/signin')->with('success', 'Usuário desconectado!');
+      return redirect('admin/signin')->with('success', 'Usuário desconectado!');
     }
 
 		public function getSignin(){

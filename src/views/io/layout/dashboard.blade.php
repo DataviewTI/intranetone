@@ -8,6 +8,7 @@
 
 <!DOCTYPE html>
 <html lang='pt-br'>
+<<<<<<< HEAD
 @if(Sentinel::check())
   @php
    $_SESSION['isLoggedIn'] = Sentinel::check();
@@ -25,6 +26,31 @@
     window.sessionStorage.setItem("IntranetOne",'@json(config("intranetone"))')
   </script>
 @endif
+=======
+@php
+    
+    session_start();
+    if (Sentinel::check())
+    {   
+      $_SESSION['isLoggedIn'] = true;
+        //deixa toda a intranet config disponível
+         echo "<script>"
+              ."window.IntranetOne = ".json_encode(Config::get('intranetone')).";"
+              ."window.loggedUser = ".json_encode(Sentinel::getUser()).";"
+              ."</script>";
+    }
+    else
+    {
+        echo "<script>"
+              ."window.IntranetOne = null"
+              ."</script>";
+        ;
+        $_SESSION['isLoggedIn'] = false;
+    }
+@endphp
+
+
+>>>>>>> 6785c1850fc6a3b5533be2a019e591fc1f44daac
 <head>
   @component('IntranetOne::base.components.google-font-loader',
     ['fonts'=>
@@ -84,7 +110,7 @@
               <h1>{{optional($_SESSION['IntranetOne'])->systemName}}</h1>
             </div>
           </div>
-          <div class = 'col-6 align-self-center text-right'>
+          <div class = 'col-6 justify-content-end d-flex'>
             @include('IntranetOne::io.layout.user-infos')
           </div>
       </header>
@@ -108,7 +134,11 @@
             <nav class="side-nav">
               <div class = 'd-flex' style = 'height:100px'>
                 <a href = '/admin/dash' class = 'd-flex h-100'>
+<<<<<<< HEAD
                   <img src="{{ asset(optional($_SESSION['IntranetOne'])->logo['thumb']) }}" class = 'img-fluid d-flex m-auto'/>
+=======
+                  <img src = "{{asset('/io/images/logo-intranet.png')}}" class = 'img-fluid d-flex m-auto px-2'/>
+>>>>>>> 6785c1850fc6a3b5533be2a019e591fc1f44daac
                 </a>
               </div>
               <!-- BEGIN: side-nav-content -->
@@ -166,6 +196,65 @@
 
   </div>
   <!-- END: .app -->
+</div>
+
+<div id="profile-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar perfil</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-profile-form">
+          <div class = 'row'>
+            <div class="col-6">
+              <div class="form-group">
+                <label for = 'first_name' class="bmd-label-floating __required">Nome</label>
+                <input name = 'first_name' type = 'text' class = 'form-control form-control-lg' />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for = 'last_name' class="bmd-label-floating __required">Sobrenome</label>
+                <input name = 'last_name' type = 'text' class = 'form-control form-control-lg' />
+              </div>
+            </div>
+          </div>
+    
+          <div class = 'row'>
+            <div class="col-12">
+              <div class="form-group">
+                <label for = 'email' class="bmd-label-floating __required">Email</label>
+                <input name = 'email' type = 'text' class = 'form-control form-control-lg' />
+              </div>
+            </div>
+          </div>
+    
+          <div class = 'row'>
+            <div class="col-6">
+              <div class="form-group">
+                <label for = 'password' class="bmd-label-floating __required">Senha</label>
+                <input name = 'password' type = 'password' class = 'form-control form-control-lg' />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for = 'confirm_password' class="bmd-label-floating __required">Confirme a senha</label>
+                <input name = 'confirm_password' type = 'password' class = 'form-control form-control-lg' />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button id="save-profile" type="button" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </div>
 </div>
 
   <!-- global js -->

@@ -1,0 +1,116 @@
+/** video seetings */
+
+/*circle-effect*/
+#btn-get-current-time:hover .ico{
+  font-size:17px;
+}
+
+#embed-container-video{
+  background:transparent url('/io/images/file-video-icon.png') no-repeat center center;
+  background-size:auto 50%;
+}
+
+#embed-container-video.loading{
+  background:transparent url('/images/loaders/blocks-64x64.gif') no-repeat center center;
+  background-size:auto 25%;
+}
+#embed-container-video .vplayer{
+  border-radius:.2em;
+}
+
+#video-list{
+  min-height: 165px;
+}
+
+#video-list #add-video{
+  height: 42px;
+  width: 42px;
+  border-radius: 36px;
+  text-align: center;
+  line-height: 40px;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#video-list #add-video i{
+  
+}
+
+.video-box {
+  margin-bottom: 10px;
+}
+
+.video-thumb{
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor:pointer;
+  position:relative;
+  background:transparent url('/io/images/no-thumb.jpg') no-repeat center center;
+  background-size:auto 100% ;
+  opacity:.6;
+  padding:0!important;
+  border:3px rgba(0,0,0,0) solid;
+  box-shadow:1px 1px 6px rgba(0,0,0,0);
+	-webkit-transition: all .4s ease-out;
+	-moz-transition: all .4s ease-out;
+	-ms-transition: all .4s ease-out;
+	-o-transition: all .4s ease-out;
+  transition: all .4s ease-out;
+}
+.video-thumb.active{
+  opacity:1;
+  border-color:#a2c748;
+  box-shadow:1px 1px 6px rgba(0,0,0,.8);
+}
+.video-thumb.active:after{
+  font-family: 'intranetone';
+  content:'\0041';
+  font-size:1em;
+  position:absolute;
+  color:#a2c748;
+  right:0px;
+  top:-6px;
+}
+.video-thumb.active:before{
+  content:'';
+  position:absolute;
+  right:-4px;
+  top:-6px;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background-color:#fff;
+}
+
+.video-thumb-default{
+  background:transparent url('/io/images/no-thumb.jpg') no-repeat center center;
+  background-size:auto 100% ;
+}
+#facebook-player{
+  position:absolute;
+  top:0;
+  width:100%;
+  height:307px!important;
+}
+
+.facebook-responsive {
+  overflow:hidden;
+  padding-bottom:56.25%;
+  position:relative;
+  
+  height:0;
+}
+
+.facebook-responsive iframe {
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+}

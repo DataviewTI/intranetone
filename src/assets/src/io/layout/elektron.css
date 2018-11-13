@@ -30,9 +30,32 @@
   padding:.3em .5em;
 }
 
+.app-heading .user-infos{
+  cursor: pointer;
+}
 
 .app-heading .user-infos span{
   color:#fff;
+}
+
+.app-heading .user-infos .box{
+  position: absolute;
+  right: -8px;
+  top: 31px;
+  z-index: 2000;
+  background-color: #22282C;
+  padding: 10px 0 10px 20px;
+  width: 35%;
+  display: none;
+}
+
+.app-heading .user-infos .box .img-container{
+  background-size: cover;
+  background-position: center center;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
 }
 
 .main-heading{
@@ -70,7 +93,7 @@ a.onoffcanvas-toggler:after,a.onoffcanvas-toggler:before{
   width:0;
 }
 .main-content{
-	padding:.5em;
+	padding: 15px 25px;
   overflow-x:hidden;
   padding-bottom:0;
   height:0!important;

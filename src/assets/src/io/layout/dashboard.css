@@ -13,13 +13,72 @@ form{
   cursor:not-allowed!important;
 }
 .form-control[disabled]{
-  opacity:.3!important;
+  opacity:.3!important; 
   background-color:transparent!important;
 }
 
 /*configs para default dos buttons da sweetalert na intranet*/
 .swal2-buttonswrapper .btn-swal-custom-intranetone{
   margin:0 .5em; 
+}
+
+.dash-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: 202px;
+}
+
+.dash-item .item-box{
+  padding: 44px;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px solid #CED4DA;
+  max-height: 100%;
+}
+
+.dash-item .item-box:hover{
+  -webkit-box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.dash-item .item-box:hover i{
+  font-size: 63px;
+}
+
+.dash-item .item-box:hover span{
+  font-size: 28px;
+}
+
+.dash-item a{
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+
+  text-decoration: none;
+  color: #202428;
+}
+
+.dash-item i{
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+
+  font-size: 60px;
+  line-height: 0;
+}
+
+.dash-item span{
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+
+  font-size: 26px;
+  display: block;
 }
 
 /* default hold on big size*/
