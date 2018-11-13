@@ -7,7 +7,7 @@
 }
 
 .dash-menu li a >.ico{
-  font-size:26px;
+  font-size:22px;
   margin-left:14px;
   margin-right:10px;
 }
@@ -24,6 +24,12 @@
 .dash-menu li._active a{
   background-color:#333;
 }
+
+.dash-menu li:hover a{
+  background-color:red;
+}
+
+
 .dash-menu li a >.ico,
 .dash-menu li a > span{
   color:#333;

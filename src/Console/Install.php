@@ -91,7 +91,13 @@ class Install extends Command
           '--class' => DatabaseSeeder::class,
         ]);
         
-      /** Processo de instalação individual de pacotes via PNPM via package.json->IODependencies */
+        $this->line('Instalando IO user service...');
+        Artisan::call('io-user:install');
+        $this->line('Instalando IO config service...');
+        Artisan::call('io-config:install');
+
+
+        /** Processo de instalação individual de pacotes via PNPM via package.json->IODependencies */
       $pkg = json_decode(file_get_contents(IntranetOneServiceProvider::pkgAddr('/assets/package.json')),true);
 
       (new Process('npm set progress=false'))->run();

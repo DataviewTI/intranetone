@@ -1,18 +1,26 @@
-.app-heading,
+.dash-menu li a{
+  color:transparent;
+}
+
+.app-heading{
+  background-color:transparent;
+}
 .dash-menu li:hover a,
 .dash-menu li._active a{
-  background-color:#333;
+  background-color:currentColor;
 }
+
+
 
 .app-heading .user-infos span,
 .dash-menu li:hover a > .ico,
 .dash-menu li._active a > .ico,
 .dash-menu li:hover a > span,
 .dash-menu li._active a > span{
-    color:#fff!important;
+    color:#fff;
 }
 
 .dash-menu li a >.ico,
 .dash-menu li a > span{
-  color:#333!important;
+  color:#333;
 }

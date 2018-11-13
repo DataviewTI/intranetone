@@ -259,7 +259,7 @@ function IntranetOne2(params={}){
     ], dest.io.css + 'io-mix-auth.min.css');
 
     mix.styles([
-      src.vendors+'formvalidation-dist-v1.0.1/dist/css/formValidation.min.css',
+      src.vendors+'formvalidation-dist-v1.3.0/dist/css/formValidation.min.css',
       src.css + 'form-validation.css',
     ], dest.io.css + 'io-form-validation.min.css');
 
@@ -282,13 +282,19 @@ function IntranetOne2(params={}){
       files:{
         'io/js/io-form-validation.min.js': [
           dep.es6_shim+'es6-shim.min.js',
-          src.vendors+'formvalidation-dist-v1.0.1/dist/js/FormValidation.min.js',
-          src.vendors+'formvalidation-dist-v1.0.1/dist/js/plugins/Bootstrap.min.js',
-          src.vendors+'formvalidation-dist-v1.0.1/dist/js/locales/pt_BR.js',
+          src.vendors+'formvalidation-dist-v1.3.0/dist/js/FormValidation.full.min.js',
+          src.vendors+'formvalidation-dist-v1.3.0/dist/js/plugins/Bootstrap.min.js',
         ]
       },
     }));
 
+    $.WEBPACK_PLUGINS.push(new MergeIntoSingleFilePlugin({
+      files:{
+        'io/js/io-form-validation-pt_BR.js': [
+          src.vendors+'formvalidation-dist-v1.3.0/dist/js/locales/pt_BR.js',
+        ]
+      },
+    }));
     
 
     mix.styles([

@@ -35,7 +35,7 @@ class AuthController
 			if(Sentinel::check())
         return Sentinel::check(); //CHANGE to set first Service
 			else
-				return "porra";
+				return "...erro";
 		}
 
     public function getLogout(){
@@ -44,10 +44,12 @@ class AuthController
     }
 
 		public function getSignin(){
-      if(Sentinel::check())
+      if(Sentinel::check()){
         return Redirect::route('admin.dashboard');
-      else
+      }
+      else{
         return view('IntranetOne::io.auth.index');
+      }
     }
 
     public function postSignin(Request $request)

@@ -10,6 +10,14 @@ class Group extends IOModel
 {
   protected $fillable = ['group','sizes'];
 
+  protected $casts = [
+    'sizes' => 'array',
+  ];
+  
+  public function setSizesAttribute($value){
+      $this->attributes['sizes'] = stripslashes($value);
+  }
+  
   public function files(){
 		return $this->hasMany('Dataview\IntranetOne\File')->orderBy('order');
 	}
@@ -21,7 +29,7 @@ class Group extends IOModel
 
 
   public function getPath($str=''){
-    return storage_path((config('intranetone.path_storage')."groups/group_".$this->id."/".$str));
+    return storage_path((config('intranetone.pathStorage')."groups/group_".$this->id."/".$str));
 	}
 
   public function getPartialPath($str=''){
@@ -34,6 +42,7 @@ class Group extends IOModel
 
   public function manageImages($files,$params)
   {
+
     $_imgs = [];
     $params = (object) $params;
     

@@ -4,7 +4,6 @@ namespace Dataview\IntranetOne;
 use Illuminate\Database\Seeder;
 use Sentinel;
 
-
 class AdminSeeder extends Seeder
 {
     public function run()
@@ -14,19 +13,27 @@ class AdminSeeder extends Seeder
       \DB::table('role_users')->truncate();
       \DB::table('activations')->truncate();
   
-      $admin = Sentinel::registerAndActivate(array(
-        'email'       => 'dataview@dataview.com.br',
+      $odin = Sentinel::registerAndActivate(array(
+        'email'       => 'odin@dataview.com.br',
         'password'    => "yv7scr",
-        'first_name'  => 'Dataview',
-        'last_name'   => 'TI',
+        'first_name'  => 'Odin',
+        'last_name'   => 'Dataview',
+      ));
+
+      $admin = Sentinel::registerAndActivate(array(
+        'email'       => 'admin@dataview.com.br',
+        'password'    => "yv7scr",
+        'first_name'  => 'Admin',
+        'last_name'   => 'Dataview',
       ));
     
       $user = Sentinel::registerAndActivate(array(
-        'email'       => 'mdisconzi@gmail.com',
+        'email'       => 'user@dataview.com.br',
         'password'    => "yv7scr",
-        'first_name'  => 'Marcelo',
-        'last_name'   => 'Disconzi',
+        'first_name'  => 'User',
+        'last_name'   => 'Dataview',
       ));
+    
       
       $adminRole = Sentinel::getRoleRepository()->createModel()->create([
         'name' => 'Admin',
@@ -39,6 +46,18 @@ class AdminSeeder extends Seeder
       ];
       $adminRole->save();
 
+
+      $odinRole = Sentinel::getRoleRepository()->createModel()->create([
+        'name' => 'Odin',
+        'slug' => 'odin',
+        'permissions' => array('odin' => true),
+      ]);	
+
+      $odinRole->permissions = [
+        'dash.view' => true,
+      ];
+      $odin->save();
+
       $userRole = Sentinel::getRoleRepository()->createModel()->create([
         'name' => 'User',
         'slug' => 'user',
@@ -50,9 +69,11 @@ class AdminSeeder extends Seeder
        ];
       $user->save();
 
+
       $admin->roles()->attach($adminRole);
       $user->roles()->attach($userRole);
+      $odin->roles()->attach($odinRole);
 
-      $this->command->info('Usuário padrão dataview@dataview.com.br criado...');
+      $this->command->info('Usuários Odin/Admin/USer padrão odin/admin/user@dataview.com.br criados, senha: yv7scr');
     }
 }

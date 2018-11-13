@@ -1,0 +1,32 @@
+.fv-plugins-turret {
+    .fv-plugins-icon {
+        height: 48px;   /* Same as height of input */
+        line-height: 48px;
+        width: 48px;
+    }
+
+    // Stacked form
+    &.fv-stacked-form {
+        .fv-plugins-icon {
+            top: 37px;
+        }
+
+        .fv-plugins-icon-check {
+            top: 24px;
+        }
+    }
+
+    .fv-invalid-row {
+        .form-message,
+        .fv-plugins-icon {
+            color: #c00; /* Same as .form-message.error */
+        }
+    }
+
+    .fv-valid-row {
+        .form-message,
+        .fv-plugins-icon {
+            color: #00b300; /* Same as .form-message.success */
+        }
+    }
+}

@@ -8,7 +8,7 @@ class IOService{
       this.tabs={};
       this.defaults = {ajax:null}
       this.name=params.name;
-      this.path=params.name.toLowerCase(),
+      this.path= params.path || params.name.toLowerCase(),
       this.cdt = null, //categories datatable
       this.cem = $('#categories-crud-modal'), //category edit modal
       this.createCategory = null, //service's categories 
@@ -17,9 +17,9 @@ class IOService{
       this.dt = null,
       this.fv=null;
       this.dz=null;
-      this.dfId = 'default-form';
+      this.dfId = params.dfId || 'default-form';
       this.df=$('#'+this.dfId);
-      this.wz=$('#default-wizard').wizard();
+      this.wz = params.wz || $('#default-wizard').wizard();
       this.callbacks={
         view:{onSuccess:function(){},onError:function(){}},
         create:{onSuccess:function(){},onError:function(){}},
@@ -30,7 +30,11 @@ class IOService{
       var self = this;
   
       $(document).ready(function(){
-        //config tabshow events
+        self.config = {
+          default:JSON.parse(window.sessionStorage.getItem('IntranetOne')),
+          user:JSON.parse(window.sessionStorage.getItem('configUser'))
+        }
+        
         $("a[data-toggle='tab'").each(function(i,obj){
           self.tabs[$(obj).attr('__name')] = {
             tab:$(obj),
@@ -107,6 +111,7 @@ class IOService{
       //do is necessary?
       let self = this;
       return self.wz.on('actionclicked.fu.wizard', function(e, data){
+
         self.fv.caller = 'wizard';
         self.wz.keys.step = data.step;
         self.wz.keys.direction = data.direction;
@@ -151,7 +156,7 @@ class IOService{
         
       })
       .on('finished.fu.wizard', function(e){
-        
+
         var isValidStep = null;
         self.wz.keys.fv[self.wz.keys.fv.length-1].validate().then(function(status) {
           if(status === 'Valid')
@@ -162,11 +167,11 @@ class IOService{
           callback();
           //prepare extra data to submit
           if(isValidStep === true){
-            if(self.toView != null){
+            if(self.toView !== null){
               self.update(self.toView);
             }
             else{
-
+              
               $.ajax({
                 url: self.df.attr('action'),
                 method: 'POST',
@@ -177,7 +182,10 @@ class IOService{
                 success: function(data){
                   if(data.success)
                   {
-                    self.tabs['listar'].setState(true);
+                    try{
+                      self.tabs['listar'].setState(true);
+                    }
+                    catch(err){}
                     self.callbacks.create.onSuccess(data);
                     HoldOn.close();
                     swal({
@@ -225,8 +233,8 @@ class IOService{
           
           if(ret.success){
             var data = ret.data[0];
-            self.toView = data.id;
-            $('.btn-info-edit').css({'display':'inline'}).find('.badge').text(data.id);
+            self.toView = data;
+            $('.btn-info-edit').css({'display':'inline'}).find('.badge').text(id);
             
             self.callbacks.view.onSuccess(data);
 
@@ -252,11 +260,12 @@ class IOService{
     }
 
     //update
-    this.update = function(id){
+    this.update = function(data){
       self = this;
+
       $.ajax({
         method: 'POST',
-        url:self.path+"/update/"+id,
+        url:`${self.path}/update/${data.id}`,
         cache:false,
         dataType: "json",
         data: self.df.serializeArray(),
@@ -266,18 +275,23 @@ class IOService{
         success: function(ret){
           HoldOn.close();
           if(ret.success){
-            //set list tab as updatable
-            self.tabs['listar'].setState(true);
-            self.callbacks.update.onSuccess(ret);
-            swal({
-              title:"Sucesso",
-              text:"O registro foi atualizado com sucesso!",
-              type:"success",
-              confirmButtonText:'OK',
-              onClose:function(){
-                self.unload(self);
-              }
-            });
+            try{
+                //set list tab as updatable
+              self.tabs['listar'].setState(true);
+              self.callbacks.update.onSuccess(ret);
+              swal({
+                title:"Sucesso",
+                text:"O registro foi atualizado com sucesso!",
+                type:"success",
+                confirmButtonText:'OK',
+                onClose:function(){
+                  self.unload(self);
+                }
+              });
+            }
+            catch(err){
+              self.callbacks.update.onSuccess(ret);
+            }
           }
         },      
         error: function(ret){
@@ -348,7 +362,10 @@ class IOService{
       $('.btn-info-edit').css({'display':'none'}).find('.badge').text('');
       
       self.fv.forEach(function f(element, index, array) {
-        self.fv[index].resetForm(true);
+        try{
+          self.fv[index].resetForm(true);
+        }
+        catch(err){}
       });
 
       self.callbacks.unload(self);

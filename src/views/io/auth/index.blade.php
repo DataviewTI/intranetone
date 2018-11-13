@@ -1,6 +1,18 @@
 @php
+use Dataview\IOConfig\Config;
 session_start();
   $_SESSION['isLoggedIn'] = Sentinel::check();
+
+$__config = Config::select()
+->where('name','default')
+->with([
+        'group'=>function($query){
+        $query->select('groups.id','sizes')
+        ->with('files');
+      },
+    ])
+->first();
+
 @endphp
 
 <!DOCTYPE html>
@@ -26,7 +38,7 @@ session_start();
       <div class = 'row justify-content-md-center h-100'>
         <div class = 'col-sm-12 col-md-4 align-self-center' id = 'login-box'>
           <div class = 'd-flex'>
-            <img class = 'my-3 mx-auto img-fluid' src="{{ asset('io/images/logo-intranet.png') }}" alt="logo intranet">
+            <img class = 'my-3 mx-auto img-fluid' src="{{ asset($__config->group->main()->getPath(['size'=>'thumb'])) }}" alt="logo intranet">
           </div>
             @include('IntranetOne::io.auth.form-login')
         </div>
@@ -39,6 +51,7 @@ session_start();
 	<script src="{{ asset('js/popper.min.js') }}"></script>
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('io/js/io-form-validation.min.js') }}"></script>
+	<script src="{{ asset('io/js/io-form-validation-pt_BR.js') }}"></script>
 	<script src="{{ asset('io/js/io-mix-auth.min.js') }}"></script>
 	<script src="{{ asset('io/js/io-auth.min.js') }}"></script>
 </body>

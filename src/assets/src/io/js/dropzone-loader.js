@@ -18,6 +18,7 @@ class DropZoneLoader{
       dictResponseError : 'RESPONSE ERROR',
       autoQueue : params.autoQueue || true,
       clickable : params.clickable || true,
+      maxFiles : params.maxFiles || null,
       url:"/dropzone/upload",
       thumbnailWidth: params.thumbnailWidth || 800,
       thumbnailHeight: params.thumbnailHeight || 600,
@@ -25,6 +26,7 @@ class DropZoneLoader{
       buttons: params.buttons || {},
       mainImage:params.mainImage || true,
       previewsContainer:params.id,
+      onPreviewLoad: params.onPreviewLoad || function(){},
       init:function(){
 
         this.buttons = {}
@@ -32,12 +34,12 @@ class DropZoneLoader{
 
           data.group.files.forEach((img,i)=>{
 
-            var _pat = `/group/file/${img.id}/thumb?nocash=${moment().format('x')}`;
+            try{var _pat = `/group/file/${img.id}/thumb?nocash=${moment().format('x')}`;
             var mockFile = {name:_pat, size: 0 };
             _this.files.push(mockFile);
             _this.emit("addedfile",mockFile);
             _this.files[i].infos = {
-              data:JSON.parse(img.data),
+              data:img.data,
               name:img.file,
               mimetype:img.mimetype,
               id : img.id
@@ -53,7 +55,8 @@ class DropZoneLoader{
 
             //atualiza o thumb size se existir
             if(data.sizes !== undefined){
-              let __sizes = JSON.parse(data.sizes.replace(/&quot;/g,'"'));
+//              let __sizes = JSON.parse(data.sizes.replace(/&quot;/g,'"'));
+              let __sizes = data.sizes;
               __this.copy_params.sizes.thumb.w = __sizes.sizes.thumb.w,
               __this.copy_params.sizes.thumb.h = __sizes.sizes.thumb.h
             }
@@ -66,6 +69,9 @@ class DropZoneLoader{
     
             $(__this.files[i].previewElement).find('.progress-bar').removeClass('bg-danger').addClass('bg-primary');
             $(__this.files[i].previewElement).find('[data-dz-percent]').text('');
+            }catch(err){
+              console.log(err);
+            }
           });
         };
 
@@ -176,18 +182,26 @@ class DropZoneLoader{
               if(params.mainImage==false)
                 $prv.addClass('no-main-image');
 
-              __this.options.previewTemplate = $prv.get(0).outerHTML;
+              if(params.class!==undefined)
+                $prv.addClass(params.class);
+
+                __this.options.previewTemplate = $prv.get(0).outerHTML;
 
               //adiciona botões extras ou remove
                 for(let b in params.buttons){
-                  if(params.buttons[b] == false)
+                  if(params.buttons[b] == false){
                     $prv.find(`.dz-${b}`).addClass('d-none');
+                  }
                   else{
+                    $prv.find(`.dz-${b}`).removeClass('d-none');
                     params.buttons[b].name = `dz-${b}`;
                     __this.addButton(params.buttons[b]);
                   }
                 }
-                if(__this.options.buttons.edit !== false){
+                
+
+
+                if(__this.options.buttons.edit !== false && __this.options.buttons.edit !== undefined){
                   $.ajax({
                     url:'/dropzone/edit-modal/default',
                     dataType:'html',
@@ -225,6 +239,7 @@ class DropZoneLoader{
                     }
                   });
                }
+               __this.options.onPreviewLoad(_this);
             }
         });
                     
@@ -239,6 +254,7 @@ class DropZoneLoader{
         }
 
         this.addButton = function(params){
+          //console.log('chamou o addButton');
           let $btn = $("<span class='dv-btn-circle ml-1' data-toggle='tooltip' data-placement='top'>");
           let $prv = $(__this.options.previewTemplate);
           //let $prv = params.prv || params.file.previewElement;
@@ -253,10 +269,12 @@ class DropZoneLoader{
             
             $btn.append(`<i class = 'ico ${params.ico || 'ico-save'}'></i>`);
             $prv.find('.dz-buttons-container').append($btn);
+
             //update previewTemplate
             __this.options.previewTemplate = $prv.get(0).outerHTML;
             __this.buttons[_name] = params;
           }
+
 
           this.addModal = function(params){
           let obj = typeof(params.obj) == 'string' ? $(`#${params.id}`) : params.obj;

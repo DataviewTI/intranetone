@@ -4,24 +4,19 @@
 
 @extends('IntranetOne::io.layout.dashboard')
 
-{{-- page level styles --}}
-@section('header_styles')
-</style>
-@stop
-
 @section('main-content')
 	<!--section ends-->
   <div class = 'h-100'>
-    @include('IntranetOne::io.services.dash.content')
+    
   </div>
 	<!-- content -->
   @stop
 
   @section('after_body_scripts')
     @include('IntranetOne::base.social.fb-sdk',[
-        'app_id'=>config('intranetone.social_media.facebook.app_id'),
-        'app_version'=>config('intranetone.social_media.facebook.app_version'),
-        'app_locale'=>config('intranetone.social_media.facebook.locale')
+        'appID'=>config('intranetone.socialMedia.facebook.appID'),
+        'appVersion'=>config('intranetone.socialMedia.facebook.appVersion'),
+        'appLocale'=>config('intranetone.socialMedia.facebook.locale')
         ])
   @endsection
 

@@ -20,7 +20,15 @@ class File extends Model implements AuditableContract
 		return $this->belongsTo('Dataview\IntranetOne\Group');
 	}
 
-	// IMAGES ///////////////////////////////////////////////////////////////////
+  protected $casts = [
+    'data' => 'array',
+  ];
+  
+  public function setDataAttribute($value){
+    $this->attributes['data'] = stripslashes($value);
+  }
+
+// IMAGES ///////////////////////////////////////////////////////////////////
 
 	public function setOriginal($bool){
 		$this->appends['original'] = $bool;
@@ -65,8 +73,10 @@ class File extends Model implements AuditableContract
 		return $this;
   }
   
+
+  
   public function getData($index=null,$key=null){
-    $data = json_decode($this->data);
+    //$data = json_decode($this->data);
     return $index == null ? $data : ($key==null ? $data->{$index} : $data->{$index}->{$key});
 
     /*try{

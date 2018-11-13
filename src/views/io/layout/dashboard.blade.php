@@ -1,34 +1,30 @@
-@php
+@php 
+//session_start();
   use Dataview\IntranetOne\IntranetOneController;
   $__service = \DB::table('services')
-  ->select('service','ico','alias','description')
+  ->select('id','service','ico','alias','description')
   ->where('alias',request()->segment(count(request()->segments())))->get()->first();
 @endphp
 
 <!DOCTYPE html>
 <html lang='pt-br'>
-@php
-    
-    session_start();
-    if (Sentinel::check())
-    {   
-      $_SESSION['isLoggedIn'] = true;
-        //deixa toda a intranet config disponível
-         echo "<script>"
-              ."window.IntranetOne = ".json_encode(Config::get('intranetone'))
-              ."</script>";
-    }
-    else
-    {
-        echo "<script>"
-              ."window.IntranetOne = null"
-              ."</script>";
-        ;
-        $_SESSION['isLoggedIn'] = false;
-    }
-@endphp
+@if(Sentinel::check())
+  @php
+   $_SESSION['isLoggedIn'] = Sentinel::check();
+   $__userConfig = optional(Dataview\IOConfig\Config::select('user_id','configuration')
+   ->where('name','default')
+   ->where('user_id',optional(\Sentinel::getUser())->id ?: 99999)
+   ->first())->configuration ?: [];
 
-
+   $_SESSION['IntranetOne'] = (Object) array_replace_recursive(config('intranetone'),
+    array_filter($__userConfig,function($val){
+    return $val !== '';
+   }));
+  @endphp
+  <script>
+    window.sessionStorage.setItem("IntranetOne",'@json(config("intranetone"))')
+  </script>
+@endif
 <head>
   @component('IntranetOne::base.components.google-font-loader',
     ['fonts'=>
@@ -42,7 +38,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>   
-        @section('title') {{config('intranetone.client.name')}} | {{ $__service->service}} @endsection @yield('title')
+        @section('title') {{optional($_SESSION['IntranetOne'])->systemName}} | {{ $__service->service}} @endsection @yield('title')
     </title>
     <!-- global css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
@@ -51,9 +47,24 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('io/css/io-form-validation.min.css') }}" />
 
     <!--page level css-->
+
     @yield('header_styles')
     <!--end of page level css-->
 
+    @if(filled(optional((Object)optional($_SESSION['IntranetOne'])->colors)->mainColor))
+      <style type = 'text/css'>
+        .dash-menu li a{
+          color: {{optional((Object)optional($_SESSION['IntranetOne'])->colors)->mainColor}}
+        }
+        .app-heading{
+          background-color:{{optional((Object)optional($_SESSION['IntranetOne'])->colors)->mainColor}}
+        }
+        .dash-menu li:hover a,
+        .dash-menu li._active a{
+          background-color:currentColor
+        }
+      </style>
+    @endif
 <body class="fuelux app-is-fixed">
   @yield('after_body_scripts')
   <!-- BEGIN .app -->
@@ -70,7 +81,7 @@
               href="#app-side" data-toggle="onoffcanvas"></a>
             </div>
             <div class = 'app-infos'>
-              <h1>{{config('intranetone.client.name')}}</h1>
+              <h1>{{optional($_SESSION['IntranetOne'])->systemName}}</h1>
             </div>
           </div>
           <div class = 'col-6 align-self-center text-right'>
@@ -97,7 +108,7 @@
             <nav class="side-nav">
               <div class = 'd-flex' style = 'height:100px'>
                 <a href = '/admin/dash' class = 'd-flex h-100'>
-                  <img src = "{{asset('/io/images/logo-intranet.png')}}" class = 'img-fluid d-flex m-auto'/>
+                  <img src="{{ asset(optional($_SESSION['IntranetOne'])->logo['thumb']) }}" class = 'img-fluid d-flex m-auto'/>
                 </a>
               </div>
               <!-- BEGIN: side-nav-content -->
@@ -158,17 +169,18 @@
 </div>
 
   <!-- global js -->
-	<script type = 'text/javascript'>var laravel_token = '{{ csrf_token() }}';</script>
-  <script type = 'text/javascript' src="{{ asset('js/jquery.min.js') }}"></script>
-	<script type = 'text/javascript' src="{{ asset('js/popper.min.js') }}"></script>
-	<script type = 'text/javascript' src="{{ asset('js/bootstrap.min.js') }}"></script>
-  <script type = "text/javascript" src="{{ asset('io/js/fuelux-compiled.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('io/js/io-babel-dashboard.min.js') }}"></script>
-  <script type="text/javascript" assync defer src="{{ asset('io/js/io-dashboard.min.js') }}"></script>
-	<script type = 'text/javascript' src="{{ asset('io/js/io-form-validation.min.js') }}"></script>
+	<script>var laravel_token = '{{ csrf_token() }}';</script>
+  <script src="{{ asset('js/jquery.min.js') }}"></script>
+	<script src="{{ asset('js/popper.min.js') }}"></script>
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('io/js/fuelux-compiled.min.js') }}"></script>
+  <script src="{{ asset('io/js/io-babel-dashboard.min.js') }}"></script>
+  <script assync defer src="{{ asset('io/js/io-dashboard.min.js') }}"></script>
+	<script src="{{ asset('io/js/io-form-validation.min.js') }}"></script>
+	<script src="{{ asset('io/js/io-form-validation-pt_BR.js') }}"></script>
+
   <script>$(document).ready(function(){
-    //$('body').bootstrapMaterialDesign();
-    OnoffCanvas.autoinit(true);
+    OnoffCanvas.autoinit(true)
   });</script>
 
 
