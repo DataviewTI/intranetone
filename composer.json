@@ -19,7 +19,7 @@
     "doctrine/dbal": "^2.8",
     "symfony/process": "^4.1",
     "dataview/iouser":"dev-master",
-    "dataview/config":"dev-master"
+    "dataview/ioconfig":"dev-master"
   },
   "extra": {
     "laravel": {
