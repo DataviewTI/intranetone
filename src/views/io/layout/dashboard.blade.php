@@ -8,7 +8,6 @@
 
 <!DOCTYPE html>
 <html lang='pt-br'>
-<<<<<<< HEAD
 @if(Sentinel::check())
   @php
    $_SESSION['isLoggedIn'] = Sentinel::check();
@@ -26,31 +25,6 @@
     window.sessionStorage.setItem("IntranetOne",'@json(config("intranetone"))')
   </script>
 @endif
-=======
-@php
-    
-    session_start();
-    if (Sentinel::check())
-    {   
-      $_SESSION['isLoggedIn'] = true;
-        //deixa toda a intranet config disponível
-         echo "<script>"
-              ."window.IntranetOne = ".json_encode(Config::get('intranetone')).";"
-              ."window.loggedUser = ".json_encode(Sentinel::getUser()).";"
-              ."</script>";
-    }
-    else
-    {
-        echo "<script>"
-              ."window.IntranetOne = null"
-              ."</script>";
-        ;
-        $_SESSION['isLoggedIn'] = false;
-    }
-@endphp
-
-
->>>>>>> 6785c1850fc6a3b5533be2a019e591fc1f44daac
 <head>
   @component('IntranetOne::base.components.google-font-loader',
     ['fonts'=>
