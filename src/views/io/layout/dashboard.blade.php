@@ -108,11 +108,7 @@
             <nav class="side-nav">
               <div class = 'd-flex' style = 'height:100px'>
                 <a href = '/admin/dash' class = 'd-flex h-100'>
-<<<<<<< HEAD
                   <img src="{{ asset(optional($_SESSION['IntranetOne'])->logo['thumb']) }}" class = 'img-fluid d-flex m-auto'/>
-=======
-                  <img src = "{{asset('/io/images/logo-intranet.png')}}" class = 'img-fluid d-flex m-auto px-2'/>
->>>>>>> 6785c1850fc6a3b5533be2a019e591fc1f44daac
                 </a>
               </div>
               <!-- BEGIN: side-nav-content -->
