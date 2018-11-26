@@ -19,7 +19,8 @@
     "doctrine/dbal": "^2.8",
     "symfony/process": "^4.1",
     "dataview/iouser":"dev-master",
-    "dataview/ioconfig":"dev-master"
+    "dataview/ioconfig":"dev-master",
+    "guzzlehttp/guzzle": "^6.3"
   },
   "extra": {
     "laravel": {
