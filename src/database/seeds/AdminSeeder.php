@@ -73,7 +73,7 @@ class AdminSeeder extends Seeder
       $admin->roles()->attach($adminRole);
       $user->roles()->attach($userRole);
       $odin->roles()->attach($odinRole);
-      $odin->roles()->attach($adminRole);
+      // $odin->roles()->attach($adminRole);
 
       $this->command->info('Usuários Odin/Admin/USer padrão odin/admin/user@dataview.com.br criados, senha: yv7scr');
     }
