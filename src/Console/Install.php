@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Dataview\IntranetOne\IntranetOneServiceProvider;
 use Cartalyst\Sentinel\Laravel\SentinelServiceProvider;
+use OwenIt\Auditing\AuditingServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Dataview\IntranetOne\IntranetOne;
 use Dataview\IntranetOne\DatabaseSeeder;
@@ -60,8 +61,12 @@ class Install extends Command
             unlink(database_path('migrations/'.$f));
         }
 
-        if(!$audits_exists)
-          Artisan::call('auditing:install');
+        if(!$audits_exists){
+          $this->line('Publicando AuditingServiceProvider...');
+          Artisan::call('vendor:publish', [
+            '--provider' => AuditingServiceProvider::class,
+          ]);
+        }
 
         $this->line('Criando link simbólico...');
         Artisan::call('storage:link');
