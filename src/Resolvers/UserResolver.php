@@ -10,6 +10,6 @@ class UserResolver implements \OwenIt\Auditing\Contracts\UserResolver
      */
     public static function resolve()
     {
-        return Sentinel::check() ? Sentinel::getUser()->id : null;
+        return Sentinel::check() ? Sentinel::getUser() : null;
     }
 }
