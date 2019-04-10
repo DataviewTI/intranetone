@@ -354,6 +354,7 @@ function IntranetOne2(params={}){
     mix.babel([
       dep.dv_holdonjs + 'js/HoldOn.min.js',
       dep.io.datatables.js + 'jquery.dataTables.js',
+      dep.io.toastr + 'toastr.min.js',
       src.io.js + 'defaults/def-datatables.js',
       src.io.js + 'extensions/ext-datatables.js',
       src.io.js + 'dashboard.js',
