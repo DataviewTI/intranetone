@@ -1,10 +1,10 @@
 <script>
   window.fbAsyncInit = function() {
     FB.init({
-      appId            : '{{$appID}}',
+      appId            : '{{$app_id}}',
       autoLogAppEvents : true,
       xfbml            : true,
-      version          : '{{$appVersion}}'
+      version          : '{{$app_version}}'
     });
   };
 
@@ -12,7 +12,7 @@
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
      js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/{{$appLocale}}/sdk.js";
+     js.src = "https://connect.facebook.net/{{$app_locale}}/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>

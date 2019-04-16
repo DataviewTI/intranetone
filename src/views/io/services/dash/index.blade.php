@@ -14,9 +14,9 @@
 
   @section('after_body_scripts')
     @include('IntranetOne::base.social.fb-sdk',[
-        'appID'=>config('intranetone.socialMedia.facebook.appID'),
-        'appVersion'=>config('intranetone.socialMedia.facebook.appVersion'),
-        'appLocale'=>config('intranetone.socialMedia.facebook.locale')
+        'app_id'=>config('intranetone.socialMedia.facebook.app_id'),
+        'app_version'=>config('intranetone.socialMedia.facebook.app_version'),
+        'app_locale'=>config('intranetone.socialMedia.facebook.locale')
         ])
   @endsection
 
