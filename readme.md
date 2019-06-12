@@ -87,6 +87,12 @@ return [
 ];
 ```
 
+Carregar as configurações
+
+```sh
+php artisan config:cache
+```
+
 ## Webpack
 
 - Configure o webpack conforme abaixo
