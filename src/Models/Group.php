@@ -53,7 +53,7 @@ class Group extends IOModel
     
 		foreach($files as $img)
 		{
-      $img  = (object) $img;
+      		$img  = (object) $img;
 			//$img->date = empty($img->date) ? null : $img->date;
 			if($img->id == null){
 				$_img = new ProjectFile([
@@ -65,9 +65,9 @@ class Group extends IOModel
 				$_img->setTmp($img->tmp);
 				$_img->setOriginal($params->original);
 				foreach($params->sizes as $p => $v){
-          $v = (object) $v;
+          			$v = (object) $v;
 					$_img->setSize($p,$v->w,$v->h);
-        }
+        		}
 				$this->files()->save($_img);
 				array_push($_imgs,$_img->id);
 			}

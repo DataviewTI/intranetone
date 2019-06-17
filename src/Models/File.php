@@ -16,17 +16,18 @@ class File extends Model implements AuditableContract
 	protected $fillable = ['file','mimetype','order','data'];
 	protected $appends = ['tmp'=>null,"original"=>false,'sizes'=>null];
 
-  public function group(){
+  	public function group(){
 		return $this->belongsTo('Dataview\IntranetOne\Group');
 	}
 
-  protected $casts = [
-    'data' => 'array',
-  ];
-  
-  public function setDataAttribute($value){
-    $this->attributes['data'] = stripslashes($value);
-  }
+	protected $casts = [
+		'data' => 'array',
+	];
+	
+	public function setDataAttribute($value){
+		$this->attributes['data'] = $value;
+		// $this->attributes['data'] = stripslashes($value);
+	}
 
 // IMAGES ///////////////////////////////////////////////////////////////////
 
