@@ -1,17 +1,23 @@
 /* customização para dropzone */
-.dropzone.dz-clickable
-{
-	border:2px #ccc dashed !important;
-  cursor:pointer!important;
-}
-.dropzone{
-  height:400px;
-  overflow-y:scroll;
+.d-none-force {
+  /* display: none !important; */
+  border: 1px blue solid !important;
 }
 
-.dz-drop-files-here.dropzone.dz-clickable{
-  background:url('/io/images/Drop-Files-Here-extra.png') no-repeat center center;
+.dropzone.dz-clickable {
+  border: 2px #ccc dashed !important;
+  cursor: pointer !important;
+}
+.dropzone {
+  height: 400px;
+  overflow-y: scroll;
 }
 
+.dz-drop-files-here.dropzone.dz-clickable {
+  background: url('/io/images/Drop-Files-Here-extra.png') no-repeat center
+    center;
+}
 
-.dropzone.dz-clickable:hover {border-color:#aaa!important}
+.dropzone.dz-clickable:hover {
+  border-color: #aaa !important;
+}

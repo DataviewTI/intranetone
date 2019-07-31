@@ -97,7 +97,6 @@ class IOService{
     //methods
     /** DEFAULT Wizard actions*/
     this.wizardActions = function(callback){
-      
       this.wz.keys={
         fv: this.fv,
         numtabs:this.df.find('.step-pane').length,
@@ -117,7 +116,7 @@ class IOService{
         self.wz.keys.direction = data.direction;
         self.wz.keys.container = self.df.find('.step-pane[data-step="' + self.wz.keys.step +'"]');
 
-        if(self.wz.keys.step!=self.wz.keys.numtabs){
+        if(self.wz.keys.step != self.wz.keys.numtabs){
           e.preventDefault();
         }
 
