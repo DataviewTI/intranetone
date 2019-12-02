@@ -1,5 +1,6 @@
 <?php
 namespace Dataview\IntranetOne;
+use Illuminate\Support\Facades\DB;
 
 class IntranetOne
 {
@@ -11,6 +12,13 @@ class IntranetOne
       default:
         return json_encode($data);
     }
+  }
+  
+  static function getEnumValues( $table, $field ){
+    $type = DB::select( DB::raw("SHOW COLUMNS FROM {$table} WHERE Field = '{$field}'") )[0]->Type;
+    preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
+    $enum = explode("','", $matches[1]);
+    return $enum;
   }
 
   static function installMessages($cmd,$len=3,$posdelay=1){

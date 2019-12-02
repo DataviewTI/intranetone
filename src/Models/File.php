@@ -1,7 +1,6 @@
 <?php
 
 namespace Dataview\IntranetOne;
-
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 use	Image;

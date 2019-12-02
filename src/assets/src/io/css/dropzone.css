@@ -1,7 +1,6 @@
 /* customização para dropzone */
 .d-none-force {
   /* display: none !important; */
-  border: 1px blue solid !important;
 }
 
 .dropzone.dz-clickable {

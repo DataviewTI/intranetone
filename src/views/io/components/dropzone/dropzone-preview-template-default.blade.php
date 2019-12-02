@@ -1,4 +1,4 @@
-	<div class="custom-dz-template mt-1">
+	<div class="custom-dz-template mt-0">
 		<div class = 'dz-buttons-container d-flex justify-content-end mr-1'>
         <span class="dv-btn-circle dz-delete ml-1 bg-danger text-white" data-dz-delete="" data-toggle='tooltip' data-placement='top' title='Remover'>
         <i class = 'ico ico-trash'></i>
@@ -14,7 +14,7 @@
       </span>
 		</div>
 		<div class="dz-img-container dz-img-loading">
-			<img class = 'img-fluid' data-dz-thumbnail />
+			<img class = 'img-fluid' data-dz-thumbnail style="width:100%"/>
 		</div>
 		<div class = 'dz-container-infos'>
       <div class="progress">
