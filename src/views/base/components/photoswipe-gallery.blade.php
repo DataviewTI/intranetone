@@ -1,6 +1,9 @@
 @php
   
-  $__sizes = (Array) json_decode($group->sizes)->sizes;
+  // $__sizes = (Array) json_decode($group->sizes)->sizes;
+  $__sizes = $group->sizes['sizes'];
+
+  $_id = isset($id) ? "id='$id'" : "";
 
   $visible = isset($visible) ? $visible : 1;
   $video = isset($video) ? $video : null;
@@ -34,7 +37,7 @@
   }
   
 @endphp
-<div class = "ps-gallery m-0 p-0 w-100 d-flex @if(isset($class)){{$class}}@endif" style = "@if(isset($style)){{$style}}@endif" itemscope itemtype="http://schema.org/ImageGallery" id='$id'>
+<div class = "ps-gallery m-0 p-0 w-100 d-flex @if(isset($class)){{$class}}@endif" style = "@if(isset($style)){{$style}}@endif" itemscope itemtype="http://schema.org/ImageGallery" {{$_id}}>
   @foreach($group->files as $f)
     @if($loop->first || $loop->iteration <= $visible)
       @if($loop->first && $video !== null)
@@ -44,7 +47,7 @@
       itemprop="associatedMedia" itemscope
       itemtype="http://schema.org/ImageObject" class = "main-image m-0 {{$main['figure_class']}}">
         <a href="{{$f->getPath(['size'=>$sizes['normal']])}}" class = "{{$main['a_class']}}"
-           itemprop="contentUrl" data-size="{{$__sizes[$big]->w}}x{{$__sizes[$big]->h}}">
+           itemprop="contentUrl" data-size="{{$__sizes[$big]['w']}}x{{$__sizes[$big]['h']}}">
           <img src = "{{$f->getPath(['size'=>$sizes['thumb']])}}" class = "{{$main['img_class']}}" alt = '...'/>
         </a>
         @if(!empty($f->caption))
@@ -55,7 +58,7 @@
     @else
       <figure style = 'display:none' data-index="{{$loop->iteration}}"
         itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-        <a href="{{$f->getPath(['size'=>$sizes['big']])}}" itemprop="contentUrl" data-size="{{$__sizes[$big]->w}}x{{$__sizes[$big]->h}}">
+        <a href="{{$f->getPath(['size'=>$sizes['big']])}}" itemprop="contentUrl" data-size="{{$__sizes[$big]['w']}}x{{$__sizes[$big]['h']}}">
           <img src = "{{$f->getPath(['size'=>$sizes['normal']])}}" class = 'img-fluid w-100 m-0' alt = '...'/>
         </a>
         @if(!empty($f->caption))

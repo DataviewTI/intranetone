@@ -393,9 +393,7 @@ class DropZoneLoader {
           // Do the dimension checks you want to do
           if (file.width > 4000 || file.height > 4000) {
             toastr['error'](
-              `As dimensões do arquivo (${file.width}x${
-                file.height
-              }) excedem o máximo permitido pelo servidor , < 4000px na altura e largura`
+              `As dimensões do arquivo (${file.width}x${file.height}) excedem o máximo permitido pelo servidor , < 4000px na altura e largura`
             );
             _this.removeFile(file);
           }

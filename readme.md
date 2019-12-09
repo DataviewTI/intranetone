@@ -98,8 +98,12 @@ php artisan config:cache
 - Configure o webpack conforme abaixo
 
 ```js
-let io = require("intranetone");
-io.compile();
+let io = require('intranetone');
+let user = require('intranetone-user');
+let config = require('intranetone-config');
+io.compile({
+  services: [...new user(), new config()]
+});
 ```
 
 - Compile os assets e faça o cache
