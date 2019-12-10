@@ -2,38 +2,37 @@
   "name": "dataview/intranetone",
   "description": "testing laravel packages creation",
   "authors": [
-      {
-          "name": "mdisconzi",
-          "email": "mdisconzi@bitbucket.org"
-      }
+    {
+      "name": "mdisconzi",
+      "email": "mdisconzi@bitbucket.org"
+    }
   ],
   "autoload": {
-      "psr-4": {
+    "psr-4": {
       "Dataview\\IntranetOne\\": "src/"
-      }
-    },
+    }
+  },
   "require": {
     "cartalyst/sentinel": "2.0.*",
     "owen-it/laravel-auditing": "^8.0",
     "yajra/laravel-datatables-oracle": "~8.0",
     "doctrine/dbal": "^2.8",
     "symfony/process": "^4.1",
-    "dataview/iouser":"dev-master",
-    "dataview/ioconfig":"dev-master",
+    "dataview/iouser": "dev-master",
+    "dataview/ioconfig": "dev-master",
     "guzzlehttp/guzzle": "^6.3"
   },
   "extra": {
     "laravel": {
-        "providers": [
-            "\\Dataview\\IntranetOne\\IntranetOneServiceProvider",
-            "\\Cartalyst\\Sentinel\\Laravel\\SentinelServiceProvider"
-        ],
-        "aliases": {
-          "Activation" : "Cartalyst\\Sentinel\\Laravel\\Facades\\Activation",
-          "Reminder" : "Cartalyst\\Sentinel\\Laravel\\Facades\\Reminder",
-          "Sentinel" : "Cartalyst\\Sentinel\\Laravel\\Facades\\Sentinel"
-        }
+      "providers": [
+        "\\Dataview\\IntranetOne\\IntranetOneServiceProvider",
+        "\\Cartalyst\\Sentinel\\Laravel\\SentinelServiceProvider"
+      ],
+      "aliases": {
+        "Activation": "Cartalyst\\Sentinel\\Laravel\\Facades\\Activation",
+        "Reminder": "Cartalyst\\Sentinel\\Laravel\\Facades\\Reminder",
+        "Sentinel": "Cartalyst\\Sentinel\\Laravel\\Facades\\Sentinel"
+      }
     }
+  }
 }
-}
-
