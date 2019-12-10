@@ -482,9 +482,11 @@ class DropZoneLoader {
         if (params.addedFile !== undefined) params.removedFile(file);
       })
       .on('success', function(file, ret) {
+        console.log('file', file);
+        console.log('ret', ret);
         var _ret = JSON.parse(ret);
 
-        console.log('ret', _ret);
+        console.log('_ret', _ret);
         file.infos.name = _ret.file_name;
         file.infos.tmp = _ret.tmp_name;
         file.infos.mimetype = _ret.mimetype;
