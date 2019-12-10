@@ -453,6 +453,7 @@ class DropZoneLoader {
               showCancelButton: true
             }).then(result => {
               if (result.value == true) {
+                console.log('removeu');
                 __this.removeFile(file);
               }
             });
@@ -482,6 +483,8 @@ class DropZoneLoader {
       })
       .on('success', function(file, ret) {
         var _ret = JSON.parse(ret);
+
+        console.log('ret', _ret);
         file.infos.name = _ret.file_name;
         file.infos.tmp = _ret.tmp_name;
         file.infos.mimetype = _ret.mimetype;
