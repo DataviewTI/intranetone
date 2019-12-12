@@ -36,12 +36,16 @@ class IOServiceRemoveCmd extends Command
       }
   
       IntranetOne::installMessages($this);
-      $this->line('Removendo migrações...');
       Service::where('alias',$s)->forceDelete();
-      \DB::table('migrations')
-        ->where('migration','like','%'.$s.'%')
-        ->orWhere('migration','like','%'.str_plural($s).'%')
-        ->delete();
+
+      //remove todas as migrations
+      foreach($this->param->tables as $t){
+        $this->line('Removendo migração '.$t.' - '.str_singular($t).'...');
+        \DB::table('migrations')
+          ->where('migration','like','%'.$t.'%')
+          ->orWhere('migration','like','%'.str_singular($t).'%')
+          ->delete();
+      }
 
         IntranetOne::installMessages($this,1);
         $this->line('Removendo assets...');

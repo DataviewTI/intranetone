@@ -207,6 +207,7 @@ class DropZoneLoader {
             if (params.class !== undefined) $prv.addClass(params.class);
             //adiciona botões extras ou remove
             for (let b in params.buttons) {
+              console.log('b', b);
               if (params.buttons[b] == false) {
                 $prv.find(`.dz-${b}`).addClass('d-none');
               } else {

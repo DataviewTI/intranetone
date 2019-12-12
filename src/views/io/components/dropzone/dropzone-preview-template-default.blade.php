@@ -1,7 +1,7 @@
 	<div class="custom-dz-template mt-0">
 		<div class = 'dz-buttons-container d-flex justify-content-end mr-1'>
-        <span class="dv-btn-circle d-none dz-orb ml-1 bg-danger text-white" data-dz-orb="" data-toggle='tooltip' data-placement='top' title='orb'>
-        <i class = 'ico ico-trash'></i>
+        <span class="dv-btn-circle d-none dz-orbs ml-1 bg-warning text-white" data-dz-orb="" data-toggle='tooltip' data-placement='top' title='orb'>
+        <i class = 'ico ico-orbe'></i>
         </span>
         <span class="dv-btn-circle dz-delete ml-1 bg-danger text-white" data-dz-delete="" data-toggle='tooltip' data-placement='top' title='Remover'>
         <i class = 'ico ico-trash'></i>
