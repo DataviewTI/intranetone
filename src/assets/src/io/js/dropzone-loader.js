@@ -25,8 +25,8 @@ class DropZoneLoader {
       buttons: params.buttons || {},
       mainImage: params.mainImage || true,
       previewsContainer: params.id,
-      onPreviewLoad: params.onPreviewLoad || function () { },
-      init: function () {
+      onPreviewLoad: params.onPreviewLoad || function() {},
+      init: function() {
         this.buttons = {};
         this.reloadImages = data => {
           data.group.files.forEach((img, i) => {
@@ -112,7 +112,7 @@ class DropZoneLoader {
             url: '/dropzone/crop-modal/default',
             dataType: 'html',
             _dz: $(this)[0],
-            success: function (data) {
+            success: function(data) {
               __this.options.crop =
                 typeof params.crop == 'boolean' ? {} : params.crop;
               let __crop = __this.options.crop;
@@ -132,7 +132,7 @@ class DropZoneLoader {
                 .find('.rotate-right')
                 .on('click', () => __crop.img.data('cropper').rotate(90));
 
-              __crop.modal.on('hidden.bs.modal', function (e) {
+              __crop.modal.on('hidden.bs.modal', function(e) {
                 let _crop = __this.options.crop;
                 if (!_crop.file.cropped) __this.removeFile(_crop.file);
 
@@ -140,7 +140,7 @@ class DropZoneLoader {
                 _crop.modal.find('.image-container').html('');
               });
 
-              __crop.modal.on('show.bs.modal', function (e) {
+              __crop.modal.on('show.bs.modal', function(e) {
                 let _crop = __this.options.crop;
                 var reader = new FileReader();
                 var $img = $('<img style="max-width: 100%;"/>').css({
@@ -181,7 +181,7 @@ class DropZoneLoader {
 
               __crop.aspect_ratio_x = params.crop.aspect_ratio_x || 1;
               __crop.aspect_ratio_y = params.crop.aspect_ratio_y || 1;
-              __crop.ready = params.crop.ready || (() => { });
+              __crop.ready = params.crop.ready || (() => {});
             }
           });
         } //end crop
@@ -200,7 +200,7 @@ class DropZoneLoader {
           url: '/dropzone/preview-template/default',
           dataType: 'html',
           _dz: $(this)[0],
-          success: function (data) {
+          success: function(data) {
             let $prv = $(data);
             if (params.mainImage == false) $prv.addClass('no-main-image');
 
@@ -226,7 +226,7 @@ class DropZoneLoader {
                 url: '/dropzone/edit-modal/default',
                 dataType: 'html',
                 _dz: $(this)[0],
-                success: function (data) {
+                success: function(data) {
                   $('body').append($(data));
                   __this.addButton({
                     name: 'dz-edit',
@@ -278,7 +278,7 @@ class DropZoneLoader {
             .find(
               '.custom-dz-template.dz-success.dz-image-preview input[data-dz-embed-data]'
             )
-            .each(function (a, b) {
+            .each(function(a, b) {
               var obj = JSON.parse($(b).val());
               obj.order = a + 1;
               _files.push(obj);
@@ -286,7 +286,7 @@ class DropZoneLoader {
           return _files;
         };
 
-        this.addButton = function (params) {
+        this.addButton = function(params) {
           //console.log('chamou o addButton');
           let $btn = $(
             "<span class='dv-btn-circle ml-1' data-toggle='tooltip' data-placement='top'>"
@@ -310,7 +310,7 @@ class DropZoneLoader {
           __this.buttons[_name] = params;
         };
 
-        this.addModal = function (params) {
+        this.addModal = function(params) {
           let obj =
             typeof params.obj == 'string' ? $(`#${params.id}`) : params.obj;
 
@@ -322,7 +322,7 @@ class DropZoneLoader {
                 keyboard: false,
                 backdrop: 'static'
               })
-              .on('show.bs.modal', function () {
+              .on('show.bs.modal', function() {
                 let _preview = $(params.file.previewElement);
                 let img = obj.find("[dz-info-modal='img']");
                 img.prop(
@@ -343,7 +343,7 @@ class DropZoneLoader {
                 if (params.onShow !== undefined)
                   params.onShow(params.file, obj);
 
-                obj.find("[dz-info-modal='btn-save']").on('click', function () {
+                obj.find("[dz-info-modal='btn-save']").on('click', function() {
                   //percorre todos os elementos do form
                   obj.find("[id*='dz-info-']").each((a, b) => {
                     let _inp = $(b);
@@ -358,7 +358,7 @@ class DropZoneLoader {
                   if (params.onSave !== undefined)
                     params.onSave(params.file, obj);
 
-                  setTimeout(function () {
+                  setTimeout(function() {
                     $(params.file.previewElement)
                       .find('[data-dz-embed-data]')
                       .val(JSON.stringify(params.file.infos));
@@ -367,13 +367,13 @@ class DropZoneLoader {
                   obj.modal('hide');
                 });
               })
-              .on('shown.bs.modal', function (e) {
+              .on('shown.bs.modal', function(e) {
                 obj
                   .find("[id*='dz-info-']")
                   .first()
                   .focus();
               })
-              .on('hidden.bs.modal', function (e) {
+              .on('hidden.bs.modal', function(e) {
                 obj.off('show.bs.modal');
                 obj.find("[dz-info-modal='btn-save']").off('click');
               });
@@ -390,7 +390,7 @@ class DropZoneLoader {
         );
 
         var _this = this;
-        this.on('thumbnail', function (file) {
+        this.on('thumbnail', function(file) {
           // Do the dimension checks you want to do
           if (file.width > 4000 || file.height > 4000) {
             toastr['error'](
@@ -401,7 +401,7 @@ class DropZoneLoader {
           $("[data-toggle='tooltip']").tooltip();
         });
       },
-      renameFile: function (file) {
+      renameFile: function(file) {
         var ext = file.name.substr(file.name.lastIndexOf('.')).toLowerCase();
         var str = getRandomString(16) + ext;
         return str;
@@ -412,7 +412,7 @@ class DropZoneLoader {
           $(params.id).addClass('dz-drop-files-here');
         if (params.removedFile !== undefined) params.removedFile(file);
       })
-      .on('addedfile', function (file) {
+      .on('addedfile', function(file) {
         file.infos = {
           id: null,
           name: null,
@@ -436,14 +436,14 @@ class DropZoneLoader {
 
             $(file.previewElement)
               .find(`.${b}`)
-              .on('click', function (e) {
+              .on('click', function(e) {
                 __this.buttons[b].action(file);
               });
           }
 
         $(file.previewElement)
           .find('.dz-cancel')
-          .on('click', function () {
+          .on('click', function() {
             swal({
               title: 'Cancelar Upload',
               text: 'Tem certeza que deseja cancelar o upload da imagem acima?',
@@ -462,7 +462,7 @@ class DropZoneLoader {
 
         $(file.previewElement)
           .find('.dz-delete')
-          .on('click', function () {
+          .on('click', function() {
             swal({
               title: 'Apagar Imagem',
               text: 'Tem certeza que deseja apagar a imagem acima?',
@@ -482,10 +482,9 @@ class DropZoneLoader {
 
         if (params.addedFile !== undefined) params.removedFile(file);
       })
-      .on('success', function (file, ret) {
-
+      .on('success', function(file, ret) {
         console.log('ret', ret);
-        var _ret = typeof (ret) === 'string' ? JSON.parse(ret) : ret;
+        var _ret = typeof ret === 'string' ? JSON.parse(ret) : ret;
 
         console.log('_ret', _ret);
         file.infos.name = _ret.file_name;
@@ -498,18 +497,18 @@ class DropZoneLoader {
         //file.infos.mimetype = file.type;
         _preview.find('[data-dz-name]').text(file.infos.name);
 
-        _preview.find('.dz-crop').on('click', function () { });
-        _preview.find('.dz-cancel').on('click', function () {
+        _preview.find('.dz-crop').on('click', function() {});
+        _preview.find('.dz-cancel').on('click', function() {
           this.cancel();
         });
 
         //hack to can retrieve infos os adition
-        setTimeout(function () {
+        setTimeout(function() {
           _preview.find('[data-dz-embed-data]').val(JSON.stringify(file.infos));
           if (params.onSuccess !== undefined) params.onSuccess(file, ret);
         }, 300);
       })
-      .on('uploadprogress', function (file, progress) {
+      .on('uploadprogress', function(file, progress) {
         var el = $(file.previewElement);
         el.find('.progress-bar').css({ width: progress.toFixed(2) + '%' });
         el.find('[data-dz-percent]').text(progress.toFixed(2) + '%');
@@ -533,7 +532,7 @@ class DropZoneLoader {
         }*/
         } else el.find('[data-dz-name]').text('carregando...');
       })
-      .on('error', function (file, err) {
+      .on('error', function(file, err) {
         var _this = this;
         switch (err) {
           case 'INVALID FILE':

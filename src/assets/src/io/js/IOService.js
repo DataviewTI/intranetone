@@ -182,10 +182,8 @@ class IOService {
               //prepare extra data to submit
               if (isValidStep === true) {
                 if (self.toView !== null) {
-                  console.log('upd', self.df.serializeArray());
                   self.update(self.toView);
                 } else {
-                  console.log('aa', self.df.serializeArray());
                   $(self.df)
                     .find('[always-send]')
                     .each((index, el) => {
