@@ -12,6 +12,7 @@ class ServiceSeeder extends Seeder
         Service::insert([
           'service' => "Dashboard",
           'alias' => 'dash',
+          'trans' => 'Painel',
           'ico' => 'ico-dashboard',
           'description' => 'Dashboard IntranetOne',
           'order' => 0

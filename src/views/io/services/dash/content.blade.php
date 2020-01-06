@@ -11,7 +11,7 @@
       <a class="w-100" href={{ "/admin/".str_slug($s->alias) }}>
         <div class="item-box w-100">  
           <i class="ico {{ $s->ico }} my-auto "></i>
-          <span>{{ $s->service }}</span>
+          <span class='mt-3'>{{ $s->trans }}</span>
         </div>
       </a>
     </div>

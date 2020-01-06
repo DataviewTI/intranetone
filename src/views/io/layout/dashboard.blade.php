@@ -38,7 +38,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>   
-        @section('title') {{optional($_SESSION['IntranetOne'])->systemName}} | {{ $__service->service}} @endsection @yield('title')
+        @section('title') {{optional($_SESSION['IntranetOne'])->systemName}} | {{ $__service->alias}} @endsection @yield('title')
     </title>
     <!-- global css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
@@ -133,7 +133,7 @@
 
           <!-- BEGIN .main-heading -->
           <header class="main-heading">
-						<h1 class = 'text-default'><i class = 'ico {{$__service->ico}}'></i> {{$__service->service}} - {{$__service->description}} @yield('main-heading')</h1>
+						<h1 class = 'text-default'><i class = 'ico {{$__service->ico}}'></i> - {{$__service->description}} @yield('main-heading')</h1>
           </header>
           <!-- END: .main-heading -->
 

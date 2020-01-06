@@ -41,7 +41,6 @@ class IOServiceInstallCmd extends Command
       IntranetOne::installMessages($this);
 
       $this->line('registrando serviço...');
-      $this->line("db:seed '--class' = {$this->param->seeder}");
       
       Artisan::call('db:seed', [
         '--class' => $this->param->seeder

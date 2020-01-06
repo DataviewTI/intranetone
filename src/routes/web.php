@@ -64,18 +64,18 @@ Route::group(['prefix' => 'admin','middleware' => ['web']],function(){
 
   Route::get('password/request', 'AuthController@showPasswordRequestForm')->name('password.request');
   Route::post('password/email', 'AuthController@sendPasswordResetEmail')->name('password.email');
-  Route::get('password/edit/{userId}/{token}', function($userId, $token){
-    return view('IntranetOne::io.auth.password.edit', ['userId' => $userId, 'token' => $token]);
-  })->name('password.edit');
+  
+  Route::get('password/edit/{userId}/{token}','AuthController@edit')->name('password.edit');
+
   Route::post('password/reset', 'AuthController@passwordReset')->name('password.reset');
 
 });
+
+
+
 //Após Login, dentro do dashboard todos passam pelo midlware admin 
 Route::group(['prefix' => 'admin', 'middleware' => ['web','admin'], 'as' => 'admin.'],function(){
   
-  /* se acessar /admin apenas e estiver logado, redireciona para o dash
-     se não estiver logado, o middleware retorna para signin
-  */
   Route::get('/', ['as' => 'dashboard','uses' => function(){
     return redirect('admin/dash');
   }]);

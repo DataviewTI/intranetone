@@ -38,7 +38,12 @@ class AuthController
 				return "...erro";
 		}
 
-    public function getLogout(){
+    
+		public function edit($userId, $token){
+      return view('IntranetOne::io.auth.password.edit', ['userId' => $userId, 'token' => $token]);
+		}
+    
+        public function getLogout(){
       if(Sentinel::getUser())
         Sentinel::logout();
       return redirect('admin/signin')->with('success', 'Usuário desconectado!');

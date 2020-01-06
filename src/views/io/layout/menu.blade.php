@@ -17,7 +17,7 @@
   foreach($servs as $s){
     if(Sentinel::getUser()->hasAccess(str_slug($s->alias).".*"))
       array_push($menuItems,[
-          "title"		=>$s->service,
+          "title"		=>$s->trans,
           "icon"	=>$s->ico,
           "href"		=>"/admin/".str_slug($s->alias),
         ]

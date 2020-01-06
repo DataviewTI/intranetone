@@ -28,7 +28,6 @@ try{
   }
 }
 catch(Exception $e){
-  dump('disparou exceção');
 }
 finally{
   return $__config;

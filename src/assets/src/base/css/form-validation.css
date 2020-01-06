@@ -27,6 +27,11 @@ select.form-control {
   padding-top: 6px;
 }
 
+.form-control{
+  padding-right:16px!important
+}
+
+
 .form-control:focus {
   border-bottom: 1px #777 solid;
 }
@@ -70,5 +75,5 @@ select.form-control {
   color: #fe5722 !important;
 }
 .picker ~ .fv-plugins-message-container {
-  margin-top: -25px;
+  margin-top: -15px;
 }

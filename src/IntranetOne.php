@@ -50,7 +50,20 @@ class IntranetOne
       "Distilling beauty...",
       "Constructing emotional depth...",
       "Exceeding cpu quota...",
-      "Challenging everything..."
+      "Challenging everything...",
+      "Waiting for the system admin to hit enter...",
+      "Warming up the processors...",
+      "RE-calibrating the internet...",
+      "Please don't move...",
+      "Testing for perfection...",
+      "Making you a cookie...",
+      "Improving your reading skills...",
+      "Waiting for approval from Bill Gates...",
+      "Buy more RAM...",
+      "Loading loading messages...",
+      "Spinning the wheel of fortune...",
+      "Preparing for hyperspace jump...",
+      "Searching for the Amulet of Yendor...",
     ];
 
     $i = mt_rand(1,$len);
