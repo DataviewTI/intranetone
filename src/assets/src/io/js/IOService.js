@@ -24,11 +24,11 @@ class IOService {
     this.wz = params.wz || $('#default-wizard').wizard();
     this.onNew = false;
     this.callbacks = {
-      view: { onSuccess: function () { }, onError: function () { } },
-      create: { onSuccess: function () { }, onError: function () { } },
-      update: { onSuccess: function () { }, onError: function () { } },
-      delete: { onSuccess: function () { }, onError: function () { } },
-      unload: function () { }
+      view: { onSuccess: function() {}, onError: function() {} },
+      create: { onSuccess: function() {}, onError: function() {} },
+      update: { onSuccess: function() {}, onError: function() {} },
+      delete: { onSuccess: function() {}, onError: function() {} },
+      unload: function() {}
     };
 
     this.override = {
@@ -40,11 +40,11 @@ class IOService {
     };
 
     // const self = this;
-    IO.active = this
-    IO.services[this.name.toLowerCase()] = this
+    IO.active = this;
+    IO.services[this.name.toLowerCase()] = this;
 
     $(document).ready(() => {
-      let self = this
+      let self = this;
       this.config = {
         default: JSON.parse(window.sessionStorage.getItem('IntranetOne')),
         user: JSON.parse(window.sessionStorage.getItem('configUser'))
@@ -53,18 +53,18 @@ class IOService {
       $("a[data-toggle='tab'").each((i, obj) => {
         this.tabs[$(obj).attr('__name')] = {
           tab: $(obj),
-          setState: function (val) {
+          setState: function(val) {
             this.tab.attr('__update', val);
             return this;
           },
-          getState: function () {
+          getState: function() {
             return this.tab.attr('__update');
           }
         };
       });
 
       //futuramente trocar por um has_table
-      $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', (e) => {
+      $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', e => {
         if ($(e.target).attr('__update') == 'true') {
           this.dt.ajax.reload();
           $(e.target).attr('__update', false);
@@ -80,7 +80,6 @@ class IOService {
           showCancelButton: true,
           type: 'question'
         }).then(result => {
-
           if (result.value) {
             if (!IO.active.onNew) {
               IO.active.unload(IO.active);
@@ -92,9 +91,8 @@ class IOService {
                   .first()
                   .focus();
               }, 100);
-            }
-            else {
-              IO.active.onNew(IO.active)
+            } else {
+              IO.active.onNew(IO.active);
             }
             //document.location.reload();
           }
@@ -164,29 +162,27 @@ class IOService {
           } else {
             //??global or not?
             var isValidStep = null;
-            this.wz.keys.fv[this.wz.keys.step - 1]
-              .validate()
-              .then(status => {
-                if (status === 'Valid') isValidStep = true;
-                else isValidStep = false;
+            this.wz.keys.fv[this.wz.keys.step - 1].validate().then(status => {
+              if (status === 'Valid') isValidStep = true;
+              else isValidStep = false;
 
-                //saindo do penúltimo para o último
-                if (
-                  this.wz.keys.step == this.wz.keys.numtabs - 1 &&
-                  isValidStep
-                ) {
-                  $('.btn-next').addClass('btn-success');
-                  $('.btn-next .ico')
-                    .removeClass('ico-arrow-right')
-                    .addClass('ico-save');
-                }
+              //saindo do penúltimo para o último
+              if (
+                this.wz.keys.step == this.wz.keys.numtabs - 1 &&
+                isValidStep
+              ) {
+                $('.btn-next').addClass('btn-success');
+                $('.btn-next .ico')
+                  .removeClass('ico-arrow-right')
+                  .addClass('ico-save');
+              }
 
-                if (isValidStep != false && isValidStep != null) {
-                  this.wz.wizard('selectedItem', {
-                    step: this.wz.keys.step + 1
-                  });
-                }
-              });
+              if (isValidStep != false && isValidStep != null) {
+                this.wz.wizard('selectedItem', {
+                  step: this.wz.keys.step + 1
+                });
+              }
+            });
           }
         })
         .on('finished.fu.wizard', e => {
@@ -203,7 +199,7 @@ class IOService {
                 if (this.toView !== null) {
                   this.update(this.toView);
                 } else {
-                  this.isUpdate = false
+                  this.isUpdate = false;
                   $(this.df)
                     .find('[always-send]')
                     .each((index, el) => {
@@ -214,9 +210,11 @@ class IOService {
                       }
                     });
 
-                  let serialized = this.df.serializeArray().concat(this.getExtraData())
+                  let serialized = this.df
+                    .serializeArray()
+                    .concat(this.getExtraData());
 
-                  serialized.push({ name: 'isUpdate', value: false })
+                  serialized.push({ name: 'isUpdate', value: false });
 
                   $(this.df)
                     .find('[always-send]')
@@ -232,7 +230,7 @@ class IOService {
                     url: this.df.attr('action'),
                     method: 'POST',
                     data: serialized,
-                    beforeSend: function () {
+                    beforeSend: function() {
                       // HoldOn.open({
                       //   message: 'Salvando dados, aguarde...',
                       //   theme: 'sk-bounce'
@@ -243,7 +241,7 @@ class IOService {
                         if (!this.override.create.onSuccess) {
                           try {
                             this.tabs['listar'].setState(true);
-                          } catch (err) { }
+                          } catch (err) {}
                           this.callbacks.create.onSuccess(data);
                           HoldOn.close();
                           swal({
@@ -254,9 +252,8 @@ class IOService {
                               this.unload(this);
                             }
                           });
-                        }
-                        else {
-                          this.override.create.onSuccess(data)
+                        } else {
+                          this.override.create.onSuccess(data);
                         }
                       }
                     },
@@ -281,31 +278,28 @@ class IOService {
         });
     };
 
-
-
     //CRUD Actions
 
-    this.getExtraData = function () {
-      return Object.keys(this.extraData).map((el) => {
+    this.getExtraData = function() {
+      return Object.keys(this.extraData).map(el => {
         return {
           name: el,
           value: this.extraData[el]
-        }
-      })
-    }
+        };
+      });
+    };
 
-    this.view = function (id) {
+    this.view = function(id) {
       this.unload(this);
       $.ajax({
         url: this.path + '/view/' + id,
-        beforeSend: function () {
+        beforeSend: function() {
           HoldOn.open({
             message: 'Carregando dados, aguarde...',
             theme: 'sk-bounce'
           });
         },
         success: ret => {
-
           if (ret.success) {
             var data = ret.data[0];
             this.toView = data;
@@ -345,16 +339,16 @@ class IOService {
     };
 
     //update
-    this.update = function (data) {
-      let serialized = this.df.serializeArray().concat(this.getExtraData())
-      serialized.push({ name: 'isUpdate', value: data.id })
+    this.update = function(data) {
+      let serialized = this.df.serializeArray().concat(this.getExtraData());
+      serialized.push({ name: 'isUpdate', value: data.id });
       $.ajax({
         method: 'POST',
         url: `${this.path}/update/${data.id}`,
         cache: false,
         dataType: 'json',
         data: serialized,
-        beforeSend: function () {
+        beforeSend: function() {
           HoldOn.open({
             message: 'Atualizando dados, aguarde...',
             theme: 'sk-bounce'
@@ -388,7 +382,7 @@ class IOService {
     };
 
     //update
-    this.delete = function (id) {
+    this.delete = function(id, params = {}) {
       swal.queue([
         {
           title: 'Excluir Registro?',
@@ -404,7 +398,7 @@ class IOService {
           showLoaderOnConfirm: true,
           preConfirm: () => {
             return new Promise(resolve => {
-              $.get(this.path + '/delete/' + id)
+              $.get(params.url ? params.url : `${this.path}/delete/${id}`)
                 .done(ret => {
                   if (ret.sts == true) {
                     swal.insertQueueStep({
@@ -425,7 +419,7 @@ class IOService {
                   this.dt.draw(true);
                   resolve();
                 })
-                .fail(function (ret) {
+                .fail(function(ret) {
                   if (ret.status == 403) {
                     var data = JSON.parse(ret.responseText);
                     for (var err in data.errors) {
@@ -463,7 +457,7 @@ class IOService {
       this.fv.forEach((element, index, array) => {
         try {
           this.fv[index].resetForm(true);
-        } catch (err) { }
+        } catch (err) {}
       });
 
       this.callbacks.unload(this);
@@ -476,7 +470,7 @@ class IOService {
 
     //Default CRUD ajax request onerror
     this.defaults.ajax = {
-      onError: function (ret, callback) {
+      onError: function(ret, callback) {
         if (ret.status == 422) {
           var data = JSON.parse(ret.responseText);
           HoldOn.close();
@@ -488,7 +482,7 @@ class IOService {
             } catch (err) {
               console.warn('ajax insert/update 422');
             }
-          })
+          });
         }
 
         if (ret.status == 403) {
@@ -508,14 +502,14 @@ class IOService {
     }; //end ajax error
 
     if (this.cem.length > 0) {
-      let _self = this
+      let _self = this;
       this.cdt = $('#categories-table')
         .DataTable({
           aaSorting: [[0, 'desc']],
           searching: false,
           ajax: '/categories/serviceChildCats/' + serviceMainCat.id,
-          initComplete: function (data) { },
-          footerCallback: function (row, data, start, end, display) { },
+          initComplete: function(data) {},
+          footerCallback: function(row, data, start, end, display) {},
           columns: [
             { data: 'id', name: 'id' },
             { data: 'category', name: 'category' },
@@ -537,7 +531,7 @@ class IOService {
               className: 'text-center',
               searchable: false,
               orderable: false,
-              render: function (data, type, row, y) {
+              render: function(data, type, row, y) {
                 return _self.cdt.addDTButtons({
                   buttons: [
                     { ico: 'ico-edit', _class: 'text-info', title: 'editar' },
@@ -566,16 +560,16 @@ class IOService {
               .find('select#category_id')
               .append(
                 "<option value='" +
-                item.id +
-                "'>#" +
-                item.id +
-                ' - ' +
-                item.category +
-                '</option>'
+                  item.id +
+                  "'>#" +
+                  item.id +
+                  ' - ' +
+                  item.category +
+                  '</option>'
               );
           });
         })
-        .on('click', '.btn-dt-button[data-original-title=editar]', function () {
+        .on('click', '.btn-dt-button[data-original-title=editar]', function() {
           var data = _self.cdt.row($(this).parents('tr')).data();
 
           self.cem.find('input#edit').val(data.id);
@@ -585,7 +579,7 @@ class IOService {
 
           _self.cem.modal('show');
         })
-        .on('click', '.ico-trash', function () {
+        .on('click', '.ico-trash', function() {
           var data = _self.cdt.row($(this).parents('tr')).data();
           _self.deleteCategory(data.id);
         });
@@ -613,13 +607,13 @@ class IOService {
         url: '/categories/create',
         method: 'POST',
         data: formData,
-        beforeSend: function () {
+        beforeSend: function() {
           HoldOn.open({
             message: 'Salvando dados, aguarde...',
             theme: 'sk-bounce'
           });
         },
-        success: function (data) {
+        success: function(data) {
           if (data.success) {
             self.tabs['categorias'].setState(true);
             self.tabs['categorias'].tab.tab('show');
@@ -629,7 +623,7 @@ class IOService {
               title: 'Cadastro efetuado com sucesso!',
               confirmButtonText: 'OK',
               type: 'success',
-              onClose: function () {
+              onClose: function() {
                 // self.cdt.ajax.reload();
                 // self.cdt.draw(true);
                 location.reload();
@@ -637,7 +631,7 @@ class IOService {
             });
           }
         },
-        error: function (ret) {
+        error: function(ret) {
           self.defaults.ajax.onError(ret, self.callbacks.create.onError);
         }
       }); //end ajax
@@ -648,13 +642,13 @@ class IOService {
         url: '/categories/update',
         method: 'POST',
         data: formData,
-        beforeSend: function () {
+        beforeSend: function() {
           HoldOn.open({
             message: 'Atualizando dados, aguarde...',
             theme: 'sk-bounce'
           });
         },
-        success: function (data) {
+        success: function(data) {
           if (data.success) {
             self.tabs['categorias'].setState(true);
             self.tabs['categorias'].tab.tab('show');
@@ -664,7 +658,7 @@ class IOService {
               title: 'O registro foi atualizado com sucesso!',
               confirmButtonText: 'OK',
               type: 'success',
-              onClose: function () {
+              onClose: function() {
                 // self.cdt.ajax.reload();
                 // self.cdt.draw(true);
                 location.reload();
@@ -672,7 +666,7 @@ class IOService {
             });
           }
         },
-        error: function (ret) {
+        error: function(ret) {
           self.defaults.ajax.onError(ret, self.callbacks.create.onError);
         }
       }); //end ajax
@@ -692,10 +686,10 @@ class IOService {
           showCancelButton: true,
           reverseButtons: true,
           showLoaderOnConfirm: true,
-          preConfirm: function () {
-            return new Promise(function (resolve) {
+          preConfirm: function() {
+            return new Promise(function(resolve) {
               $.get('/categories/delete/' + id)
-                .done(function (ret) {
+                .done(function(ret) {
                   if (ret.sts == true) {
                     swal.insertQueueStep({
                       title: 'Registro excluído!',
@@ -714,7 +708,7 @@ class IOService {
                   // self.cdt.draw(true);
                   resolve();
                 })
-                .fail(function (ret) {
+                .fail(function(ret) {
                   if (ret.status == 403) {
                     var data = JSON.parse(ret.responseText);
                     for (var err in data.errors) {
@@ -723,8 +717,8 @@ class IOService {
                   }
                   resolve();
                 });
-            }).then(function (value) {
-              setTimeout(function () {
+            }).then(function(value) {
+              setTimeout(function() {
                 location.reload();
               }, 2000);
             });
