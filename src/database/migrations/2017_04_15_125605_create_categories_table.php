@@ -10,6 +10,7 @@ class CreateCategoriesTable extends Migration
 			Schema::create('categories', function (Blueprint $table) {
 				$table->increments('id');
 				//$table->integer('content_type_id')->unsigned();
+				$table->integer('service_id')->nullable()->unsigned();
 				$table->integer('category_id')->nullable()->unsigned();
 				$table->char('category',60);
 				$table->char('category_slug',60);

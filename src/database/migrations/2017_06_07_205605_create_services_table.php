@@ -26,6 +26,10 @@ class CreateServicesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+			Schema::table('categories', function (Blueprint $table) {
+				$table->foreign('service_id')->references('id')->on('services')->onDelete('cascade')->onUpdate('cascade');
+			});        
     }
 
     /**
