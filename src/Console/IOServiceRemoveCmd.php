@@ -31,7 +31,9 @@ class IOServiceRemoveCmd extends Command
       if(Schema::hasTable(str_plural($s))){
         foreach($this->param->tables as $t){
           $this->line('Removendo tabela '.$t);
+          \DB::statement("SET FOREIGN_KEY_CHECKS=0");
           Schema::dropIfExists($t);
+          \DB::statement("SET FOREIGN_KEY_CHECKS=1");
         }
       }
   
