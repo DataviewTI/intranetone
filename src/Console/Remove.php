@@ -45,7 +45,9 @@ class Remove extends Command
             foreach($tables as $table){
               $bar->advance();
               $this->comment(' removendo tabela '.$table->{$colname});
+              \DB::statement("SET FOREIGN_KEY_CHECKS=0");
               \DB::statement("DROP TABLE ".$table->{$colname});
+              \DB::statement("SET FOREIGN_KEY_CHECKS=1");
             }
             $bar->advance();
             $this->line(' desinstalando npm...');
