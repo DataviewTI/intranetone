@@ -93,6 +93,28 @@ Carregar as configurações
 php artisan config:cache
 ```
 
+## Configurações server em produção King Host
+
+- ssh ftp.site.com.br -l site
+- Clone o repositório
+- baixe e instale o composer
+
+```sh
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+```
+
+- Execute o composer
+
+```sh
+php -d memory_limit="1G" composer.phar install
+```
+
+```sh
+ln -s www/storage/app/public www/public/ storage
+```
+
 ## Webpack
 
 - Configure o webpack conforme abaixo
