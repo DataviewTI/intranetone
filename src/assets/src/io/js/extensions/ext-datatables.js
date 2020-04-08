@@ -6,26 +6,29 @@
 //ações padrão para botões
 //Extensão da jquery para ordenação de datas, require momentjs
 $.extend(jQuery.fn.dataTableExt.oSort, {
-  'date-br-pre': function(a) {
-    if (a == null || a == '') return 0;
-    return moment(a, 'DD/MM/YYYY').format('x');
+  "date-br-pre": function(a) {
+    if (a == null || a == "") return 0;
+    return moment(a, "DD/MM/YYYY").format("x");
   },
-  'date-br-asc': function(a, b) {
+  "date-br-asc": function(a, b) {
     return a < b ? -1 : a > b ? 1 : 0;
   },
-  'date-br-desc': function(a, b) {
+  "date-br-desc": function(a, b) {
     return a < b ? 1 : a > b ? -1 : 0;
-  }
+  },
 });
 
 //Extensão datatables para default-init
-$.fn.dataTable.Api.register('addDTSelectFilter()', function(arr) {
+$.fn.dataTable.Api.register("addDTSelectFilter()", function(arr) {
   let api = this;
   arr.forEach(function(obj) {
-    obj.el.on('change', function() {
-      let val = $(this).val();
-      if (obj.format !== undefined && val != '')
-        val = obj.format.replace('{{value}}', $(this).val());
+    obj.el.on("change", function() {
+      let val = $(this).val() == null ? "" : $(this).val();
+
+      console.log(api.column(`${obj.column}:name`));
+
+      if (obj.format !== undefined && val != "")
+        val = obj.format.replace("{{value}}", $(this).val());
       api
         .column(`${obj.column}:name`)
         .search(val)
@@ -34,12 +37,11 @@ $.fn.dataTable.Api.register('addDTSelectFilter()', function(arr) {
   });
 });
 
-$.fn.dataTable.Api.register('addDTInputFilter()', function(arr) {
+$.fn.dataTable.Api.register("addDTInputFilter()", function(arr) {
   let api = this;
   arr.forEach(function(obj) {
-    obj.el.on('keyup', function() {
+    obj.el.on("keyup", function() {
       let val = $(this).val();
-      console.log('ha', obj.column, val);
       api
         .column(`${obj.column}:name`)
         .search(`${val}`)
@@ -49,72 +51,48 @@ $.fn.dataTable.Api.register('addDTInputFilter()', function(arr) {
 });
 
 //Extensão datatables para default-init
-$.fn.dataTable.Api.register('addDTButtons()', function(param) {
+$.fn.dataTable.Api.register("addDTButtons()", function(param) {
   let ret = [];
   ret.push(
-    "<div class = '" +
-      (param.class || '') +
-      " d-flex justify-content-center container-dtbutton'>"
+    `<div class = '${param.class ||
+      ""} d-flex justify-content-center container-dtbutton'>`
   );
   param.buttons.forEach(function(obj) {
-    let title = '';
+    let title = "";
     if (obj.title !== undefined)
-      title =
-        "data-toggle='tooltip' data-html='" +
-        (obj.html || false) +
-        "' data-placement='" +
-        (obj.pos || 'top') +
-        '\' title="' +
-        obj.title +
-        '"';
+      title = `data-toggle='tooltip' data-html='${obj.html ||
+        false}' data-placement='${obj.pos || "top"}' title="${obj.title}"`;
     ret.push(
-      '<span ' +
-        (title || '') +
-        " class='d-flex my-auto btn-dt-button " +
-        (obj._class || 'btn-primary') +
-        "'><i class = 'm-auto ico " +
-        (obj.ico || '') +
-        "'></i></span>"
+      `<span ${title || ""} class='d-flex my-auto btn-dt-button ${obj._class ||
+        "btn-primary"}'><i class = 'm-auto ico ${obj.ico ||
+        ""}'><span class = 'd-none'>${obj.value || ""}</span></i></span>`
     );
   });
-  ret.push('</div>');
-  return ret.join('');
+  ret.push("</div>");
+  return ret.join("");
 });
 
 //Extensão datatables para default-init
-$.fn.dataTable.Api.register('addDTIcon()', function(obj) {
-  let title = '';
+$.fn.dataTable.Api.register("addDTIcon()", function(obj) {
+  let title = "";
   if (obj.title !== undefined)
-    title =
-      "data-toggle='tooltip' data-html='" +
-      (obj.html || false) +
-      "' data-placement='" +
-      (obj.pos || 'top') +
-      '\' title="' +
-      obj.title +
-      '"';
+    title = `data-toggle='tooltip' data-html='${obj.html ||
+      false}' data-placement='${obj.pos || "top"}' title="${obj.title}"`;
 
-  return (
-    '<i ' +
-    (title || '') +
-    " class='btn-dt-icon " +
-    (obj._class || '') +
-    ' ico ' +
-    (obj.ico || '') +
-    "'><span class = 'd-none'>" +
-    (obj.value || '') +
-    '</span></i>'
-  );
+  return `<i ${title ||
+    ""} class='btn-dt-icon ${obj._class || ""} ico ${obj.ico || ""}'><span class = 'd-none'>${obj.value || ""}</span></i>`;
 });
 
-$.fn.dataTable.Api.register('addDTBetweenDatesFilter()', function(obj) {
-  let index = this.column(obj.column + ':name').index();
+$.fn.dataTable.Api.register("addDTBetweenDatesFilter()", function(obj) {
+  let index = this.column(obj.column + ":name").index();
   $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-    let dti = obj.min.pickadate('picker').get('select');
-    let dtf = obj.max.pickadate('picker').get('select');
+    let dti = obj.min.pickadate("picker").get("select");
+    let dtf = obj.max.pickadate("picker").get("select");
     let min = dti != null ? dti.pick : NaN;
     let max = dtf != null ? dtf.pick : NaN;
-    let age = moment(data[index], 'DD/MM/YYYY').format('x');
+    let age = moment(data[index], "DD/MM/YYYY").format("x");
+
+    $.fn.dataTable.ext.search.pop();
 
     if (
       (isNaN(min) && isNaN(max)) ||
@@ -124,5 +102,27 @@ $.fn.dataTable.Api.register('addDTBetweenDatesFilter()', function(obj) {
     )
       return true;
     return false;
+  });
+});
+
+$.fn.dataTable.Api.register("addDTCustomFilter()", function(obj) {
+  obj.el.bind("change", () => {
+    console.log("chega");
+    let index = this.column(obj.column + ":name").index();
+    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+      //
+      console.log("poura ", data, obj.el.val());
+      $.fn.dataTable.ext.search.pop();
+      return obj.callback(JSON.parse(data[index]), obj.el.val());
+    });
+    this.draw();
+
+    // this.column(obj.column + ":name")
+    //   .data()
+    //   .filter(function(value, index) {
+    //     console.log("HA ", value, index);
+    //     return obj.callback(value, obj.el.val());
+    //   })
+    //   .draw();
   });
 });

@@ -1,5 +1,9 @@
 /*background-color helpers*/
 
+input[type="email"] {
+  text-transform: lowercase !important;
+}
+
 .bg-facebook {
   background-color: #2b4170;
   background: -moz-linear-gradient(top, #3b5998, #2b4170);
@@ -91,7 +95,7 @@
 }
 
 .separator-lv::after {
-  content: '';
+  content: "";
   position: absolute;
   box-sizing: content-box;
   width: 1px;

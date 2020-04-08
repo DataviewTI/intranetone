@@ -7,19 +7,24 @@ use Dataview\IntranetOne\Category;
 
 class Category extends IOModel
 {
-	protected $fillable = ['category_id','category','category_slug','erasable','description','order'];
+	protected $fillable = ['category_id','category','category_slug','erasable','description','config','order'];
 	
-    public function maincategory(){
-        return $this->belongsTo('Dataview\IntranetOne\Category', 'category_id');
-    }
+  protected $casts = [
+    'config' => 'array',
+  ];
 
-    public function subcategories(){
-        return $this->hasMany('Dataview\IntranetOne\Category', 'category_id');
-    }
 
-    // recursive
-    public function childCategories(){
-        return $this->subcategories()->with('childCategories');
-    }
+  public function maincategory(){
+      return $this->belongsTo('Dataview\IntranetOne\Category', 'category_id');
+  }
+
+  public function subcategories(){
+      return $this->hasMany('Dataview\IntranetOne\Category', 'category_id');
+  }
+
+  // recursive
+  public function childCategories(){
+      return $this->subcategories()->with('childCategories');
+  }
 
 }

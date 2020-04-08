@@ -30,7 +30,7 @@
   letter-spacing: 2px;
   position: absolute;
   bottom: 0;
-  transition: opacity .25s;
+  transition: opacity 0.25s;
 }
 .aanjulena-btn-toggle:before {
   content: attr(data-off);
@@ -39,7 +39,7 @@
 .aanjulena-btn-toggle:after {
   content: attr(data-on);
   right: -4rem;
-  opacity: .5;
+  opacity: 0.5;
 }
 .aanjulena-btn-toggle > .handle {
   position: absolute;
@@ -49,17 +49,17 @@
   height: 1.125rem;
   border-radius: 1.125rem;
   background: #fff;
-  transition: left .25s;
+  transition: left 0.25s;
 }
 .aanjulena-btn-toggle.active {
   transition: background-color 0.25s;
 }
 .aanjulena-btn-toggle.active > .handle {
   left: 1.6875rem;
-  transition: left .25s;
+  transition: left 0.25s;
 }
 .aanjulena-btn-toggle.active:before {
-  opacity: .5;
+  opacity: 0.5;
 }
 .aanjulena-btn-toggle.active:after {
   opacity: 1;
@@ -68,7 +68,7 @@
 .aanjulena-btn-toggle.btn-sm:after {
   line-height: -0.5rem;
   color: #fff;
-  letter-spacing: .75px;
+  letter-spacing: 0.75px;
   left: 0.4125rem;
   width: 2.325rem;
 }
@@ -122,16 +122,16 @@
   letter-spacing: 2px;
   position: absolute;
   bottom: 0;
-  transition: opacity .25s;
+  transition: opacity 0.25s;
 }
 .aanjulena-btn-toggle.btn-lg:before {
-  content: 'Não';
+  content: "Não";
   left: -4rem;
 }
 .aanjulena-btn-toggle.btn-lg:after {
-  content: 'Sim';
+  content: "Sim";
   right: -4rem;
-  opacity: .5;
+  opacity: 0.5;
 }
 .aanjulena-btn-toggle.btn-lg > .handle {
   position: absolute;
@@ -141,18 +141,18 @@
   height: 1.875rem;
   border-radius: 1.875rem;
   background: #fff;
-  transition: left .25s;
+  transition: left 0.25s;
 }
 .aanjulena-btn-toggle.btn-lg.active {
-  background-color:#80b85c;
+  background-color: #80b85c;
   transition: background-color 0.25s;
 }
 .aanjulena-btn-toggle.btn-lg.active > .handle {
   left: 2.8125rem;
-  transition: left .25s;
+  transition: left 0.25s;
 }
 .aanjulena-btn-toggle.btn-lg.active:before {
-  opacity: .5;
+  opacity: 0.5;
 }
 .aanjulena-btn-toggle.btn-lg.active:after {
   opacity: 1;
@@ -161,7 +161,7 @@
 .aanjulena-btn-toggle.btn-lg.btn-sm:after {
   line-height: 0.5rem;
   color: #fff;
-  letter-spacing: .75px;
+  letter-spacing: 0.75px;
   left: 0.6875rem;
   width: 3.875rem;
 }
@@ -207,8 +207,8 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   position: absolute;
-  top:.5rem;
-  transition: opacity .25s;
+  top: 0.5rem;
+  transition: opacity 0.25s;
 }
 .aanjulena-btn-toggle.btn-sm:before {
   content: attr(data-off);
@@ -217,7 +217,7 @@
 .aanjulena-btn-toggle.btn-sm:after {
   content: attr(data-on);
   right: -0.5rem;
-  opacity: .5;
+  opacity: 0.5;
 }
 .aanjulena-btn-toggle.btn-sm > .handle {
   position: absolute;
@@ -227,17 +227,17 @@
   height: 1.125rem;
   border-radius: 1.125rem;
   background: #fff;
-  transition: left .25s;
+  transition: left 0.25s;
 }
 .aanjulena-btn-toggle.btn-sm.active {
   transition: background-color 0.25s;
 }
 .aanjulena-btn-toggle.btn-sm.active > .handle {
   left: 1.6875rem;
-  transition: left .25s;
+  transition: left 0.25s;
 }
 .aanjulena-btn-toggle.btn-sm.active:before {
-  opacity: .5;
+  opacity: 0.5;
 }
 .aanjulena-btn-toggle.btn-sm.active:after {
   opacity: 1;
@@ -246,7 +246,7 @@
 .aanjulena-btn-toggle.btn-sm.btn-sm:after {
   line-height: -0.5rem;
   color: #fff;
-  letter-spacing: .75px;
+  letter-spacing: 0.75px;
   left: 0.4125rem;
   width: 2.325rem;
 }
@@ -293,7 +293,7 @@
   letter-spacing: 2px;
   position: absolute;
   bottom: 0;
-  transition: opacity .25s;
+  transition: opacity 0.25s;
 }
 .aanjulena-btn-toggle.btn-xs:before {
   content: attr(data-off);
@@ -302,7 +302,7 @@
 .aanjulena-btn-toggle.btn-xs:after {
   content: attr(data-on);
   right: 0;
-  opacity: .5;
+  opacity: 0.5;
 }
 .aanjulena-btn-toggle.btn-xs > .handle {
   position: absolute;
@@ -312,17 +312,17 @@
   height: 0.75rem;
   border-radius: 0.75rem;
   background: #fff;
-  transition: left .25s;
+  transition: left 0.25s;
 }
 .aanjulena-btn-toggle.btn-xs.active {
   transition: background-color 0.25s;
 }
 .aanjulena-btn-toggle.btn-xs.active > .handle {
   left: 1.125rem;
-  transition: left .25s;
+  transition: left 0.25s;
 }
 .aanjulena-btn-toggle.btn-xs.active:before {
-  opacity: .5;
+  opacity: 0.5;
 }
 .aanjulena-btn-toggle.btn-xs.active:after {
   opacity: 1;
@@ -331,7 +331,7 @@
 .aanjulena-btn-toggle.btn-xs.btn-sm:after {
   line-height: -1rem;
   color: #fff;
-  letter-spacing: .75px;
+  letter-spacing: 0.75px;
   left: 0.275rem;
   width: 1.55rem;
 }
@@ -364,11 +364,12 @@
   background-color: #ff8300;
 }
 
-
 /* REMOVE/UPDATE MATERIAL CLASSES, transformar em um componente completo depois */
-.aanjulena-btn-toggle:hover,.aanjulena-btn-toggle.focus{
-  background-color:#bdc1c8;
+.aanjulena-btn-toggle:hover,
+.aanjulena-btn-toggle.focus {
+  background-color: #bdc1c8;
 }
-.aanjulena-btn-toggle.active:hover,.aanjulena-btn-toggle.active.focus{
-  background-color:#80b85c;
+.aanjulena-btn-toggle.active:hover,
+.aanjulena-btn-toggle.active.focus {
+  background-color: #80b85c;
 }

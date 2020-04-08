@@ -15,6 +15,7 @@ class CreateCategoriesTable extends Migration
 				$table->char('category',60);
 				$table->char('category_slug',60);
 				$table->text('description')->nullable();
+				$table->text('config')->default('{}');
 				$table->integer('order')->unsigned()->default(0);
 				$table->boolean('erasable')->default(true);
 				$table->timestamps();

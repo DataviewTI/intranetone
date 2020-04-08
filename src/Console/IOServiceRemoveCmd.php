@@ -28,14 +28,15 @@ class IOServiceRemoveCmd extends Command
       $exec = $this->option('force'); 
 
     if($exec){
-      if(Schema::hasTable(str_plural($s))){
+      // if(Schema::hasTable(str_plural($s))){
+        // $this->line(implode("-",$this->param->tables));
         foreach($this->param->tables as $t){
           $this->line('Removendo tabela '.$t);
           \DB::statement("SET FOREIGN_KEY_CHECKS=0");
           Schema::dropIfExists($t);
           \DB::statement("SET FOREIGN_KEY_CHECKS=1");
         }
-      }
+      // }
   
       IntranetOne::installMessages($this);
       Service::where('alias',$s)->forceDelete();
