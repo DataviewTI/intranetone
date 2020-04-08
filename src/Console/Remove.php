@@ -51,13 +51,13 @@ class Remove extends Command
             }
             $bar->advance();
             $this->line(' desinstalando npm...');
-            (new Process('npm set progress=false'))->run();
+            (new Process(['npm', 'set', 'progress=false']))->run();
             try{
-              (new Process('npm remove intranetone'))->setTimeout(36000)->mustRun();
+              (new Process(['npm', 'remove', 'intranetone']))->setTimeout(36000)->mustRun();
             }catch (ProcessFailedException $exception){
               $this->error($exception->getMessage());
             }
-            (new Process('npm set progress=true'))->run();
+            (new Process(['npm', 'set', 'progress=true']))->run();
             $bar->finish();
             $this->info(' IntranetOne desinstalada com sucesso!');
         }

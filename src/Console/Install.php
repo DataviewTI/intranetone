@@ -105,12 +105,12 @@ class Install extends Command
         /** Processo de instalação individual de pacotes via PNPM via package.json->IODependencies */
       $pkg = json_decode(file_get_contents(IntranetOneServiceProvider::pkgAddr('/assets/package.json')),true);
 
-      (new Process('npm set progress=false'))->run();
+      (new Process(['npm','set','progress=false']))->run();
       
       $this->comment('Instalando npm package '.$pkg['name'].'@'.$pkg['version']);
 
       try{
-        (new Process('npm install vendor/dataview/'.$pkg['name'].'/src/assets/ --save'))->setTimeout(3600)->mustRun();
+        (new Process(['npm','install','vendor/dataview/'.$pkg['name'].'/src/assets/','--save']))->setTimeout(3600)->mustRun();
       }
       catch(ProcessFailedException $exception){
         $this->error($exception->getMessage());
@@ -132,7 +132,7 @@ class Install extends Command
           $bar->advance();
           if($_oldpkg==null){
             $this->comment(" instalando ".$key.'@'.$pkg['IODependencies'][$key]);
-            (new Process('npm install '.$key.'@'.$pkg['IODependencies'][$key].' --save'))->setTimeout(3600)->mustRun();
+            (new Process(['npm','install', $key.'@'.$pkg['IODependencies'][$key], ' --save']))->setTimeout(3600)->mustRun();
           }
           else{ 
             $old_version = preg_replace("/[^0-9]/", "",$_oldpkg->version);
@@ -141,7 +141,7 @@ class Install extends Command
               $this->comment(" em cache ".$key.'@'.$pkg['IODependencies'][$key]);
             else{
               $this->comment(" atualizando ".$key.'@'.$_oldpkg->version.' para '.$pkg['IODependencies'][$key]);
-              (new Process('npm install '.$key.'@'.$pkg['IODependencies'][$key].' --save'))->setTimeout(3600)->mustRun();
+              (new Process(['npm','install', $key.'@'.$pkg['IODependencies'][$key], '--save']))->setTimeout(3600)->mustRun();
             }
           }
         }catch (ProcessFailedException $exception){
@@ -152,7 +152,7 @@ class Install extends Command
           $this->error("colocar em fila e tentar novamente");
         }
       }
-      (new Process('npm set progress=true'))->run();
+      (new Process(['npm','set','progress=true']))->run();
       $bar->finish();
       /** fim do processo de instalação de pacotes */
 
