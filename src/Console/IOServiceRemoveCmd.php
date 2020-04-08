@@ -21,7 +21,7 @@ class IOServiceRemoveCmd extends Command
   }
   public function handle()
   {
-    $s = str_slug($this->param->service);
+    $s = slug($this->param->service);
     if(!$this->option('force'))
       $exec = $this->confirm('Tem certeza que deseja remover o serviço? [y|N]');
     else
