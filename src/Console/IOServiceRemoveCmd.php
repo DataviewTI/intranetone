@@ -7,6 +7,7 @@ use Dataview\IntranetOne\IntranetOne;
 use Dataview\IntranetOne\Service;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Illuminate\Support\Str;
 
 class IOServiceRemoveCmd extends Command
 {
@@ -15,13 +16,13 @@ class IOServiceRemoveCmd extends Command
 
   public function __construct($param){
     $this->param = (object) $param;
-    $this->signature = 'io-'.(slug($this->param->service)).':remove {--force}';
+    $this->signature = 'io-'.(Str::slug($this->param->service)).':remove {--force}';
     $this->description = 'Desinstalação do serviço para IntranetOne - ';
     parent::__construct();
   }
   public function handle()
   {
-    $s = slug($this->param->service);
+    $s = Str::slug($this->param->service);
     if(!$this->option('force'))
       $exec = $this->confirm('Tem certeza que deseja remover o serviço? [y|N]');
     else

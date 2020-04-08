@@ -3,6 +3,7 @@ namespace Dataview\IntranetOne;
 //namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class CategoryRequest extends FormRequest
 {
@@ -22,7 +23,7 @@ class CategoryRequest extends FormRequest
         if (!array_key_exists("erasable", $input))
             $input['erasable'] = 1;
         
-        $input['category_slug'] = slug($input['category'], '-');
+        $input['category_slug'] = Str::slug($input['category'], '-');
 
         if(!array_key_exists('category_id',$input)){
 		    $input['category_id'] = null;

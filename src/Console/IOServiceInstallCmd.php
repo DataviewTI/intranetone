@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Dataview\IntranetOne\IntranetOne;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Illuminate\Support\Str;
 
 class IOServiceInstallCmd extends Command
 {
@@ -14,14 +15,14 @@ class IOServiceInstallCmd extends Command
     protected $description = "";
     public function __construct($param){
       $this->param = (object) $param;
-      $this->signature = 'io-'.(slug($this->param->service)).':install';
+      $this->signature = 'io-'.(Str::slug($this->param->service)).':install';
       $this->description = 'Instalação do serviço para IntranetOne - '.$this->param->service;
       parent::__construct();
     }
 
     public function handle()
     {
-      $s = slug($this->param->service);
+      $s = Str::slug($this->param->service);
       
       $this->line('Publicando arquivos...');
         

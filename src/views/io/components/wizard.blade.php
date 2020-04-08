@@ -1,8 +1,12 @@
+@php
+  use Illuminate\Support\Str;
+@endphp
+
 <div class="wizard mb-0" data-initialize="wizard" id="{{$_id}}">
 	<div class="d-flex d-flex justify-content-between steps-container">
     <ul class="steps">
       @foreach($_steps as $s)
-        <li data-step="{{$loop->iteration}}" class = "{{ slug($s['name']) }}-step @if($loop->first) active @endif">
+        <li data-step="{{$loop->iteration}}" class = "{{ Str::slug($s['name']) }}-step @if($loop->first) active @endif">
           <span class = 'd-flex align-itens-center'>
             <span class="badge my-auto mr-1 badge-secondary">{{$loop->iteration}}</span> {{ $s['name'] }}</span>
             <span class="chevron"></span>
@@ -21,7 +25,7 @@
 
 	<div class="step-content pt-0 mb-1 pb-0" style = "@if(isset($_min_height)) min-height:{{ $_min_height }} @endif">
 		@foreach($_steps as $s)
-			<div class="{{ slug($s['name'], '-') }}-step-content mt-2 container-fluid mb-0 step-pane @if($loop->first) active @endif " data-step="{{ $loop->iteration}}">
+			<div class="{{ Str::slug($s['name'], '-') }}-step-content mt-2 container-fluid mb-0 step-pane @if($loop->first) active @endif " data-step="{{ $loop->iteration}}">
 				@include($s['view'],isset($s['params']) ? $s['params'] : [])
 			</div>
 		@endforeach

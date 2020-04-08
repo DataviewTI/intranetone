@@ -1,8 +1,17 @@
 # IntranetOne
 
-Descrição da IntranetOne
+Intranet One Laravel 7 Support
 
-IntranetOne requires PHP >= 7.1.3
+```php
+composer require dataview/intranetone dev-master
+```
+
+- requires PHP >= 7.2.5
+- for laravel 5.6 or lower, use IO 1.0 version
+
+```php
+composer require dataview/intranetone 1.0.0
+```
 
 ## Conteúdo
 
@@ -120,11 +129,11 @@ ln -s www/storage/app/public www/public/ storage
 - Configure o webpack conforme abaixo
 
 ```js
-let io = require('intranetone');
-let user = require('intranetone-user');
-let config = require('intranetone-config');
+let io = require("intranetone");
+let user = require("intranetone-user");
+let config = require("intranetone-config");
 io.compile({
-  services: [...new user(), new config()]
+  services: [...new user(), new config()],
 });
 ```
 

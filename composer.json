@@ -20,7 +20,8 @@
     "symfony/process": "^5.0.7",
     "dataview/iouser": "dev-master",
     "dataview/ioconfig": "dev-master",
-    "guzzlehttp/guzzle": "~6.3"
+    "guzzlehttp/guzzle": "~6.3",
+    "dataview/intranetone": "^2.0"
   },
   "extra": {
     "laravel": {

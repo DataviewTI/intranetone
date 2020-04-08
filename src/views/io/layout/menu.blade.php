@@ -1,6 +1,7 @@
 <ul class="dash-menu mt-2 h-100">
 @php
   use Dataview\IntranetOne\IntranetOneController;
+  use Illuminate\Support\Str;
 
   $menuItems = [];	
 
@@ -15,11 +16,11 @@
 	// 	]);
     
   foreach($servs as $s){
-    if(Sentinel::getUser()->hasAccess(slug($s->alias).".*"))
+    if(Sentinel::getUser()->hasAccess(Str::slug($s->alias).".*"))
       array_push($menuItems,[
           "title"		=>$s->trans,
           "icon"	=>$s->ico,
-          "href"		=>"/admin/".slug($s->alias),
+          "href"		=>"/admin/".Str::slug($s->alias),
         ]
       );
   }
