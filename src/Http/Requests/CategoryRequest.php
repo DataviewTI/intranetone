@@ -22,7 +22,7 @@ class CategoryRequest extends FormRequest
         if (!array_key_exists("erasable", $input))
             $input['erasable'] = 1;
         
-        $input['category_slug'] = str_slug($input['category'], '-');
+        $input['category_slug'] = slug($input['category'], '-');
 
         if(!array_key_exists('category_id',$input)){
 		    $input['category_id'] = null;
