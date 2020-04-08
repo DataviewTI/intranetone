@@ -17,10 +17,10 @@
     "owen-it/laravel-auditing": "^10.0",
     "yajra/laravel-datatables-oracle": "~9.0",
     "doctrine/dbal": "^2.8",
-    "symfony/process": "^4.3.8",
+    "symfony/process": "^5.0.7",
     "dataview/iouser": "dev-master",
     "dataview/ioconfig": "dev-master",
-    "guzzlehttp/guzzle": "^6.3"
+    "guzzlehttp/guzzle": "~6.3"
   },
   "extra": {
     "laravel": {
