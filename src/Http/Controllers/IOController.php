@@ -8,6 +8,7 @@ use DataTables;
 use Session;
 use Sentinel;
 use Dataview\IntranetOne\IORequest;
+use Illuminate\Support\Str;
 
 class IOController extends Controller{
 
@@ -18,7 +19,7 @@ class IOController extends Controller{
       return [
         "status"=>false,
         "errors"=>[
-          'title'=> __('io_validation.'.$method.'.no_access', ['service' => str_plural($this->service)])
+          'title'=> __('io_validation.'.$method.'.no_access', ['service' => Str::plural($this->service)])
         ],
         "code"=>403
       ];

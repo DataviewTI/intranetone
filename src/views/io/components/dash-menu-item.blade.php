@@ -1,7 +1,11 @@
+@php
+use Illuminate\Support\Str;
+@endphp
+
 @foreach($_items as $t)
 	@php
 		$has_subs = (isset($t['subitems']) && count($t['subitems'])>0);
-    $sign =($has_subs && !isset($t['sign'])) ? '_'.str_random(6) : (($has_subs && isset($t['sign'])) || (isset($t['href']) && Request::is($t['href']) && isset($t['sign'])) ? $t['sign'] : null);
+    $sign =($has_subs && !isset($t['sign'])) ? '_'.Str::random(6) : (($has_subs && isset($t['sign'])) || (isset($t['href']) && Request::is($t['href']) && isset($t['sign'])) ? $t['sign'] : null);
     
     $is_current_url = (isset($t['href']) && "/".Request::path()==$t['href']) ? 1 : 0;
 	@endphp

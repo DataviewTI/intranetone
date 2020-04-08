@@ -29,7 +29,7 @@ class IOServiceRemoveCmd extends Command
       $exec = $this->option('force'); 
 
     if($exec){
-      // if(Schema::hasTable(str_plural($s))){
+      // if(Schema::hasTable(Str::plural($s))){
         // $this->line(implode("-",$this->param->tables));
         foreach($this->param->tables as $t){
           $this->line('Removendo tabela '.$t);
@@ -44,10 +44,10 @@ class IOServiceRemoveCmd extends Command
 
       //remove todas as migrations
       foreach($this->param->tables as $t){
-        $this->line('Removendo migração '.$t.' - '.str_singular($t).'...');
+        $this->line('Removendo migração '.$t.' - '.Str::singular($t).'...');
         \DB::table('migrations')
           ->where('migration','like','%'.$t.'%')
-          ->orWhere('migration','like','%'.str_singular($t).'%')
+          ->orWhere('migration','like','%'.Str::singular($t).'%')
           ->delete();
       }
 

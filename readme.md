@@ -7,7 +7,7 @@ composer require dataview/intranetone dev-master
 ```
 
 - requires PHP >= 7.2.5
-- for laravel 5.6 or lower, use IO 1.0 version
+- for laravel 5.6 or earlier, use 1.0 version
 
 ```php
 composer require dataview/intranetone 1.0.0

@@ -32,7 +32,7 @@ class IOServiceInstallCmd extends Command
           '--provider' => $this->param->provider
       ]);
 
-      if(!Schema::hasTable(str_plural($s))){
+      if(!Schema::hasTable(Str::plural($s))){
         $this->line('Executando migrações '.$s.' service...');
         Artisan::call('migrate', [
           '--path' => 'vendor/dataview/io'.$s.'/src/database/migrations',
