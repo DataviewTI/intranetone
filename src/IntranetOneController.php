@@ -8,13 +8,11 @@ class IntranetOneController extends Controller
 {
 
   static function getServices(){
-
     return DB::table('services')
-    ->select('service','ico','alias','trans','description')
+    ->select('id','service','ico','alias','trans','description')
     ->orderBy('order')
     ->distinct()
     ->get();
-
   }
 
 }

@@ -16,7 +16,8 @@ class IOServiceRemoveCmd extends Command
 
   public function __construct($param){
     $this->param = (object) $param;
-    $this->signature = 'io-'.(Str::slug($this->param->service)).':remove {--force}';
+    $this->service = Str::slug($this->param->service);
+    $this->signature = "io-{$this->service}:remove {--force}";
     $this->description = 'Desinstalação do serviço para IntranetOne - ';
     parent::__construct();
   }
@@ -29,27 +30,30 @@ class IOServiceRemoveCmd extends Command
       $exec = $this->option('force'); 
 
     if($exec){
-      // if(Schema::hasTable(Str::plural($s))){
-        // $this->line(implode("-",$this->param->tables));
-        foreach($this->param->tables as $t){
-          $this->line('Removendo tabela '.$t);
-          \DB::statement("SET FOREIGN_KEY_CHECKS=0");
-          Schema::dropIfExists($t);
-          \DB::statement("SET FOREIGN_KEY_CHECKS=1");
-        }
-      // }
+      $has_force = filled(optional($this->param)->force) ? $this->param->force : [];
+      $tables = $this->option('force') ? array_merge($this->param->tables,$has_force) : $this->param->tables;
+
+      foreach($tables  as $t){
+        $this->line('Removendo tabela '.$t);
+        \DB::statement("SET FOREIGN_KEY_CHECKS=0");
+        Schema::dropIfExists($t);
+        \DB::statement("SET FOREIGN_KEY_CHECKS=1");
+      }
+
   
       IntranetOne::installMessages($this);
       Service::where('alias',$s)->forceDelete();
 
-      //remove todas as migrations
-      foreach($this->param->tables as $t){
-        $this->line('Removendo migração '.$t.' - '.Str::singular($t).'...');
+      foreach($tables as $t){
+        $sgl = Str::singular($t);
+
+        $this->line("Removendo migração {$t} - {$sgl}...");
         \DB::table('migrations')
-          ->where('migration','like','%'.$t.'%')
-          ->orWhere('migration','like','%'.Str::singular($t).'%')
+          ->where('migration','like',"%{$t}%")
+          ->orWhere('migration','like',"%{$sgl}%")
           ->delete();
       }
+
 
         IntranetOne::installMessages($this,1);
         $this->line('Removendo assets...');
@@ -63,7 +67,8 @@ class IOServiceRemoveCmd extends Command
         (new Process(['npm', 'set', 'progress=true']))->run();
         
         $this->info(' ');
-        $this->info('IntranetOne - '.title_case($s).' removido com sucesso! :(');
+        $titleCase = Str::title($s);
+        $this->info("IntranetOne - {$titleCase} removido com sucesso!");
     }
     else
       $this->info('Remoção cancelada...');

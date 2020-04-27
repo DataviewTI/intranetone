@@ -43,7 +43,10 @@ Route::group(array('prefix' => 'categories'), function () {
 //  Route::get('categoriesByType/{typeId}', 'CategoryController@getCategoriesByType');
 });		
 
-
+# Category publics, while a service is created...
+Route::group(['prefix' => 'category'], function () {
+  Route::post('list', 'CategoryController@list');
+});		
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ....................................................................................
@@ -92,5 +95,20 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web','admin'], 'as' => 'adm
       return view('IntranetOne::io.services.dash.index');
     });
   });
+
+
+# Category publics, while a service is created...
+Route::group(['prefix' => 'category'], function () {
+  Route::post('list', 'CategoryController@list');
+  Route::get('services', 'CategoryController@services');
+  Route::post('create/', 'CategoryController@create');
+  Route::get('view/{id}', 'CategoryController@view');
+  Route::post('update/{id}', 'CategoryController@update');
+  Route::get('delete/{id}', 'CategoryController@delete');
+
+  // Route::get('serviceChildCats/{service}', 'CategoryController@dtServiceChildCategories');//new approach
+  // Route::post('update/', 'CategoryController@update');//new approach
+});		
+
 
 }); //end midlware admin

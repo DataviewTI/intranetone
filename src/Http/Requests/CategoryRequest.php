@@ -1,47 +1,38 @@
 <?php
 namespace Dataview\IntranetOne;
-//namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
 class CategoryRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
+  public function authorize() {
+    return true;
+  }
+
+  public function sanitize(){
+    $input = (object) $this->all();
+
+    $clean = [];
+
+    $clean['category'] = $input->cat_category;
+    $clean['category_slug'] = Str::slug($input->cat_category, '-');
+    $clean['erasable'] = $input->cat___erasable == "false" ? true : false;
+    if(filled(optional($input)->cat___service_id)){
+      $clean['service_id'] = Service::where('service',$input->cat___service_id)->value('id');
     }
+    $clean['category_id'] = filled(optional($input)->cat_category_id) ? $input->cat_category_id : null;
 
-    public function sanitize(){
-        $input = $this->all();
-        
-        if (!array_key_exists("erasable", $input))
-            $input['erasable'] = 1;
-        
-        $input['category_slug'] = Str::slug($input['category'], '-');
+    $clean['config'] =  filled(optional($input)->cat_config) ? json_decode($input->cat_config) : (object)[];
 
-        if(!array_key_exists('category_id',$input)){
-		    $input['category_id'] = null;
-        }
-
-		$this->replace($input);
+    $this->replace($clean);
 	}
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-   		$this->sanitize();
-        return [
-            'category' => 'required|max:255',
-        ];
-    }
+  public function rules()
+  {
+    $this->sanitize();
+      return [
+          // 'category' => 'required|max:255',
+      ];
+  }
 }

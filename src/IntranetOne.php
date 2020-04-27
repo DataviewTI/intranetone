@@ -1,6 +1,7 @@
 <?php
 namespace Dataview\IntranetOne;
 use Illuminate\Support\Facades\DB;
+use DataTables;
 
 class IntranetOne
 {
@@ -13,6 +14,11 @@ class IntranetOne
         return json_encode($data);
     }
   }
+
+  static function isJson($str) {
+    json_decode($str);
+    return (json_last_error() == JSON_ERROR_NONE);
+  }  
   
   static function getEnumValues( $table, $field ){
     $type = DB::select( DB::raw("SHOW COLUMNS FROM {$table} WHERE Field = '{$field}'") )[0]->Type;

@@ -19,6 +19,9 @@ class IOModel extends Model implements AuditableContract
   protected $appends = ['temp'=>null];
   protected $dates = ['deleted_at'];
 
+  protected $hidden = [""];
+
+
   public function setAppend($index,$value){
 		$this->appends[$index] = $value;
   }

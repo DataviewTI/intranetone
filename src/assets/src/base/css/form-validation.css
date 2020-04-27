@@ -27,10 +27,9 @@ select.form-control {
   padding-top: 6px;
 }
 
-.form-control{
-  padding-right:16px!important
+.form-control {
+  padding-right: 16px !important;
 }
-
 
 .form-control:focus {
   border-bottom: 1px #777 solid;

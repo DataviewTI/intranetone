@@ -3,6 +3,11 @@
   /* display: none !important; */
 }
 
+.dz-button {
+  border: 1px red solid;
+  display: none !important;
+}
+
 .dropzone.dz-clickable {
   border: 2px #ccc dashed !important;
   cursor: pointer !important;
@@ -13,7 +18,7 @@
 }
 
 .dz-drop-files-here.dropzone.dz-clickable {
-  background: url('/io/images/Drop-Files-Here-extra.png') no-repeat center
+  background: url("/io/images/Drop-Files-Here-extra.png") no-repeat center
     center;
 }
 

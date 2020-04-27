@@ -59,6 +59,13 @@ input[type="email"] {
 .b-lime {
   border: 1px lime solid !important;
 }
+.b-transparent {
+  border: 1px transprent solid;
+}
+.b-none {
+  border: none !important;
+}
+
 /*opacity helper*/
 .op-0 {
   opacity: 0 !important;

@@ -1,11 +1,16 @@
 @php
   use Illuminate\Support\Str;
+  $mainServ = isset($_service) ? $_service : null;
 @endphp
 
 <ul class="nav nav-tabs d-flex justify-content-start" role="tablist"  id = '{{$_id}}'>
 	@foreach($_tabs as $t)
+  @php
+    $serv = filled(data_get($t,'_service')) ? data_get($t,'_service') : $mainServ;
+  @endphp
 			<li class = "nav-item">
-          <a class = "nav-link @if($loop->index == $_active){{'active'}}@endif" href="#{{'tab'.$_id.$loop->iteration}}" aria-controls="{{'tab'.$_id.$loop->iteration}}" role="tab" data-toggle="tab" __name = "{{Str::slug($t['tab'])}}" __update='false'>
+          <a class = "nav-link @if($loop->index == $_active){{'active'}}@endif" href="#{{'tab'.$_id.$loop->iteration}}" aria-controls="{{'tab'.$_id.$loop->iteration}}" role="tab" data-toggle="tab" __name = "{{Str::slug($t['tab'])}}" 
+          __update='false' _service="{{$serv}}">
             <i class="{{ $t['icon'] }}"></i> {{ $t['tab'] }}</a>
       </li>
     @endforeach

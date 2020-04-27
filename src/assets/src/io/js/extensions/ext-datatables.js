@@ -107,12 +107,9 @@ $.fn.dataTable.Api.register("addDTBetweenDatesFilter()", function(obj) {
 
 $.fn.dataTable.Api.register("addDTCustomFilter()", function(obj) {
   obj.el.bind("change", () => {
-    console.log("chega");
     let index = this.column(obj.column + ":name").index();
     $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-      //
-      console.log("poura ", data, obj.el.val());
-      $.fn.dataTable.ext.search.pop();
+      // $.fn.dataTable.ext.search.pop();
       return obj.callback(JSON.parse(data[index]), obj.el.val());
     });
     this.draw();

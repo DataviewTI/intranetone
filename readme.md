@@ -40,22 +40,6 @@ FILESYSTEM_DRIVER = intranetone
 'locale' => 'pt-BR',
 ```
 
-- Adicione as seguintes linhas ao App/Providers/AppServiceProvider
-
-```php
-use Illuminate\Support\Facades\Schema;
-...
-public  function  boot(){
-...
-  Schema::defaultStringLength(191);
-```
-
-## Instalação
-
-```sh
-composer require dataview/intranetone
-```
-
 Durante a instalação o processo de migração e seeds já é realizado automaticamente, tanto para a IntranetOne quanto para os pacotes de terceiros requeridos (Sentinel Cartalyst e Own-Audits)
 
 Instalar o IntranetOne com php artisan

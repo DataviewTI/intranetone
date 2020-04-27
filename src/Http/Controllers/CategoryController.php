@@ -1,7 +1,9 @@
 <?php
 namespace Dataview\IntranetOne;
 
-use App\Http\Controllers\Controller;
+use Dataview\IntranetOne\IOController;
+use Dataview\IntranetOne\IntranetOneController;
+use Illuminate\Support\Str;
 use Dataview\IntranetOne\IntranetOne;
 use Illuminate\Http\Request;
 use Dataview\IntranetOne\CategoryRequest;
@@ -11,54 +13,151 @@ use Validator;
 use Session;
 use Sentinel;
 
-class CategoryController extends Controller
+class CategoryController extends IOController
 {
-    public function list($id=null,$type=null){
-      $query = Category::select('id','category_id','category','order')
-			->with('maincategory')
+  public function __construct(){
+    $this->service = 'category';
+  }
+  
+  
+    // public function list($id=null,$type=null){
+    //   $query = Category::select('id','service_id','category_id','category','order')
+		// 	->with('maincategory')
+		// 	->with('service')
+    //   ->orderBy('id','asc')
+    //   ->orderBy('order','asc');
+    //   //subcats
+    //   if($id!==null && $id != 'all')
+    //     $query = $query->where('category_id',$id);
+
+    //   return IntranetOne::getDataType($query->get(),$type);
+    // }
+    
+    public function list(Request $req){
+      
+      $r = (object) $req->all();
+
+      $query = Category::select('id','service_id','category_id','category as cat','order','erasable')
+			->with([
+        'service'=>function($query){
+          $query->select('trans','service','id','alias');
+        },
+        'category'=>function($query){
+          $query->select('service_id','id','category','category_id')
+          ->with([
+            'service'=>function($query){
+              $query->select('service','id');
+          }]);
+      }])
       ->orderBy('id','asc')
       ->orderBy('order','asc');
+
       //subcats
-      if($id!==null && $id != 'all')
-        $query = $query->where('category_id',$id);
-
-      return IntranetOne::getDataType($query->get(),$type);
-    }
-    
-    public function create(CategoryRequest $request){
-      $obj = new Category($request->all());
-      $obj->save();
-
-      // dump($request->all());
-
-      return response()->json(['success'=>true,'data'=>null]);
-    }
-    
-    public function update(CategoryRequest $request){
-      $_new = (object) $request->all();
-			$_old = Category::find($request['edit']);
-			
-      $_old->category = $_new->category;
-      $_old->category_id = $_new->category_id;
-      $_old->description = $_new->description;
+      if(filled(optional($r)->category))
+        $query = $query->where('category_id',$r->category);
       
-			$_old->save();
+      if(optional($r)->onlyCategories == true)
+        $query = $query->whereNull('category_id');
+        
+      if(filled(optional($r)->service)){
+        if($r->service != "all") { 
+          $servId = Service::where('service',$r->service)->value('id');
+          if(filled($servId))
+            $query = $query->where('service_id',$servId);
+        }
+      }
+      else
+        $query = $query->whereNull('service_id');
 
-      return response()->json(['success'=>true,'data'=>null]);
+
+      return IntranetOne::getDataType($query->get(),optional($r)->type);
+    }
+
+
+
+  public function services(){
+    $servs = IntranetOneController::getServices();
+    $items=[];
+    foreach($servs as $s){
+      if(Sentinel::getUser()->hasAccess(Str::slug($s->alias).".*"))
+        array_push($items,[
+            "service" => $s->service,
+            "trans" => $s->trans,
+            "alias" => $s->alias,
+            "id" => $s->id
+          ]
+        );
+    }
+    return response()->json($items);
+  }
+
+
+    public function create(CategoryRequest $request){
+
+      $obj = new Category($request->all());
+      $ret = $obj->save();
+
+      // // dump($request->all());
+
+      return response()->json(['success'=>$ret,'data'=>null]);
+    }
+    
+    public function update($id, CategoryRequest $request){
+      // $check = $this->__update($request);
+      // if (!$check['status']) {
+      //     return response()->json(['errors' => $check['errors']], $check['code']);
+      // }
+
+      $_new = (object) $request->all();
+
+      $_old = Category::find($id);
+
+      $upd = ['service_id','category_id','category','category_slug','erasable','config'];  
+
+
+      foreach($upd as $u)
+        $_old->{$u} = optional($_new)->{$u};
+
+      $_old->save();
+      return response()->json(['success' => $_old->save()]);    
     }
 
     public function delete($id){
       $obj = Category::find($id);
 
       if($obj->erasable == 1){
-        $obj = $obj->delete();
+        $obj = $obj->forceDelete();
         return  json_encode(['sts'=>$obj]);
       }
 
       return  json_encode(['sts'=>false]);
     }
 
-    public static function organizeChildCategories($category, $result){
+	public function view($id){
+    //CREATE AS a HIDDEN SERVICE
+    // $check = $this->__view();
+    // if (!$check['status']) {
+    //     return response()->json(['errors' => $check['errors']], $check['code']);
+    // }
+
+      $query = Category::select('id','service_id','category_id','category as cat','order','config','erasable')
+			->with([
+        'service'=>function($query){
+          $query->select('trans','service','id','alias');
+        },
+        'category'=>function($query){
+          $query->select('service_id','id','category','category_id')
+          ->with([
+            'service'=>function($query){
+              $query->select('service','id');
+          }]);
+      }])
+      ->where('id',$id)->get();
+          
+    return response()->json(['success' => true, 'data' => $query]);
+	}
+  
+  public static function organizeChildCategories($category, $result){
       $r = $result;
       foreach ($category as $c) {
         array_push($r, $c);

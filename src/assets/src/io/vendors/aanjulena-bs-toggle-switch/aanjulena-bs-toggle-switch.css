@@ -373,3 +373,9 @@
 .aanjulena-btn-toggle.active.focus {
   background-color: #80b85c;
 }
+
+.aanjulena-btn-toggle[disabled="disabled"],
+.aanjulena-btn-toggle[disabled="disabled"]:hover,
+.aanjulena-btn-toggle[disabled="disabled"].focus {
+  background-color: #ccc;
+}

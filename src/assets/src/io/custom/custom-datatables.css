@@ -1,28 +1,37 @@
 /*TABLE BUTTON*/
-.btn-dt-button{
-  color:#111;
-  opacity:.8;
-  background-color:rgba(255,255,255,0)!important;
+.btn-dt-button {
+  color: #111;
+  opacity: 0.8;
+  background-color: rgba(255, 255, 255, 0) !important;
 }
 
-.btn-dt-button:hover{
-  opacity:1;
-  font-size:17px;
+.btn-dt-button:hover {
+  opacity: 1;
+  font-size: 17px;
 }
 
-.paginate_button.previous,.paginate_button.next{
-  color: #009688; 
+.btn-dt-button.disabled,
+.btn-dt-button.disabled:hover {
+  font-size: 16px !important;
+  opacity: 0.3 !important;
+  cursor: not-allowed;
 }
 
-.paginate_button.previous:hover, .paginate_button.next:hover{
+.paginate_button.previous,
+.paginate_button.next {
+  color: #009688;
+}
+
+.paginate_button.previous:hover,
+.paginate_button.next:hover {
   color: #004a43;
 }
 
-.dataTables_empty{
-  height: 280px!important;
-  line-height: 280px!important;
+.dataTables_empty {
+  height: 280px !important;
+  line-height: 280px !important;
 }
 
-.dt-filters-container .form-group{
+.dt-filters-container .form-group {
   margin-bottom: 0;
 }

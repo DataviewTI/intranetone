@@ -1,0 +1,11 @@
+.sts-inativo {
+  color: #f4cb3e;
+}
+
+.sts-ativo {
+  color: #53a600;
+}
+
+.sts-bloqueado {
+  color: #fc2803;
+}

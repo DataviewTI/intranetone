@@ -58,7 +58,7 @@ class Install extends Command
         if(count($migrations_to_remove))
           $this->line('Apagando arquivos de migração desnecessários...');
           foreach($migrations_to_remove as $f){
-            unlink(database_path('migrations/'.$f));
+            unlink(database_path("migrations/{$f}"));
         }
 
         if(!$audits_exists){
@@ -107,10 +107,10 @@ class Install extends Command
 
       (new Process(['npm','set','progress=false']))->run();
       
-      $this->comment('Instalando npm package '.$pkg['name'].'@'.$pkg['version']);
+      $this->comment("Instalando npm package {$pkg['name']}@{$pkg['version']}");
 
       try{
-        (new Process(['npm','install','vendor/dataview/'.$pkg['name'].'/src/assets/','--save']))->setTimeout(3600)->mustRun();
+        (new Process(['npm','install',"vendor/dataview/{$pkg['name']}/src/assets/",'--save']))->setTimeout(3600)->mustRun();
       }
       catch(ProcessFailedException $exception){
         $this->error($exception->getMessage());
@@ -124,24 +124,24 @@ class Install extends Command
       foreach($pkg['IODependencies'] as $key => $value){
         //checa se já existe e é a mesma versão
         $_oldpkg = null;
-        if(File::isDirectory(base_path('node_modules/'.$key))){
-          $_oldpkg = json_decode(file_get_contents('node_modules/'.$key.'/package.json'));
+        if(File::isDirectory(base_path("node_modules/{$key}"))){
+          $_oldpkg = json_decode(file_get_contents("node_modules/{$key}/package.json"));
         }
 
         try{
           $bar->advance();
           if($_oldpkg==null){
-            $this->comment(" instalando ".$key.'@'.$pkg['IODependencies'][$key]);
-            (new Process(['npm','install', $key.'@'.$pkg['IODependencies'][$key], ' --save']))->setTimeout(3600)->mustRun();
+            $this->comment(" instalando {$key}@{$pkg['IODependencies'][$key]}");
+            (new Process(['npm','install',"{$key}@{$pkg['IODependencies'][$key]}", '--save']))->setTimeout(3600)->mustRun();
           }
           else{ 
             $old_version = preg_replace("/[^0-9]/", "",$_oldpkg->version);
             $new_version = preg_replace("/[^0-9]/", "",$pkg['IODependencies'][$key]);
             if($old_version == $new_version)
-              $this->comment(" em cache ".$key.'@'.$pkg['IODependencies'][$key]);
+              $this->comment(" em cache {$key}@{$pkg['IODependencies'][$key]}");
             else{
-              $this->comment(" atualizando ".$key.'@'.$_oldpkg->version.' para '.$pkg['IODependencies'][$key]);
-              (new Process(['npm','install', $key.'@'.$pkg['IODependencies'][$key], '--save']))->setTimeout(3600)->mustRun();
+              $this->comment(" atualizando {$key}@{$_oldpkg->version} para {$pkg['IODependencies'][$key]}");
+              (new Process(['npm','install', "{$key}@{$pkg['IODependencies'][$key]}", '--save']))->setTimeout(3600)->mustRun();
             }
           }
         }catch (ProcessFailedException $exception){
