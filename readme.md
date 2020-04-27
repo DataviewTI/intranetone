@@ -110,6 +110,12 @@ ln -s www/storage/app/public www/public/ storage
 
 ## Webpack
 
+- Antes de executar o webpack, faça a instalação dos pacotes NPM
+
+```sh
+npm install
+```
+
 - Configure o webpack conforme abaixo
 
 ```js
