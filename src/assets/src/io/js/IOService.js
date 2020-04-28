@@ -397,7 +397,8 @@ class IOService {
             theme: "sk-bounce",
           });
         },
-        success: (ret) => {
+      })
+        .done((ret) => {
           HoldOn.close();
           if (ret.success) {
             if (!this.override.update.onSuccess) {
@@ -421,11 +422,21 @@ class IOService {
               }
             } else this.override.update.onSuccess(ret);
           }
-        },
-        error: (ret) => {
-          this.defaults.ajax.onError(ret, this.callbacks.update.onError);
-        },
-      });
+        })
+        .fail((ret) => {
+          // this.defaults.ajax.onError(ret, this.callbacks.update.onError);
+          console.log(ret);
+          if (ret.status == 422) {
+            var data = JSON.parse(ret.responseText);
+            for (var err in data.errors) {
+              toastr["error"](data.errors[err]);
+            }
+          }
+          //monitorar se é necessário o update no error
+        })
+        .always(() => {
+          HoldOn.close();
+        });
     };
 
     //update

@@ -86,6 +86,32 @@ Carregar as configurações
 php artisan config:cache
 ```
 
+## Webpack
+
+- Antes de executar o webpack, faça a instalação dos pacotes NPM
+
+```sh
+npm install
+```
+
+- Configure o webpack conforme abaixo
+
+```js
+let io = require("intranetone");
+let user = require("intranetone-user");
+let config = require("intranetone-config");
+io.compile({
+  services: [new user(), new config()],
+});
+```
+
+- Compile os assets e faça o cache
+
+```sh
+npm run dev|prod|watch
+php artisan config:cache
+```
+
 ## Configurações server em produção King Host
 
 - ssh ftp.site.com.br -l site
@@ -104,32 +130,14 @@ php -r "unlink('composer-setup.php');"
 php -d memory_limit="1G" composer.phar install
 ```
 
-```sh
-ln -s www/storage/app/public www/public/ storage
-```
-
-## Webpack
-
-- Antes de executar o webpack, faça a instalação dos pacotes NPM
+- mover os arquivos para a www
 
 ```sh
-npm install
+cp -rf pacote/* www
 ```
 
-- Configure o webpack conforme abaixo
-
-```js
-let io = require("intranetone");
-let user = require("intranetone-user");
-let config = require("intranetone-config");
-io.compile({
-  services: [...new user(), new config()],
-});
-```
-
-- Compile os assets e faça o cache
+- criar link simbolico
 
 ```sh
-npm run dev|prod|watch
-php artisan config:cache
+ln -s www/storage/app/public www/public/storage
 ```

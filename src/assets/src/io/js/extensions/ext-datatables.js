@@ -92,7 +92,7 @@ $.fn.dataTable.Api.register("addDTBetweenDatesFilter()", function(obj) {
     let max = dtf != null ? dtf.pick : NaN;
     let age = moment(data[index], "DD/MM/YYYY").format("x");
 
-    $.fn.dataTable.ext.search.pop();
+    // $.fn.dataTable.ext.search.pop();
 
     if (
       (isNaN(min) && isNaN(max)) ||
