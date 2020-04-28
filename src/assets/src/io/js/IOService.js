@@ -50,7 +50,7 @@ class IOService {
 
     $(document).ready(() => {
       let self = this;
-      // IO.active = this;
+      IO.active = this;
       this.config = {
         default: JSON.parse(window.sessionStorage.getItem("IntranetOne")),
         user: JSON.parse(window.sessionStorage.getItem("configUser")),
@@ -63,7 +63,7 @@ class IOService {
 
           $(obj).on("shown.bs.tab", (e) => {
             IO.active = IO.services[$(e.target).attr("_service")];
-            console.log("só aqui ", $(e.target).attr("_service"));
+            // console.log("só aqui ", $(e.target).attr("_service"));
           });
         } else {
           if (["", null, undefined].includes($(obj).attr("_service"))) {
@@ -425,7 +425,6 @@ class IOService {
         })
         .fail((ret) => {
           // this.defaults.ajax.onError(ret, this.callbacks.update.onError);
-          console.log(ret);
           if (ret.status == 422) {
             var data = JSON.parse(ret.responseText);
             for (var err in data.errors) {

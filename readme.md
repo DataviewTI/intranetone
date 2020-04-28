@@ -136,8 +136,14 @@ php -d memory_limit="1G" composer.phar install
 cp -rf pacote/* www
 ```
 
-- criar link simbolico
+- criar link simbolico (a partir da public)
 
 ```sh
-ln -s www/storage/app/public www/public/storage
+ln ../storage/app/public storage
+```
+
+- acesse a www e execute
+
+```sh
+php artisan config:cache
 ```
