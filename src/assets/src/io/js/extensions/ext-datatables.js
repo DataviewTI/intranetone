@@ -25,14 +25,19 @@ $.fn.dataTable.Api.register("addDTSelectFilter()", function(arr) {
     obj.el.on("change", function() {
       let val = $(this).val() == null ? "" : $(this).val();
 
-      console.log(api.column(`${obj.column}:name`));
-
       if (obj.format !== undefined && val != "")
         val = obj.format.replace("{{value}}", $(this).val());
-      api
-        .column(`${obj.column}:name`)
-        .search(val)
-        .draw();
+      if (obj.exact !== true) {
+        api
+          .column(`${obj.column}:name`)
+          .search(val)
+          .draw();
+      } else {
+        api
+          .column(`${obj.column}:name`)
+          .search(`\b${val}\b`, true, false)
+          .draw();
+      }
     });
   });
 });
