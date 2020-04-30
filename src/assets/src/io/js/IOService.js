@@ -291,10 +291,17 @@ class IOService {
                       }
                     },
                     error: (ret) => {
-                      this.defaults.ajax.onError(
-                        ret,
-                        this.callbacks.create.onError
-                      );
+                      if (ret.status == 422) {
+                        var data = JSON.parse(ret.responseText);
+                        for (var err in data.errors) {
+                          toastr["error"](data.errors[err]);
+                        }
+                      }
+                      //monitorar se é necessário o update no error
+                      // this.defaults.ajax.onError(
+                      //   ret,
+                      //   this.callbacks.create.onError
+                      // );
                     },
                   }); //end ajax
                 } //endelse
