@@ -14,10 +14,6 @@ class DataviewController extends Controller
 		// dump($request->all());
 		$imageData = $request->all()['imageData'];
 		$cropBoxData = json_decode($request->all()['cropBoxData'], true);
-		dump($imageData);
-		dump($cropBoxData);
-		dump(public_path('img/result.jpg'));
-
 		// open an image file
 		// $img = Image::make(asset('img/fachada8.jpg'));
 		$img = Image::make($imageData->getPathname());

@@ -1,111 +1,77 @@
-.custom-dz-template{
-  margin:.3em;
-  overflow:hidden!important;
-}
-.dropzone.dz-clickable > .custom-dz-template{
-  padding:3px;
-
+.custom-dz-template {
+  overflow: hidden !important;
+  padding: 0.5rem;
+  /* transition: all 0.3s ease-out; */
 }
 
-.dropzone.dz-clickable > .custom-dz-template:before,
-.dropzone.dz-clickable > .custom-dz-template:after
-{
-  font-family:'intranetone';
-  content:"\0059";
-  position:absolute;
-  color:#80b85c;
-  font-size:.8em;
-  letter-spacing:1px;
-  margin-top:-1px;
-}
-.dropzone.dz-clickable > .custom-dz-template:before{
-  margin-top:-4px;
-  height:0;
+.custom-dz-template .dz-buttons-container {
+  opacity: 0;
+  transition: all 0.1s ease-out;
+  padding-right: 6px;
+  min-height: 30px;
 }
 
-.dropzone.dz-clickable > .custom-dz-template:after{
-  font-family:inherit!important;
-  content:"Foto Principal";
-  top:32px;
-  left:30px;
+.custom-dz-template:hover .dz-buttons-container {
+  opacity: 1;
 }
-.dropzone.dz-clickable > .custom-dz-template~.custom-dz-template:before,
-.dropzone.dz-clickable > .custom-dz-template~.custom-dz-template:after{
-    content:none
-}
-.custom-dz-template.no-main-image::before,
-.custom-dz-template.no-main-image::after{
-  content:none!important;
+.custom-dz-template .dz-img-loading {
+  margin-top: -14px;
+  padding-left: 1px;
+  border-radius: 0.25rem;
+  border: 1px #ccc solid;
+  background-color: #fff;
+  overflow: hidden;
+  padding: 0;
 }
 
-
-/*Container Infos*/
-
-.dz-container-infos{
-  position:relative;
-  float:left;
-  width:100%;
+.dz-btn,
+.dz-btn .ico {
+  transition: all 0.4s ease-out;
 }
-.dz-container-infos .progress{
-  height:20px;
-  border-radius:0!important;
+.dz-btn {
+  border-radius: 50%;
+  position: relative;
+  width: 28px;
+  height: 28px;
+  text-align: center;
+  cursor: pointer;
+  margin: 0 2px 0 1px;
 }
-.dz-container-infos .dz-info-container{
-  padding:0 .3em!important;
-  margin-top:-20px;
-  height:0;
-  position:relative;
+.dz-btn .ico {
+  font-size: 0.7rem;
+  opacity: 0.9;
 }
-.dz-container-infos .dz-info{
-  font-size:.8em;
-  color:#fff;
-  text-shadow:0 0 1px rgba(0,0,0,.9);
+.dz-btn:hover .ico {
+  opacity: 1;
 }
 
-.dz-img-loading{
-/*  background:transparent url('/images/loaders/loader-21.gif') no-repeat center center;*/
-  position:relative;
-  z-index: 1;
+.dz-container-infos .progress {
+  border-radius: 0 0 0.25rem 0.25rem;
+  height: 6px !important;
+  margin: -7px 1px 1px 1px;
 }
 
-.dz-img-loading::before{
-  content:'';
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background-color:rgba(255,255,255,.5);
-}
-.dz-img-loading::after{
-  font-family:'intranetone';
-  content:'\0043';
-  position:absolute;
-  font-size:64px;
-  left: calc(50% - 40px);
-  top: calc(50% - 40px);
-  width:80px;
-  height:80px;
-  line-height:80px;
-  text-align:center;
-  -webkit-animation: rotation 4s infinite linear;
-  animation: rotation 4s infinite linear;
-  color:#666;
-  text-shadow:0 0 3px rgba(255,255,255,.3);
+/* .dz-container-infos .progress .progress-value {
+  position: absolute;
+  font-size: 0.7rem;
+  margin-left: 6px;
+} */
+
+/*css por status*/
+.custom-dz-template.dz-complete .progress {
+  transition: all 0.5s ease-out;
+  opacity: 0 !important;
 }
 
-
-/*.dz-img-loading img{
-  cursor:wait;
-  opacity:.6;
-}*/
-
-
-.dz-buttons-container{
-  margin-bottom:-16px;
-  position:relative!important;
-  opacity:1;
-  z-index: 3;
+.custom-dz-template .dz-buttons-container .dz-btn:not(.hide-on-complete) {
+  display: none !important;
 }
 
-  
+.custom-dz-template.dz-complete
+  .dz-buttons-container
+  .dz-btn:not(.hide-on-complete) {
+  display: flex !important;
+}
+.custom-dz-template.dz-complete .dz-buttons-container .dz-btn.hide-on-complete {
+  display: none !important;
+}

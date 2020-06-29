@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Group extends IOModel
 {
-  protected $fillable = ['group','sizes'];
+  protected $fillable = ['group','service_id','sizes'];
 
   protected $casts = [
     'sizes' => 'array',

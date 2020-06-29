@@ -51,6 +51,7 @@ function IntranetOne2(params = {}) {
   this.dest = dest;
 
   let dep = {
+    lodash: "node_modules/lodash/",
     jquery: "node_modules/jquery/dist/",
     popperjs: "node_modules/popper.js/dist/",
     pickadate: "node_modules/pickadate/lib/",
@@ -450,6 +451,7 @@ function IntranetOne2(params = {}) {
         dep.io.onoffcanvas + "onoffcanvas.js",
         dep.sweetalert2 + "sweetalert2.min.js",
         src.js + "defaults/def-sweetalert2.js",
+        dep.lodash + "lodash.min.js",
       ],
       dest.io.js + "io-dashboard.min.js"
     );

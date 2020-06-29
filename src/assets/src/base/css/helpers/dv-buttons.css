@@ -1,46 +1,19 @@
-.dv-btn-circle{
-/*  border:1px rgba(255,255,255,.6) solid;*/
-  border-radius:50%;  
-  position:relative;
-  width:36px;
-  height:36px;
-  overflow:hidden;
-  text-align:center;
-  cursor:pointer;
-  box-sizing: content-box;
-  box-shadow:1px 1px 4px rgba(0,0,0,.3);
-	-moz-transition: all .4s ease-out;
-	-ms-transition: all .4s ease-out;
-	-o-transition: all .4s ease-out;
-  transition: all .4s ease-out;
+.dv-btn-circle,
+.dv-btn-circle .ico {
+  transition: all 0.4s ease-out;
 }
-.dv-btn-circle .ico{
-  position:absolute;
-  opacity:.9;
-  width:36px;
-  height:36px;
-  line-height:36px;
-  font-size:18px;
-  padding:0!important;
-  left: calc(50% - 18px);
-  top: calc(50% - 19px);
-	-moz-transition: all .4s ease-out;
-	-ms-transition: all .4s ease-out;
-	-o-transition: all .4s ease-out;
-  transition: all .4s ease-out;
+.dv-btn-circle {
+  border-radius: 50%;
+  position: relative;
+  width: 28px;
+  height: 28px;
+  text-align: center;
+  cursor: pointer;
 }
-.dv-btn-circle:hover .ico{
-  opacity:1;
-  color:#fff!important;
-  text-shadow:1px 1px 2px rgba(0,0,0,.5);
+.dv-btn-circle .ico {
+  font-size: 1rem;
+  opacity: 0.9;
 }
-
-/* circle small */
-.dv-btn-circle.dv-btn-circle-small{
-  width:32px;
-  height:32px;
-}
-
-.dv-btn-circle.dv-btn-circle-small .ico{
-    font-size:16px;
+.dv-btn-circle:hover .ico {
+  opacity: 1;
 }

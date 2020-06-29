@@ -5,6 +5,6 @@
     function gtag(){dataLayer.push(arguments)};
     gtag('js', new Date());
 
-    gtag('config', {{config('site.social_media.google.UA')}});
+    gtag('config', '{{config('site.social_media.google.UA')}}');
     
 </script>

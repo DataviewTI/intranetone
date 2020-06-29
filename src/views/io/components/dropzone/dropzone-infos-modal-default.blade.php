@@ -1,4 +1,10 @@
-<div class="modal fade" tabindex="-1" id = 'edit-modal' role="dialog" aria-labelledby="EditModal" aria-hidden="true">
+@php
+  $_id = isset($id) ? $id : "default-info-modal";
+  $_class = isset($class) ? $class : "";
+@endphp
+
+
+<div class="modal fade" tabindex="-1" id = "{{$_id}}" class = "{{$_class}}" role="dialog" aria-labelledby="{{$_id}}" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -9,26 +15,30 @@
       </div>
       <div class="modal-body">
         <div class = 'row'>
-          <div class = 'col-5 col-xs-12'>
-            <div class = 'thumbnail'>
-              <img class = 'img-fluid w-100' dz-info-modal = 'img'/>
+          <div class = 'col-12 col-xs-12 d-flex'>
+            <div style="border:1px #ccc solid; border-radius:3px" class="p-1">
+              <div class="d-flex">
+                <img dz-info-modal = 'img' class="m-auto"/>
+              </div>
             </div>
-          </div>
-          <div class = 'col-7 col-xs-12'>
-            <div class="form-group">
-              <label for = 'dz-info-caption' class="bmd-label-floating">Titulo da Foto</label>
-              <input id = 'dz-info-caption' type ='text' class = 'form-control form-control-lg'>
+            <div class="d-flex flex-fill flex-column">
+              <div class="d-flex flex-fill">
+                <div class="col-8 col-xs-12 form-group">
+                  <label for = 'dz-info-caption' class="bmd-label-floating">Titulo da Foto</label>
+                  <input id = "dz-info-caption" type ='text' class = 'dz-info-caption form-control form-control-lg'>
+                </div>
+                <div class="col-4 col-xs-12 form-group">
+                  <label for = 'dz-info-date' class="bmd-label-floating">Data da Foto</label>
+                  <input name = 'dz-info-date' type ='text' class = 'dz-info-date form-control form-control-lg datapicker' >
+                </div>
+              </div>
+              <div class="d-flex flex-fill">
+                <div class="col-12">
+                  <label for = 'dz-info-details' class="bmd-label-static">Outras Informações</label>
+                  <textarea name = "dz-info-details"class = 'dz-info-details form-control form-control-lg' style = 'height:80px'></textarea>
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-              <label for = 'dz-info-date' class="bmd-label-floating">Data da Foto</label>
-              <input id = 'dz-info-date' type ='text' class = 'form-control form-control-lg datapicker' >
-            </div>
-          </div>
-        </div>
-        <div class = 'row'>
-          <div class = 'col-sm-12'>
-            <label for = 'dz-info-caption' class="bmd-label-static">Outras Informações</label>
-            <textarea id = 'dz-info-details' class = 'form-control form-control-lg' style = 'height:80px'></textarea>
           </div>
         </div>
       </div>

@@ -49,6 +49,7 @@
     "onoffcanvas": "^2.2.3",
     "es6-shim": "^0.35.5",
     "webpack-merge-and-include-globally": "^2.1.20",
-    "slim-select": "^1.25.0"
+    "slim-select": "^1.25.0",
+    "lodash": "^4.17.15"
   }
 }

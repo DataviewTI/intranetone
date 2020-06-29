@@ -1,10 +1,4 @@
-/* customização para dropzone */
-.d-none-force {
-  /* display: none !important; */
-}
-
 .dz-button {
-  border: 1px red solid;
   display: none !important;
 }
 
@@ -17,11 +11,24 @@
   overflow-y: scroll;
 }
 
-.dz-drop-files-here.dropzone.dz-clickable {
+.dz-drop-files-here {
   background: url("/io/images/Drop-Files-Here-extra.png") no-repeat center
     center;
 }
 
+.dz-drop-files-here.has-childs {
+  background: none !important;
+}
+
 .dropzone.dz-clickable:hover {
   border-color: #aaa !important;
+}
+.dropzone .error[data-dz-errormessage] {
+  display: flex;
+  text-align: center !important;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3px;
+  font-size: 11px;
 }

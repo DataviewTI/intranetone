@@ -1,6 +1,17 @@
 .toast {
-  width: 30em !important;
+  min-width: 40em !important;
+  width: auto !important;
 }
-.toast strong {
+/* .toast strong {
   text-decoration: underline;
+} */
+.toast-title {
+  margin-bottom: 10px;
+}
+.toast-error {
+  opacity: 1 !important;
+}
+
+.toast-error {
+  background: transparent url("images/warning.svg") no-repeat left center;
 }

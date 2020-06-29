@@ -9,7 +9,6 @@ class CreateCategoriesTable extends Migration
     public function up(){
 			Schema::create('categories', function (Blueprint $table) {
 				$table->increments('id');
-				//$table->integer('content_type_id')->unsigned();
 				$table->integer('service_id')->nullable()->unsigned();
 				$table->integer('category_id')->nullable()->unsigned();
 				$table->char('category',60);
@@ -20,6 +19,7 @@ class CreateCategoriesTable extends Migration
 				$table->boolean('erasable')->default(true);
 				$table->timestamps();
 				$table->softDeletes();
+        $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade')->onUpdate('cascade');
 			});
 
 			//create self relationship

@@ -164,7 +164,9 @@ class IOService {
             '.step-pane[data-step="' + this.wz.keys.step + '"]'
           );
 
-          if (this.wz.keys.step != this.wz.keys.numtabs) {
+          const _maxtab = this.wz.keys.numtabs - 1;
+
+          if (this.wz.keys.step !== this.wz.keys.numtabs) {
             e.preventDefault();
           }
 
@@ -176,10 +178,7 @@ class IOService {
 
           if (this.wz.keys.direction == "previous") {
             //voltando do último para o penúltimo
-            if (
-              this.wz.keys.step == this.wz.keys.numtabs &&
-              this.wz.keys.direction == "previous"
-            ) {
+            if (this.wz.keys.step == this.wz.keys.numtabs) {
               this.df
                 .find(".btn-next")
                 .removeClass("btn-success")
@@ -189,10 +188,11 @@ class IOService {
                 .removeClass("ico-save")
                 .addClass("ico-arrow-right");
             }
-
-            this.wz.wizard("selectedItem", { step: this.wz.keys.step - 1 });
+            this.wz.wizard("selectedItem", {
+              step: this.wz.keys.step,
+            });
           } else {
-            //??global or not?
+            //avança
             var isValidStep = null;
             this.wz.keys.fv[this.wz.keys.step - 1].validate().then((status) => {
               if (status === "Valid") isValidStep = true;

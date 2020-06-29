@@ -16,10 +16,12 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groups', function(Blueprint $table){
           $table->increments('id');
+  				$table->integer('service_id')->nullable()->unsigned();
           $table->string('group');
           $table->mediumText('sizes')->nullable();
           $table->timestamps();
           $table->softDeletes();
+          $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
