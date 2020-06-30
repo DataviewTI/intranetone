@@ -377,12 +377,16 @@ class DropZoneLoader {
           }
 
           if (this.options.sortable) {
-            Sortable.create(this.element, {
-              animation: 500,
-              easing: "cubic-bezier(1, 0, 0, 1)",
-              handle: ".dz-btn-reorder",
-              draggable: ".custom-dz-template",
-            });
+            try {
+              Sortable.create(this.element, {
+                animation: 500,
+                easing: "cubic-bezier(1, 0, 0, 1)",
+                handle: ".dz-btn-reorder",
+                draggable: ".custom-dz-template",
+              });
+            } catch (err) {
+              console.log("sortable is undefined");
+            }
           }
 
           this.options.onPreviewLoad(); //this as param

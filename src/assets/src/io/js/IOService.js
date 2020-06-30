@@ -412,19 +412,25 @@ class IOService {
               try {
                 //set list tab as updatable
 
-                this.tabs["listar"].setState(true);
+                if (this.tabs && this.tabs.listar)
+                  this.tabs["listar"].setState(true);
+
                 this.callbacks.update.onSuccess(ret);
-                swal({
-                  title: "Sucesso",
-                  text: "O registro foi atualizado com sucesso!",
-                  type: "success",
-                  confirmButtonText: "OK",
-                  onClose: () => {
-                    this.unload(self);
-                  },
-                });
+                swal
+                  .fire({
+                    title: "Sucesso",
+                    text: "O registro foi atualizado com sucesso!",
+                    type: "success",
+                    confirmButtonText: "OK",
+                    // onClose: () => {
+                    //   this.unload(self);
+                    // },
+                  })
+                  .then((ret) => {
+                    // console.log("do something", ret);
+                  });
               } catch (err) {
-                console.log("erro no callback");
+                console.log("erro no callback:", err);
                 this.callbacks.update.onSuccess(ret);
               }
             } else this.override.update.onSuccess(ret);

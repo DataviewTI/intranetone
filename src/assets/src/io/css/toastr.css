@@ -8,10 +8,10 @@
 .toast-title {
   margin-bottom: 10px;
 }
-.toast-error {
+/* .toast-error {
   opacity: 1 !important;
-}
+} */
 
-.toast-error {
+/* .toast-error {
   background: transparent url("images/warning.svg") no-repeat left center;
-}
+} */

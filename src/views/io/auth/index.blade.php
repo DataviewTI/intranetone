@@ -13,6 +13,8 @@ $__config = Config::select()
     ])
 ->first();
 
+// dump(">> ",$__config);
+
 @endphp
 
 <!DOCTYPE html>
