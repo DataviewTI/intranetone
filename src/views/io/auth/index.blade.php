@@ -13,7 +13,7 @@ $__config = Config::select()
     ])
 ->first();
 
-// dump(">> ",$__config);
+   $img = filled(optional($__config)->group) ? asset($__config->group->main()->getPath(['size'=>'thumb'])) : "http://placekitten.com/270/80";
 
 @endphp
 
@@ -40,7 +40,7 @@ $__config = Config::select()
       <div class = 'row justify-content-md-center h-100'>
         <div class = 'col-sm-12 col-md-4 align-self-center' id = 'login-box'>
           <div class = 'd-flex'>
-            <img class = 'my-3 mx-auto img-fluid' src="{{ asset($__config->group->main()->getPath(['size'=>'thumb'])) }}" alt="logo intranet">
+            <img class = 'my-3 mx-auto img-fluid' src="{{ $img }}" alt="logo intranet">
           </div>
             @include('IntranetOne::io.auth.form-login')
         </div>
