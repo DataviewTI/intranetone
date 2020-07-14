@@ -1,6 +1,6 @@
 @php
   $prefix = isset($id) ? $id."-" : "";
-  $tab = isset($tab) ? "tab='{$tab}'" : "";
+  $tab = isset($tab) ? "tab={$tab}" : "";
 
 @endphp
 
