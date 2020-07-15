@@ -27,7 +27,8 @@ class IOModel extends Model implements AuditableContract
   }
 
   public function getAppend($index){
-		return $this->appends[$index];
+		// return $this->appends[$index];
+		return data_get($this->appends,$index);
   }
   
   public static function pkgAddr($addr){
