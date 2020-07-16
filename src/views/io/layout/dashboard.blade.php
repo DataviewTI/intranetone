@@ -21,9 +21,12 @@
     return $val !== '';
    }));
 
-  $_usr = Sentinel::getUser();
+    $_usr = Sentinel::getUser();
+
    $loggedUser = [
-     "userId"=> Sentinel::getUser()->id,
+     "userId"=> $_usr->id,
+     "userEmail"=> $_usr->email,
+     "isFrontendUser"=>$_usr->inRole('frontendUser'),
      "permissions" => filled($_usr->permissions) ? $_usr->permissions : $_usr->roles[0]->permissions
    ];
   @endphp

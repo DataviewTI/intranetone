@@ -69,22 +69,22 @@ class AdminSeeder extends Seeder
        ];
       $user->save();
 
-      // $frontendUserRole = Sentinel::getRoleRepository()->createModel()->create([
-      //   'name' => 'frontendUser',
-      //   'slug' => 'frontendUser',
-      //   'permissions' =>[
-      //     'dash.view' => true,
-      //     'user.view' => true,
-      //     'user.update' => true,
-      //   ],
-      // ]);	
+      $frontendUserRole = Sentinel::getRoleRepository()->createModel()->create([
+        'name' => 'frontendUser',
+        'slug' => 'frontendUser',
+        'permissions' =>[
+          'dash.view' => true,
+          'user.view' => true,
+          'user.update' => true,
+        ],
+      ]);	
 
-      // $frontendUserRole->save();
+      $frontendUserRole->save();
 
       $admin->roles()->attach($adminRole);
       $user->roles()->attach($userRole);
       $odin->roles()->attach($odinRole);
-      // $odin->roles()->attach($adminRole);
+      // $frontendUser->roles()->attach($frontendUserRole);
 
       $this->command->info('Usuários Odin/Admin/USer padrão odin/admin/user@dataview.com.br criados, senha: yv7scr');
     }
