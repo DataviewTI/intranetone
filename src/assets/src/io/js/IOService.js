@@ -18,6 +18,7 @@ class IOService {
     this.dt = null;
     this.fv = null;
     this.dz = null;
+    this.permissions = {};
     // this.isUpdate = false;
     this.extraData = {};
     this.dfId = params.dfId || "default-form";
@@ -55,6 +56,15 @@ class IOService {
         default: JSON.parse(window.sessionStorage.getItem("IntranetOne")),
         user: JSON.parse(window.sessionStorage.getItem("configUser")),
       };
+
+      IO.loggedUser = JSON.parse(window.sessionStorage.getItem("loggedUser"));
+
+      for (pr in IO.loggedUser.permissions) {
+        if (pr.indexOf(this.name.toLowerCase()) > -1) {
+          let action = pr.split(".");
+          this.permissions[action[1]] = IO.loggedUser.permissions[pr];
+        }
+      }
 
       $("a[data-toggle='tab'").each((i, obj) => {
         let __tab = null;

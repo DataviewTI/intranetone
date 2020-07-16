@@ -20,9 +20,16 @@
     array_filter($__userConfig,function($val){
     return $val !== '';
    }));
+
+  $_usr = Sentinel::getUser();
+   $loggedUser = [
+     "userId"=> Sentinel::getUser()->id,
+     "permissions" => filled($_usr->permissions) ? $_usr->permissions : $_usr->roles[0]->permissions
+   ];
   @endphp
   <script>
     window.sessionStorage.setItem("IntranetOne",'@json(config("intranetone"))')
+    window.sessionStorage.setItem("loggedUser",'@json($loggedUser)')
   </script>
 @endif
 <head>

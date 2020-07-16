@@ -69,6 +69,17 @@ class AdminSeeder extends Seeder
        ];
       $user->save();
 
+      // $frontendUserRole = Sentinel::getRoleRepository()->createModel()->create([
+      //   'name' => 'frontendUser',
+      //   'slug' => 'frontendUser',
+      //   'permissions' =>[
+      //     'dash.view' => true,
+      //     'user.view' => true,
+      //     'user.update' => true,
+      //   ],
+      // ]);	
+
+      // $frontendUserRole->save();
 
       $admin->roles()->attach($adminRole);
       $user->roles()->attach($userRole);
