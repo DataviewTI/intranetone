@@ -2,10 +2,10 @@
 namespace Dataview\IntranetOne;
   
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
+// use Illuminate\Http\Response;
 use Validator;
-use DataTables;
-use Session;
+// use DataTables;
+// use Session;
 use Sentinel;
 use Dataview\IntranetOne\IORequest;
 use Illuminate\Support\Str;

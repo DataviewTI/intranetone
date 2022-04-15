@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 use Dataview\IntranetOne\CategoryRequest;
 use Dataview\IntranetOne\Category;
 use DataTables;
-use Validator;
-use Session;
+// use Validator;
+// use Session;
 use Sentinel;
 
 class CategoryController extends IOController

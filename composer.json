@@ -9,7 +9,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Dataview\\IntranetOne\\": "src/"
+      "Dataview\\IntranetOne\\": "src"
     }
   },
   "require": {

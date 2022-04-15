@@ -1,20 +1,20 @@
 <?php
 namespace Dataview\IntranetOne;
-use App\Http\Controllers\Controller;
+// use App\Http\Controllers\Controller;
 
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
-use Cartalyst\Sentinel\Laravel\Facades\Activation;
+// use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Redirect;
-use Lang;
+// use Lang;
 use Mail;
 use Reminder;
 use Sentinel;
-use URL;
+// use URL;
 use Validator;
-use View;
+// use View;
 use Dataview\IntranetOne\Mail\ForgotPassword as ForgotPassword;
 
 class AuthController
